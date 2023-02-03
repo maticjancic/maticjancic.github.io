@@ -2,9 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/00_00_welcome/index.html",
-      "/posts/00_01_first_post/first post.html",
-      "/posts/01_00_Intro to EKE/index.html"
+      "/posts/00_00_welcome/index.html"
     ]
   }
 ]
