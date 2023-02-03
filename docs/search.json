@@ -11,6 +11,41 @@
     "href": "index.html",
     "title": "Just AnothR blog",
     "section": "",
-    "text": "Decided to share my thoughts, R related teaching and research in times of Chat GPT and general information overload.\nInspired by Appsilons Data for Good and Experimental history (and many others, whose pages I glimpsed and can’t remember of the top of my head).\nEnjoy.\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Decided to share my thoughts, R related teaching and research in times of Chat GPT and general information overload.\nInspired by Appsilons Data for Good and Experimental history (and many others, whose pages I glimpsed and can’t remember of the top of my head).\nEnjoy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nMJ\n\n\nFeb 1, 2023\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nPost With Code\n\n\n\ncode\n\n\nanalysis\n\n\nteaching\n\n\n\nTesting quarto for the first time with some R code\n\n\n\nFizz McPhee\n\n\nFeb 1, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nŠe en post s kodo\n\n\n\nnews\n\n\n\n\n\n\n\nMJ\n\n\nFeb 1, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/00_00_welcome/index.html",
+    "href": "posts/00_00_welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is my first post using Quarto. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts.\n\nHahaha. I’ll just leave the above in the post, so you all know it. Quarto will use the first image in the post as the one to show in the listing page.\nAt this point in time, I’m starting this blog with multiple objectives:\n\nlearn how to use quarto and use it instead of RMarkdown (I intend to remake all my teaching materials using quarto and publish online),\nget in the habit of writing more, specifically writing non-academic stuff,\nhopefully advertise myself, as I’m not sure, whether or how long I’m staying in academia,\nmaybe something else, but can’t elaborate now.\n\nAs I’m writing this lines, I don’t yet know how to publish this blog online. I will try to do it using github pages, but still need to figure it out how.\nWhat I find extremely fascinating, is how easy it is (so far) to create and adapt the pages of the website. As you will see, I added the page Publications at the top rigth corner of the page, where you can find the scientific papers that I was a (co)author of. They are stored in a bib document and cited according to Frontiers in marine science template. As it is a common practice to highlight your name, I found a very simple solution online (thank you, Neil Wright for that) and used two lua scrips (never heard before that lua exists) to do just that. My name is now automatically written with bold letters. Hurray!!\nI will conclude here with the welcome post and go figuring out, how to get this blog online. If I make, you will be able to read this lines. If not, well for now your are not missing out a lot."
+  },
+  {
+    "objectID": "posts/00_01_first_post/first post.html",
+    "href": "posts/00_01_first_post/first post.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "data(cars)"
+  },
+  {
+    "objectID": "posts/00_01_first_post/first post.html#section",
+    "href": "posts/00_01_first_post/first post.html#section",
+    "title": "Post With Code",
+    "section": "",
+    "text": "head(cars)\n\n  speed dist\n1     4    2\n2     4   10\n3     7    4\n4     7   22\n5     8   16\n6     9   10"
+  },
+  {
+    "objectID": "posts/01_00_Intro to EKE/index.html",
+    "href": "posts/01_00_Intro to EKE/index.html",
+    "title": "Še en post s kodo",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Jančič, M., Salvemini, P., Holcer, D., Piroli, V., Haxhiu, I., and Lazar, B. (2022). Apparent increasing importance of Adriatic Sea as a developmental habitat for Mediterranean green sea turtles (Chelonia mydas). Natura Croatica 31, 225–240. doi: 10.20302/NC.2022.31.16."
   }
 ]
