@@ -12,6 +12,13 @@ website:
         href: https://github.com/maticjancic
       - icon: linkedin
         href: https://www.linkedin.com/in/maticjancic/
+      - text: "{{< ai researchgate >}}"
+        href: https://www.researchgate.net/profile/Matic-Jancic
+      - text: "{{< ai orcid >}}"
+        href: https://orcid.org/0000-0002-6872-4078
+      - icon: https://icons.getbootstrap.com/icons/envelope-at/
+        href: mailto:maticjanchich@gmail.com
+
   search: 
     location: navbar
     type: overlay
