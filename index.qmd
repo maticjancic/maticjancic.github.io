@@ -20,4 +20,4 @@ Inspired by [Appsilons](https://appsilon.com/) [Data for Good](https://appsilon.
 
 Enjoy.
 
----
+------------------------------------------------------------------------

@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Just AnothR blog"
+  title: "Introductory analysis of marine ecological data in R"
   navbar:
     right:
       - about.qmd
