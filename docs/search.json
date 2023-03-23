@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Introductory analysis of marine ecological data in R",
     "section": "",
-    "text": "ACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF\n\n\nWorkshop Day 2 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič (& Peter Glasnović); Department of biodiversity, University of Primorska\n\n\nMar 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nINTRODUCTION TO R & R STUDIO\n\n\nWorkshop Day 1 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 21, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "GLOBAL MARINE ENVIRONMENTAL DATA IN R WITH SDMPREDICTORS\n\n\nWorkshop Day 3 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF\n\n\nWorkshop Day 2 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič (& Peter Glasnović); Department of biodiversity, University of Primorska\n\n\nMar 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nINTRODUCTION TO R & R STUDIO\n\n\nWorkshop Day 1 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 21, 2023\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/01_INTRODUCTION TO R & R STUDIO.html",
@@ -47,5 +47,47 @@
     "title": "Publications",
     "section": "",
     "text": "Glasnović, P., Fišer, Ž., Jančič, M., Balant, M., and Surina, B. (2023). Areography, environmental heterogeneity and spatial models explain patterns of past and present diversity in Edraianthus (Campanulaceae). Botanical Journal of the Linnean Society, boac079. doi: 10.1093/botlinnean/boac079.\n\n\nJančič, M., Salvemini, P., Holcer, D., Piroli, V., Haxhiu, I., and Lazar, B. (2022). Apparent increasing importance of Adriatic Sea as a developmental habitat for Mediterranean green sea turtles (Chelonia mydas). Natura Croatica 31, 225–240. doi: 10.20302/NC.2022.31.16."
+  },
+  {
+    "objectID": "posts/03_GLOBAL ENV DATA.html",
+    "href": "posts/03_GLOBAL ENV DATA.html",
+    "title": "GLOBAL MARINE ENVIRONMENTAL DATA IN R WITH SDMPREDICTORS",
+    "section": "",
+    "text": "Summary\n\n\n\nIn this lab, you will be introduced to:\n\nraster data types and R packages for working with it,\naccessing and downloading marine (and/or terrestrial) global raster data with sdmpredictors package,\ninspecting the properties of a raster layer,\ncolors in R,\nsimple visualization of global raster layer."
+  },
+  {
+    "objectID": "posts/03_GLOBAL ENV DATA.html#dostop-do-globalnih-okoljskih-podatkov-v-paketu-sdmpredictors",
+    "href": "posts/03_GLOBAL ENV DATA.html#dostop-do-globalnih-okoljskih-podatkov-v-paketu-sdmpredictors",
+    "title": "GLOBAL MARINE ENVIRONMENTAL DATA IN R WITH SDMPREDICTORS",
+    "section": "Dostop do globalnih okoljskih podatkov v paketu sdmpredictors",
+    "text": "Dostop do globalnih okoljskih podatkov v paketu sdmpredictors\nsdmpredictors je paket v R-ju, ki vsebuje globalne kopenske in morske okoljske podatke, pridobljene z razlicnimi metodami in iz razlicnih virov. Podatki so vecinoma v rasterski obliki, nekateri pa tudi v vektorski. Glavna uporaba teh podatkov je modeliranje razsirjenosti oragnizmov v prostoru in casu (na voljo so tudi podatki za prihodnost in preteklost).\nDa dostopamo do funkcij, ki nam omogocajo dostop in prenos podatkov neposredno preko serverjev, moramo paket sdmpredictors najprej instalirati (samo enkrat, ce ga se nismo) in omogociti uporabo njegovih funkcij (vsakic, ko ponovno zazenemo R ali RStudio):\n\n\nShow the code\ninstall.packages(\"sdmpredictors\")\n\n\n\n\nShow the code\nlibrary(sdmpredictors) \n\n\n\n\n\n\n\n\n\nV paketu sdmpredictors s funkcijo¸list_datasets() pogledamo kaj vse nam je na voljo znotraj tega paketa (izpis v vasi R konzoli ne bo ustrezal izpisu v tem dokumentu):\n\n\nShow the code\nlist_datasets()\n\n\n\n\n\n\n\n\n\nNa voljo nam je 5 podatkovnih zbirk, od katerih sta dve morski (BioOracle, MARSPEC) in tri kopenske oziroma sladkovodne (WorldClim, ENVIREM in Freshwater). V zbirkah nam je na voljo veliko stevilo prostorskih podatkov vkljucno s:\n\ngeografskimi (nadmorske visine oziroma globine, tudi za preteklost ob poledenitvah, tip prsti, itd.),\nfizikalno-kemijskimi parametri (npr. temperatura, slanost, morski tokovi itd. za morje, temperatura, padavine, ipd.),\nbioloskimi parametri (npr. primarna produkcija, tip vegetacije itd.),\nin mnogimi, mnogimi drugimi.\n\n\nSloji v paketu sdmpredictors\nDo seznama slojev, ki so nam na voljo, lahko dostopamo s funkcijo list_layers(). Ce znotraj oklepajev navedemo terrestrial = FALSE, freshwater = FALSE, marine = TRUE, se nam bodo prikazali le morski, ce pa terrestrial = TRUE, freshwater = TRUE, marine = FALSE pa le kopenski. Izpis v vasi R konzoli ne bo ustrezal izpisu v tem dokumentu, kjer je izpis prilagojen in vam omogoca brskanje po slojih z uporabo filtrov. V katerikoli okvircek lahko vneste vrednosti in brskate po slojih, ki so na voljo:\n\nMorski\n\n\nShow the code\nlist_layers(terrestrial = FALSE, freshwater = FALSE, marine = TRUE)\n\n\n\n\n\n\n\n\n\n\n\n\nNaloga 1\nV naslednjih 10 minutah uporabite zgoraj pripravljene tabele in poglejte, kaj vse nam je na voljo v paketu sdmpredictors. Poglejte tudi spletne strani baz podatkov (povezave zgoraj), da se seznanite z nacini, kako so bili podatki zbrani, kako obdelani ipd.\n\n\n\nPrenos slojev iz serverja in uvoz v R\nSloje prenesemo iz serverja s funkcijo load_layers(), tako da dolocimo kateri sloj ali sloje zelimo (layercode = c().) in v katero mapo nam bo shranilo sloj (v mapo 01_data v izhodiscni mapi vasega R-projekta, ce ste R-studio zagnali iz ikone projekta). Z ukazom <- v istem koraku shranimo sloj v nov objekt, ki ga smiselno poimenujemo ( WC_bio1 = Annual mean temperature: povprecna_temp_kopno):\nPonovimo se za povrsinsko temperaturo morja:\n\n\nShow the code\npovprecna_temp_morja <- load_layers(layercodes = c(\"BO_sstmean\"),\n                                    datadir = \"01_data\")\n\n\n\n\nPreverjanje in spreminjanje lastnosti rastrskih slojev v R-u\nRastrski sloji imajo nekaj lastnosti, ki jih vcasih zelimo preveriti (predvsem v smislu pravilnosti uvoza podatkov v R). Med te lastnosti sodijo:\n\ngeografski obseg (obmocje, ki ga pokriva sloj),\nresolucija in s tem povezano stevilo celic sloja,\nkoordinatni referencni sistem sloja.\n\nZa ugotavljanje obsega (Extent) objekta SpatRaster iz paketa terra v R-u uporabimo funkcijo ext(). Ta funkcija vrne koordinate za najvecjo vzhodno in zahodno geografsko dolzino ter najvecjo severno in juzno geografsko sirino objekta SpatRaster:\n\n\nShow the code\next(povprecna_temp_morja)\n\n\nSpatExtent : -180, 180, -90, 90 (xmin, xmax, ymin, ymax)\n\n\n\n\n\n\nFunkcija res() iz paketa terra v R-u sluzi za dolocanje locljivosti (resolucije) rasterskega sloja. Locljivost oznacuje velikost celic v rasterskem sloju, enota je odvisna od enote v kateri je sloj definiran (stopinje ali merske enote). Funkcija nam vrne vrednosti, ki predstavljata dolzino stranice celice.\n\n\nShow the code\nres(povprecna_temp_morja)\n\n\n[1] 0.08333333 0.08333333\n\n\n\nFunkcija ncell iz paketa terra v R-u sluzi za dolocanje stevila celic v rasterskem sloju in nam poda stevilo celic v izbranem rasteru.\n\n\nShow the code\nncell(povprecna_temp_morja)\n\n\n[1] 9331200\n\n\n\nFunkcija crs nam sluzi za dolocanje koordinatnega referencega sistema rasterskega sloja. Z njo lahko koordinatni sistem tudi dolocimo (ce le ta se ni dolocen in ga poznamo: v nasem primeru so podatki v koordinatnem sistemu World Geographic System 1984 ali WGS 1984, s kodo epsg 4326):\n\n\nShow the code\n# crs(povprecna_temp_morja, describe = TRUE)\n# crs(povprecna_temp_morja) <- \"epsg:4326\" \n# \n# crs(povprecna_temp_morja, describe = TRUE)\n\n\n\n\nShow the code\nmin(povprecna_temp_morja[], na.rm = TRUE)\n\n\n[1] -1.801\n\n\nShow the code\nmax(povprecna_temp_morja[], na.rm = TRUE)\n\n\n[1] 32.918\n\n\nShow the code\nmean(povprecna_temp_morja[], na.rm = TRUE)\n\n\n[1] 15.0955\n\n\n\nFunkcija layer_stats iz paketa sdmpredictors v R-u sluzi za izracun povprecja in standardnega odklona vrednosti za posamezen sloj. Funkcija zahtev rasterski sloja (ali vec njih) in vrne tabelo z rezultati ter vnaprej izloci manjkajoce vrednosti (NA). Poleg opisne statistike dobimo tudi vrednosti dveh indeksov prostorske avtokorelacije (stopnje koreliranosti vrednosti v celicah, ki so blizje skupaj):\n\n“Moran’s I” meri splosno raven avtokorelacije v rasterskem podatku,\n“Geary’s c” meri specificno raven avtokorelacije za zaporedne vrednosti v rasterskem podatku.\n\n\n\nShow the code\n# v paketu sdmpredictors\nlayer_stats(c(\"BO_sstmean\", \"WC_bio1\"))"
+  },
+  {
+    "objectID": "posts/03_GLOBAL ENV DATA.html#karta-kot-je-na-netu",
+    "href": "posts/03_GLOBAL ENV DATA.html#karta-kot-je-na-netu",
+    "title": "GLOBAL MARINE ENVIRONMENTAL DATA IN R WITH SDMPREDICTORS",
+    "section": "karta kot je na netu",
+    "text": "karta kot je na netu\nIn addition, we want the histogram bars to be white with black lines. We add arguments color = \"black\" and fill = \"white\" inside geom_histogram(). NOTE: both color and colour are supported. Colors in R can be defined in different ways. The most common way is to use their predefined names, that you can find here. The other two ways are specifying either hex RGB or RGB values (white fill example: name = \"white\"; hex RGB = \"#FFFFFF\"; RGB values = rgb(255,255,255, max = 255))\n\n\nShow the code\nmap_colors <- leaflet::colorNumeric(palette = \"RdBu\", \n                                   domain = c(-1.801, 32.918),\n                                   reverse = TRUE)\n\nplot(global_mean_sst, \n     col = map_colors(seq(-1.801, 32.918, length.out = 999)))"
+  },
+  {
+    "objectID": "posts/03_GLOBAL ENV DATA.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
+    "href": "posts/03_GLOBAL ENV DATA.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
+    "title": "GLOBAL MARINE ENVIRONMENTAL DATA IN R WITH SDMPREDICTORS",
+    "section": "",
+    "text": "Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility"
+  },
+  {
+    "objectID": "posts/test.html",
+    "href": "posts/test.html",
+    "title": "Untitled",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "posts/test.html#running-code",
+    "href": "posts/test.html#running-code",
+    "title": "Untitled",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
   }
 ]

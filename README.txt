@@ -11,3 +11,9 @@ posts - mapa, v kateri po default-u išče blog poste (to se lahko spremeni, če
 publications.qmd & My pubs.bib - podstran, ki je objavljena kot zavihek in na kateri so moje reference: generirajo pa se iz My pubs.bib (se bo posodobilo, če na novo izvozim iz Zotera)
 
 dociteproc.lua & boldname.lua - dokumenta, v katerih je definirano, da je moje ime boldano na strani s citati
+
+# Ideja
+Zdaj ima ime Introductory analysis of marine ecological data - to bo potem post tag/category (za Pulo, za EKE, za Intro to R, Za intro to GIS)
+
+ 
+ 
