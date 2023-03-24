@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/03_GLOBAL ENV DATA.html",
+      "/posts/04_DATA EXPLORATION.html",
       "/posts/02_GBIF.html",
       "/posts/01_INTRODUCTION TO R & R STUDIO.html"
     ]

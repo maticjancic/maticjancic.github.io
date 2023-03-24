@@ -14,6 +14,7 @@ dociteproc.lua & boldname.lua - dokumenta, v katerih je definirano, da je moje i
 
 # Ideja
 Zdaj ima ime Introductory analysis of marine ecological data - to bo potem post tag/category (za Pulo, za EKE, za Intro to R, Za intro to GIS)
+Zgled: https://kevintshoemaker.github.io/NRES-470/LAB1.html (vsak "predmet" svoj tab? Lahko je pa tudi kr default ..)
 
  
  
