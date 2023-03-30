@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Introductory analysis of marine ecological data in R",
     "section": "",
-    "text": "ACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS\n\n\nWorkshop Day 3 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 24, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION\n\n\nWorkshop Day 4 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF\n\n\nWorkshop Day 2 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič (& Peter Glasnović); Department of biodiversity, University of Primorska\n\n\nMar 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nINTRODUCTION TO R & R STUDIO\n\n\nWorkshop Day 1 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 21, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "MARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION\n\n\nWorkshop Day 4 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 24, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS\n\n\nWorkshop Day 3 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF\n\n\nWorkshop Day 2 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič (& Peter Glasnović); Department of biodiversity, University of Primorska\n\n\nMar 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nINTRODUCTION TO R & R STUDIO\n\n\nWorkshop Day 1 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 21, 2023\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/01_INTRODUCTION TO R & R STUDIO.html",
@@ -44,14 +44,14 @@
   {
     "objectID": "posts/03_GLOBAL ENV DATA.html",
     "href": "posts/03_GLOBAL ENV DATA.html",
-    "title": "MARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION",
+    "title": "ACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS",
     "section": "",
     "text": "Summary\n\n\n\nIn this lab, you will be introduced to:\n\nraster data types and R packages for working with it,\naccessing and downloading marine (and/or terrestrial) global raster data with sdmpredictors package,\ninspecting the properties of a raster layer,\ncolors in R,\nsimple visualization of global raster layer."
   },
   {
     "objectID": "posts/03_GLOBAL ENV DATA.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
     "href": "posts/03_GLOBAL ENV DATA.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
-    "title": "MARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION",
+    "title": "ACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS",
     "section": "",
     "text": "Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility"
   },
