@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Introductory analysis of marine ecological data in R"
+  title: "Matic Jančič: Teaching portfolio"
   navbar:
     right:
       - about.qmd
