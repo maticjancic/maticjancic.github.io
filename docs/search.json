@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Matic Jančič: Teaching portfolio",
     "section": "",
-    "text": "Test\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to R for biologists & ecologists\n\n\nIntroduction to GIS in R\n\n\n\n\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nApr 15, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION\n\n\n\nIntroduction to marine ecological data in R\n\n\n\nWorkshop Day 4 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 24, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to GIS in R\n\n\n\nWorkshop Day 3 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to GIS in R\n\n\n\nWorkshop Day 2 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič (& Peter Glasnović); Department of biodiversity, University of Primorska\n\n\nMar 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nINTRODUCTION TO R & R STUDIO\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to R for biologists & ecologists\n\n\nIntroduction to GIS in R\n\n\n\nWorkshop Day 1 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 21, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "MARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION\n\n\n\nIntroduction to marine ecological data in R\n\n\n\nWorkshop Day 4 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 24, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to GIS in R\n\n\n\nWorkshop Day 3 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to GIS in R\n\n\n\nWorkshop Day 2 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič (& Peter Glasnović); Department of biodiversity, University of Primorska\n\n\nMar 22, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nINTRODUCTION TO R & R STUDIO\n\n\n\nIntroduction to marine ecological data in R\n\n\nIntroduction to R for biologists & ecologists\n\n\nIntroduction to GIS in R\n\n\n\nWorkshop Day 1 at Faculty of Natural Sciences, Juraj Dobrila University of Pula\n\n\n\nMatic Jančič; Department of biodiversity, University of Primorska\n\n\nMar 21, 2023\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/01_INTRODUCTION TO R & R STUDIO.html",
@@ -66,20 +66,6 @@
     "objectID": "posts/04_DATA EXPLORATION.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
     "href": "posts/04_DATA EXPLORATION.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
     "title": "MARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION",
-    "section": "",
-    "text": "Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility"
-  },
-  {
-    "objectID": "posts/Test.html",
-    "href": "posts/Test.html",
-    "title": "Test",
-    "section": "",
-    "text": "Summary\n\n\n\nIn this lab, you will be introduced to:\n\nR and RStudio,\nusing R scripts to type and run basic R code,\nusing basic operations (addition, subtraction, multiplication) and logical operators in R,\nfundamental data types in R: vectors, dataframes and lists."
-  },
-  {
-    "objectID": "posts/Test.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
-    "href": "posts/Test.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
-    "title": "Test",
     "section": "",
     "text": "Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility"
   },
