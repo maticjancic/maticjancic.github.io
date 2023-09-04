@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-09-04">
+
+<title>Matic Jančič: Teaching portfolio - WORKING DIRECTORIES AND DATA IMPORT IN R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">WORKING DIRECTORIES AND DATA IMPORT IN R</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">INTRODUCTION TO R FOR BIOLOGISTS &amp; ECOLOGISTS</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 4, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tabular-data-preparation-and-naming-conventions-in-r" id="toc-tabular-data-preparation-and-naming-conventions-in-r" class="nav-link active" data-scroll-target="#tabular-data-preparation-and-naming-conventions-in-r">Tabular data preparation and naming conventions in R</a></li>
+  <li><a href="#what-can-be-imported-in-r-how-and-from-where" id="toc-what-can-be-imported-in-r-how-and-from-where" class="nav-link" data-scroll-target="#what-can-be-imported-in-r-how-and-from-where">What can be imported in R? How and from where?</a></li>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
+  <li><a href="#importing-.txt-and-.csv-files-in-r" id="toc-importing-.txt-and-.csv-files-in-r" class="nav-link" data-scroll-target="#importing-.txt-and-.csv-files-in-r">Importing <code>.txt</code> and <code>.csv</code> files in R</a></li>
+  <li><a href="#common-issueserrors-and-how-to-resolve-them" id="toc-common-issueserrors-and-how-to-resolve-them" class="nav-link" data-scroll-target="#common-issueserrors-and-how-to-resolve-them">Common issues/errors and how to resolve them</a>
+  <ul class="collapse">
+  <li><a href="#with-the-location-of-and-path-to-the-file" id="toc-with-the-location-of-and-path-to-the-file" class="nav-link" data-scroll-target="#with-the-location-of-and-path-to-the-file">With the location of and path to the file</a></li>
+  <li><a href="#with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object" id="toc-with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object" class="nav-link" data-scroll-target="#with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object">With the number of rows and/or columns differs between original file and the created object</a></li>
+  </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  <li><a href="#exercise-until-the-end-of-the-lab-if-not-completed-homework" id="toc-exercise-until-the-end-of-the-lab-if-not-completed-homework" class="nav-link" data-scroll-target="#exercise-until-the-end-of-the-lab-if-not-completed-homework">Exercise until the end of the lab, if not completed homework</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+<style type="text/css">
+pre {
+  max-height: 250px; # limits code output to 250 px and make it scrolable
+  overflow-y: auto;
+}
+
+# pre[class] {
+#   max-height: 100px; # limits code text block output to 200 px :D
+# }
+</style>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this lab you will learn about:</p>
+<ul>
+<li>important considerations for data preparation before importing in R,</li>
+<li>working directories in R and how to efficiently with them using <strong>R projects</strong>,</li>
+<li>importing tabular data from <code>.txt</code> and <code>.csv</code> files and how to resolve commonly encountered problems,</li>
+<li>exploration of imported data with common issues and errors encountered.</li>
+</ul>
+</div>
+</div>
+<section id="tabular-data-preparation-and-naming-conventions-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="tabular-data-preparation-and-naming-conventions-in-r">Tabular data preparation and naming conventions in R</h2>
+<p>There is a set of R packages called <code class="sourceCode r">tidyverse</code> developed mostly by <a href="http://hadley.nz/">Hadley Wickham</a> and described in his book <a href="https://r4ds.had.co.nz/">R for data science</a> (<a href="https://r4ds.hadley.nz/">second edition</a>). We will be using a lot of functions from <code class="sourceCode r">tidyverse</code> as they are very appropriate for R beginners. To use them to your maximum advantage, you need to get familiar with the concept of a tidy data frame:</p>
+<ul>
+<li>One column is one variable (i.e.&nbsp;gender, height, age),</li>
+<li>One row is one observation (for all measurements we did on one individual or any other given subject),</li>
+<li>One field is one value.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/tidy DF.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Tidy dataframe template.</figcaption>
+</figure>
+</div>
+<p>If you structure your dataframes in such a way, it will be efficiently organised and ready to be used when imported, processed and analysed by <code class="sourceCode r">tidyverse</code> and also <code class="sourceCode r">base</code> R functions. There are some other basic requirements/recommendations that your data should conform to in order to avoid problems while importing and using it:</p>
+<ul>
+<li><em>decimal separator</em> in must be a <strong>dot</strong>!</li>
+<li><em>categorical variables</em> should have <strong>consistent naming of the groups</strong>!</li>
+<li><em>column names</em> should be <strong>without spaces</strong>! (connect with underscore <code class="sourceCode r">_</code>)</li>
+<li><em>column names</em> must be <strong>without symbols</strong>! (i.e.: <code class="sourceCode r">?, <span class="sc">$</span>, <span class="sc">*</span>, <span class="sc">+</span>, (, ), <span class="sc">-</span>, <span class="sc">/</span>, <span class="er">}</span>, {, <span class="sc">|</span>, <span class="sc">&gt;</span>, <span class="sc">&lt;</span> , <span class="co">#</span></code>)</li>
+<li><em>column names</em> must <strong>not start with numbers</strong>!</li>
+<li><em>empty rows</em> should <strong>be deleted</strong>!</li>
+<li><em>comments</em> should <strong>be deleted</strong>!</li>
+<li>using <strong>č,š,ž,ć,đ</strong> is <strong>not recommended</strong>!</li>
+<li><em>format</em> date in the <strong>long format</strong>! (Day, month, year as: 01/01/2016)</li>
+</ul>
+<p><br></p>
+</section>
+<section id="what-can-be-imported-in-r-how-and-from-where" class="level2">
+<h2 class="anchored" data-anchor-id="what-can-be-imported-in-r-how-and-from-where">What can be imported in R? How and from where?</h2>
+<p>R supports a variety of file types to be imported, including:</p>
+<ul>
+<li><em>dataframes</em> (saved as comma separated value files - <code class="sourceCode r">.csv</code>, excel spreadsheets - <code class="sourceCode r">.xlsx</code>, text files - <code class="sourceCode r">.txt</code>, google spreadsheets, etc. )</li>
+<li><em>R format</em> files (<code class="sourceCode r">.Rdata</code>, <code class="sourceCode r">.RDS</code>)</li>
+<li><em>geospatial data</em> (shape files - <code class="sourceCode r">.shp</code>, raster files - <code class="sourceCode r">.ASCII</code>, <code class="sourceCode r">.img</code> or <code class="sourceCode r">.tiff</code>)</li>
+<li>data from <em>databases</em> (i.e.&nbsp;MySQL)</li>
+<li><em>files from web</em> or <em>web databases</em> through specialized packages (i.e.&nbsp;<code class="sourceCode r">rgbif</code> or <code class="sourceCode r">sdmpredictors</code> packages; GBIF = <a href="https://www.gbif.org/">Global Biodiverstity Information Facility</a>)</li>
+<li>files from other specialized statistical software (i.e.&nbsp;SPSS, STATA, SAS)</li>
+</ul>
+<p>For importing files from the hard drive (most often <code>.txt</code>, <code>.csv</code> AND <code>xlsx</code>), there is a specific function that imports specific file type. For example, <code class="sourceCode r"><span class="fu">read.csv</span>()</code> is used to import comma separated values file, <code class="sourceCode r"><span class="fu">read.table</span>()</code> for text files and <code class="sourceCode r"><span class="fu">read_excel</span>()</code> for excel spreadsheets. All this functions have a common <strong>argument, we need to specify</strong>: <code class="sourceCode r">file</code> or <code class="sourceCode r">path</code> which is the <strong>location of the document you want to import on our hard-drives</strong>. There are two ways we can specify this locations:</p>
+<ul>
+<li>full file path, i.e.&nbsp;<code class="sourceCode r">C<span class="sc">:</span>\Users\Matic\OneDrive <span class="sc">-</span> UPR\01_FAMNIT\02_VAJE\2021_22\201_sodobni pristopi\2_Importing data and data transfomations\01_data\example_data.csv</code> - <strong>not recommended</strong>.</li>
+<li>file path without the <strong>working directory</strong>, i.e.&nbsp;<code class="sourceCode r">01_data\example_data.csv</code> - <strong>better, but not optimal</strong>.</li>
+</ul>
+<p>The <strong>working directory</strong> is a default location on the hard-drive, where R <em>“looks”</em> for files. As we usually don’t know which one it is, we use <code class="sourceCode r"><span class="fu">getwd</span>()</code> function with empty brackets to figure it out:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we want to change the working directory, we use <code class="sourceCode r"><span class="fu">setwd</span>()</code> function, where we specify the location on our computers hard drive (mandatory in quotations). For example, if I want to set <strong>Desktop</strong> as working directory for <strong>my computer</strong>, I would use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:\Users\matic.jancic\Desktop“)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each time we restart RStudio, the working directory will change back to the default. This means that for our code to work and import the data, we would need to re-run <code>setwd()</code> command.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>preferable and recommended</strong> way to avoid potential problems with setting and resetting the working directory each time we come back to RStudio is to use <strong>R project workflow</strong>.</p>
+</div>
+</div>
+<p>We need to create a folder on our hard-drive and assign it to an R project. An icon will appear in the folder and starting RStudio from this icon will automatically set the working directory to that particular folder. If we than keep our data, scripts and results in this folder as well, we will save ourselfs from issues associated with working directories. More info about R projects <a href="https://r4ds.had.co.nz/workflow-projects.html">here</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task: Create new R project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Click on <code class="sourceCode r">File</code> tab in your RStudio, select <code class="sourceCode r">New project</code> and create new R project on your <strong>Desktop</strong> called <code class="sourceCode r">My first R project</code> by following the instructions bellow:</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/new directory.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">New directory.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/New project.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">New project.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/First project on desktop.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">My first R project.</figcaption>
+</figure>
+</div>
+<p>Go to the <strong>Desktop</strong> of your computer and check for the new folder. What is in it?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/R project folder.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">R project folder and icon.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercises
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Create two new folders within <code class="sourceCode r">My first R project</code> called <code>01_data</code> and <code>02_scripts</code>.</p></li>
+<li><p>Close R studio and reopen it by using the <strong>R project icon</strong> called <code class="sourceCode r">My first R project</code> from the new folder.</p></li>
+<li><p>Use <code class="sourceCode r"><span class="fu">getwd</span>()</code> function to check your current working directory. To what is it set now?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="datasets" class="level2">
+<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task: download files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>From e-classroom download the files <code class="sourceCode r">penguins.txt</code> and <code class="sourceCode r">iris.csv</code>. Copy and paste them into the <code>01_data</code> folder.</p>
+</div>
+</div>
+<p><img align="right" width="15%" height="15%" src="https://allisonhorst.github.io/palmerpenguins/reference/figures/palmerpenguins.png"></p>
+<p>The <code class="sourceCode r">penguins.txt</code> file includes measurements of bill lengths and depths, flipper lengths and body mass for three penguin species, collected and made available by Dr.&nbsp;Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network.</p>
+<p>Credit: Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <a href="https://allisonhorst.github.io/palmerpenguins">https://allisonhorst.github.io/palmerpenguins</a>. doi: <a href="10.5281/zenodo.3960218">10.5281/zenodo.3960218</a>.</p>
+<hr>
+<p>The <code class="sourceCode r">iris.csv</code> contains measurements in centimeters of the <strong>petal</strong> length and width and <strong>sepal</strong> length and width of three <em>Iris</em> species: <em>Iris virginica</em>, <em>I. versicolor</em> and <em>I. setosa</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/iris.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Iris species and measurements.</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="importing-.txt-and-.csv-files-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="importing-.txt-and-.csv-files-in-r">Importing <code>.txt</code> and <code>.csv</code> files in R</h2>
+<p>First we will import <code class="sourceCode r">penguins.txt</code> file by using <code class="sourceCode r"><span class="fu">read.table</span>()</code> function. As the working directory is set to our project folder, we need to specify the subfolder (<code>01_data/</code>) and the name of the file we want to import. We must also include the file extension, <code class="sourceCode r">.txt</code>.</p>
+<p>Reminders from the previous lab:</p>
+<ul>
+<li>the path name is a character strings and must be contained within parenthesis <code class="sourceCode r"><span class="st">" "</span></code>.</li>
+<li>if we want to use data after applying some function to it, we need to assign it to objects (<code>&lt;-</code>),</li>
+<li>we are the ones that choose the names of objects (<code>penguins</code> in this case)</li>
+</ul>
+<p>Taking into account all of the above, the following code should import the penguins dataset and assign it to the <code>penguins</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"01_data/penguins.txt"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The resulting <code>penguins</code> object should have 344 observations of 8 variables.</p>
+<hr>
+<p>Let’s continue with importing <code class="sourceCode r">.csv</code> file with <code class="sourceCode r"><span class="fu">read.csv</span>()</code> function. As the working directory is set to our project folder, we need to specify the subfolder (<code>01_data/</code>) and the name of the file we want to import. We must also include the file extension, <code class="sourceCode r">.csv</code>.</p>
+<p>To import <code class="sourceCode r">iris.csv</code> and assign it to an object <code class="sourceCode r">iris</code> use the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"01_data/iris.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The resulting object should contain 150 observations of 5 variables.</p>
+<hr>
+<p>It is recommended to always check the properties of the imported data, to verify that the import has the same properties as the file on the hard drive. Some of the functions were introduced last time, this time we will add <code class="sourceCode r"><span class="fu">str</span>()</code> and <code class="sourceCode r"><span class="fu">summary</span>()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 150   5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal_Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal_Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal_Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length    Sepal_Width     Petal_Length    Petal_Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+   Species         
+ Length:150        
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   </code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use all of the functions above on the <code>penguins</code> object.</p>
+</div>
+</div>
+</section>
+<section id="common-issueserrors-and-how-to-resolve-them" class="level2">
+<h2 class="anchored" data-anchor-id="common-issueserrors-and-how-to-resolve-them">Common issues/errors and how to resolve them</h2>
+<section id="with-the-location-of-and-path-to-the-file" class="level3">
+<h3 class="anchored" data-anchor-id="with-the-location-of-and-path-to-the-file">With the location of and path to the file</h3>
+<p>The most common error you will encounter with both functions, especially at the beginning, is the following:</p>
+<div class="cell">
+<div class="cell-output cell-output-error">
+<pre><code>Error in file(file, "rt"): cannot open the connection</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the following code. Why does it not work?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"01_data/iris.txt"</span>) </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"iris.csv"</span>) </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"01_data/iriis.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This error means that the path to the file is not specified correctly. In plain terms, R is looking for the file which</p>
+<ul>
+<li>is not in the folder you specified,</li>
+<li>does not have a name you specified, or</li>
+<li>is not in a format you specified.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Double check the working directory, the folder where the data is stored, the name of the file and its extension:</p>
+</div>
+</div>
+</section>
+<section id="with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object" class="level3">
+<h3 class="anchored" data-anchor-id="with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object">With the number of rows and/or columns differs between original file and the created object</h3>
+<p>Sometimes the <strong>first row of the file, which includes column names, is treated as data</strong> when imported. When this happens, the columns will be named as <code>V1</code>, <code>V2</code>, etc. until the last column while the actual column names will be in the first row of the data, as can be seen below:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>            V1          V2           V3          V4      V5
+1 Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+2          5.1         3.5          1.4         0.2  setosa
+3          4.9           3          1.4         0.2  setosa
+4          4.7         3.2          1.3         0.2  setosa
+5          4.6         3.1          1.5         0.2  setosa
+6            5         3.6          1.4         0.2  setosa</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Within the <code>read.csv()</code> or <code>read.table()</code> include additional argument <code class="sourceCode r">header <span class="ot">=</span> <span class="cn">TRUE</span></code>. This will tell R that the first row includes column names:</p>
+<p><code>read.csv(..., header = TRUE)</code> or <code>read.table(..., header = TRUE)</code>.</p>
+</div>
+</div>
+<p>Sometimes the <strong>imported data will have only one column</strong>. When this happens the symbol that separates the values in rows was not the one R was expecting it to be, as can be seen below:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length.Sepal_Width.Petal_Length.Petal_Width.Species
+1                                    5.1,3.5,1.4,0.2,setosa
+2                                      4.9,3,1.4,0.2,setosa
+3                                    4.7,3.2,1.3,0.2,setosa
+4                                    4.6,3.1,1.5,0.2,setosa
+5                                      5,3.6,1.4,0.2,setosa
+6                                    5.4,3.9,1.7,0.4,setosa</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We determine the symbol that separates the values from the output and set it within the <code>read.csv()</code> or <code>read.table()</code>. In this example, the separator is comma - <code>,</code>, which we set with the argument <code>sep = ","</code>:</p>
+<p><code>read.csv(..., sep = ",")</code> or <code>read.table(..., sep = ",")</code>.</p>
+<p>Another very common separator you will encounter in the <code>.csv</code> files is a semicolon - <code>;</code>, while in the <code>.txt</code> tab <code>\t</code> is commonly used by program encoding. Note that the separator is included within quotations!</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u>Read the instructions carefully. If you don’t understand something or something doesn’t work straight away, first think about the problem/error, consult the materials in front of, the neighbor on your left, then on your right. If after all that you still don’t know how to fix the problem or proceed, than ask me for help!</u></p>
+<p>1.1) Open an empty excel file. By following the tidy data frame concepts and basic requirements the data should conform to, create a random dataset. You can be creative and type in the excel whatever pops on your mind, but <u>at minimum make two columns with numbers and two columns with names/categories for 10 observations</u>.</p>
+<p>1.2) When done, go to <code>File</code> tab and choose <code>Save as</code> and select where you want the file to be saved. In the pop-up window, choose a name for your file than click on the dropdown menu next to the <code>Save as type</code> and choose <code>CSV (Comma delimited)</code>.</p>
+<p>1.3) Import this file into R and explore if it was imported correctly.</p>
+<hr>
+<p>2.1) Find one dataset in either <code>.csv</code> or <code>.txt</code> format online.</p>
+<p>2.2) Download it, import it into R and assign it to an object with meaningful name.</p>
+<p>2.3) Check if it was imported correctly, i.e.&nbsp;that it contains the same number of rows and observations as the file on your hardrive. If not, check if you encountered one of the most common errors, that are listed above.</p>
+</div>
+</div>
+</section>
+<section id="exercise-until-the-end-of-the-lab-if-not-completed-homework" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-until-the-end-of-the-lab-if-not-completed-homework">Exercise until the end of the lab, if not completed homework</h2>
+<p>ADD DATACAMP HOMEWORK …</p>
+<hr>
+<p>For those strugling to find the <code>.csv</code> or <code>.txt</code> datasets online: <a href="https://rstudio-conf-2020.github.io/r-for-excel/index.html#data-citations">link</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

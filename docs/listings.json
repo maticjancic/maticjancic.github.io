@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/02_Intro2R_data import and exploration.html",
       "/posts/04_DATA EXPLORATION.html",
       "/posts/03_GIS_GLOBAL ENV DATA.html",
       "/posts/02_GIS_GBIF.html",
