@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -142,44 +113,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">
+    <a class="nav-link" href="../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../publications.html">
+    <a class="nav-link" href="../publications.html" rel="" target="">
  <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/maticjancic"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/"><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
  <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
  <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="mailto:maticjanchich@gmail.com"><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -246,16 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<div class="callout-summary callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Summary
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-summary">
 <p>In this lab, you will be introduced to:</p>
 <ul>
 <li>R and RStudio,</li>
@@ -264,13 +228,12 @@ Summary
 <li>fundamental data types in R: vectors, dataframes and lists.</li>
 </ul>
 </div>
-</div>
 <section id="who-am-i-and-why-am-i-teaching-you-this-course" class="level3">
 <h3 class="anchored" data-anchor-id="who-am-i-and-why-am-i-teaching-you-this-course">Who am I and why am I teaching you this course?</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/me.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">That’s me, roughly 7 years ago.</figcaption><p></p>
+<figcaption class="figure-caption">That’s me, roughly 7 years ago.</figcaption>
 </figure>
 </div>
 <hr>
@@ -302,7 +265,7 @@ Summary
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/Timeline_plot.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Loggerhead sea turtles bycatch in A) set nets with onboard observers, B) set nets and C) trawls reported by fisherman. D) Timeline of reports.</figcaption><p></p>
+<figcaption class="figure-caption">Loggerhead sea turtles bycatch in A) set nets with onboard observers, B) set nets and C) trawls reported by fisherman. D) Timeline of reports.</figcaption>
 </figure>
 </div>
 <p>This code:</p>
@@ -332,7 +295,7 @@ Summary
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/plot1.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Difference in A) Catch per unit effort and B) Value per unit effort in gillnets (sharks) and trammel nets (common soles).</figcaption><p></p>
+<figcaption class="figure-caption">Difference in A) Catch per unit effort and B) Value per unit effort in gillnets (sharks) and trammel nets (common soles).</figcaption>
 </figure>
 </div>
 <p>This code (note the <strong>…</strong> on several occasions):</p>
@@ -367,17 +330,17 @@ Summary
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/sdms.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Habitat selection probability of loggerhead sea turtles in Adriatic sea and potential effects of climate change.</figcaption><p></p>
+<figcaption class="figure-caption">Habitat selection probability of loggerhead sea turtles in Adriatic sea and potential effects of climate change.</figcaption>
 </figure>
 </div>
 <hr>
 <p>This document has also been produced with R and transformed to <em>hmtl</em> format. This enables you to open it with <code>Google chrome</code> and <u>translate it to Croatian langauge</u> for easier understanding (right clicking anywhere on the document and choosing <code>Translate to Croatian</code>).</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -392,7 +355,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/why.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">The use of click and do software, such as SPSS, has not changed much in the past, the use of R is exponentialy increasing since 2005.</figcaption><p></p>
+<figcaption class="figure-caption">The use of click and do software, such as SPSS, has not changed much in the past, the use of R is exponentialy increasing since 2005.</figcaption>
 </figure>
 </div>
 <hr>
@@ -411,7 +374,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/Rconsole.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Base R console.</figcaption><p></p>
+<figcaption class="figure-caption">Base R console.</figcaption>
 </figure>
 </div>
 <hr>
@@ -423,39 +386,19 @@ Note
 </li>
 <li>One pane combines multiple tabs (<code>Environment</code>, <code>History</code> &amp; <code>Connections</code>). At this point, <code>Environment</code> is the only one important to us: it <strong>is the “place” where the data we will work with has to be available</strong>. You can see in the image below, that the environment is empty (<em>and it should be empty in your computers as well, if you haven’t done anything after the installation</em>).</li>
 </ul>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Open R studio. The interface should look like in the image below (the order of the panes might be different, which is OK).</p>
-</div>
 </div>
 <hr>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_images/Rstudio.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Rstudio interface.</figcaption><p></p>
+<figcaption class="figure-caption">Rstudio interface.</figcaption>
 </figure>
 </div>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Open an empty R script from the <code class="sourceCode r">File</code> dropdown menu by clicking <code class="sourceCode r">New file \ R script</code>. The script will have a name Untitled1 (or Untitled2, if a blank script was already open).</p>
 <p>Save the script to the Desktop of your computer and name it <code>Introductory analysis of marine ecological data in R</code>.</p>
-</div>
 </div>
 <hr>
 </section>
@@ -464,7 +407,7 @@ Task
 <p>The most basic thing R can be used for is a calculator with basic arithmetic operations.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Operator</th>
@@ -497,19 +440,9 @@ Task
 </div>
 </div>
 <p>Lets use them in practice.</p>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Copy and paste below calculations in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 <p><u>Type into the script and run a minimum of 10 own examples.</u></p>
-</div>
 </div>
 <div class="cell">
 <details>
@@ -527,12 +460,12 @@ Task
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="co"># square root</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -545,7 +478,7 @@ Note
 <p>The next thing that you need to know are logical operators. At this point, we will just try them out, in the next labs you will see their importance in filtering and selecting specific parts of your data:</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Operator</th>
@@ -590,19 +523,9 @@ Note
 </div>
 </div>
 <p>Lets use them in practice.</p>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Copy and paste below calculations in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 <p><u>Type into the script and run a minimum of 10 own examples.</u></p>
-</div>
 </div>
 <div class="cell">
 <details>
@@ -622,19 +545,9 @@ Task
 </div>
 <hr>
 <p><strong>A cruical part of working with R is storing data as objects in R’s working environment</strong>, so we can access them when needed and not typing them multiple times. For this, assign operator <code class="sourceCode r"><span class="ot">&lt;-</span></code> is used. The value on the right side of it will be assigned to a name on the left. <strong>The name is choosen by us and it can be (almost) anything</strong>. When we use the assign operator the result of the code will not be displayed in the console, but a name should appear in R working environment.</p>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 <p>What happened when executing each row?</p>
-</div>
 </div>
 <div class="cell">
 <details>
@@ -666,12 +579,12 @@ Task
 </div>
 </div>
 <p>If we want to see the content of an object, we type its name into R script and click <code class="sourceCode r">Run</code>.</p>
-<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Warning
 </div>
 </div>
@@ -680,12 +593,12 @@ Warning
 <p>If the error says: <em>object ‘…’ not found</em> it is usually because its name was not typed correctly.</p>
 </div>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Tip
 </div>
 </div>
@@ -694,19 +607,9 @@ Tip
 <p>Use auto-completion of the code enabled by <strong>RSudio</strong>: after typing three characters, RStudio will offer options that start with them. Instead of typing the whole command, you can select an option from the suggested list.</p>
 </div>
 </div>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p><u>Type ten random names into the script and assign each a number or a result of a calculation</u> (as example above). Start clicking <code class="sourceCode r">Run</code> in the first typed row and move down with the cursor to each row. The result should be ten new names in your R’s working environment</p>
 <p><u>Using auto-completion, type this 10 names into the script again</u>. Start clicking <code class="sourceCode r">Run</code> in the first row and move down with the cursor to each row containing a name. The result should be ten printed names in the console with their corresponding values below.</p>
-</div>
 </div>
 <hr>
 <p>Questions to consider:</p>
@@ -730,18 +633,8 @@ Task
 <li>Missing data or Not Available data (coded as <code>NA</code> and the only type that can be included in vectors of other types).</li>
 </ul>
 <p>We create vectors by using function <code class="sourceCode r"><span class="fu">c</span>()</code> and typing the values of the vector within the parenthesis separated by commas (<code>,</code>).</p>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
-</div>
 </div>
 <div class="cell">
 <details>
@@ -755,12 +648,12 @@ Task
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>mixed_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="cn">TRUE</span>, <span class="fl">7.9631423</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -791,21 +684,8 @@ Note
 <hr>
 <p>A data frame in its essence are multiple vectors combined in a table. Each vector we add to the table becomes one column of this table. Data frames are the most common and most used data type. Usually, data frames are imported from our computer hard-drive, but we will also take a look at how to manually create one.</p>
 <p>Like vectors, data frames have their own properties as well. We can check how many rows (<code class="sourceCode r"><span class="fu">nrow</span>()</code>) or columns a data frame has (<code class="sourceCode r"><span class="fu">ncol</span>()</code>), or simply check the dimensions of a data frame (<code class="sourceCode r"><span class="fu">dim</span>()</code>). We can also extract or change the names of the columns of our data frame with <code class="sourceCode r"><span class="fu">names</span>()</code> function. summary … print by typing and running its name ..</p>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
-</div>
-</div>
-<div class="cell">
-
 </div>
 <div class="cell">
 <details>
@@ -837,34 +717,14 @@ Task
 </div>
 </div>
 <hr>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>On the whiteboard I will write a couple of our names, year of birth and hair colour. As some might feel uncomfortable with sharing this information, we will replace that with NAs instead.</p>
 <p>Type these values into script and assign them to vectors. Bind these vector to a dataframe called <code class="sourceCode r">best_class_ever</code>. Check the properties of our table with functions presented above. Compare if you inserted the values correctly based on the values on the whiteboard.</p>
 </div>
-</div>
 <hr>
 <p>Lists are objects which can contain elements of different types like numbers, character strings (= words), vectors, dataframes and even other lists. List is created by using <code class="sourceCode r"><span class="fu">list</span>()</code> function and typing object names within the parenthesis. Lists are complex data structures, that are suitable for advanced use as they offer high degree of flexibility. Below code gives an example list, that contains all types of objects listed above.</p>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
-</div>
 </div>
 <div class="cell">
 <details>
@@ -917,19 +777,9 @@ Task
 5                5           TRUE             tool    7.9631423</code></pre>
 </div>
 </div>
-<div class="callout-task callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Task
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-task">
 <p>Save the R script to the desktop of your computer.</p>
 <p>When you close R studio, select <code>Yes</code> when it asks if you want to save your work-space.</p>
-</div>
 </div>
 <hr>
 <p>Questions to consider:</p>
@@ -994,9 +844,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1061,6 +925,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
