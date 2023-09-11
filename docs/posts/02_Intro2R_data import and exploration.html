@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title column-body">
       <h1 class="title">WORKING DIRECTORIES AND DATA IMPORT IN R</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">INTRODUCTION TO R FOR BIOLOGISTS &amp; ECOLOGISTS</div>
+                <div class="quarto-category">Introduction to R</div>
               </div>
                   </div>
   </div>
@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object" id="toc-with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object" class="nav-link" data-scroll-target="#with-the-number-of-rows-andor-columns-differs-between-original-file-and-the-created-object">With the number of rows and/or columns differs between original file and the created object</a></li>
   </ul></li>
   <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
-  <li><a href="#exercise-until-the-end-of-the-lab-if-not-completed-homework" id="toc-exercise-until-the-end-of-the-lab-if-not-completed-homework" class="nav-link" data-scroll-target="#exercise-until-the-end-of-the-lab-if-not-completed-homework">Exercise until the end of the lab, if not completed homework</a></li>
+  <li><a href="#exercise-until-the-end-of-the-lab-or-homework-if-not-completed" id="toc-exercise-until-the-end-of-the-lab-or-homework-if-not-completed" class="nav-link" data-scroll-target="#exercise-until-the-end-of-the-lab-or-homework-if-not-completed">Exercise until the end of the lab or homework, if not completed</a></li>
   </ul>
 </nav>
     </div>
@@ -286,7 +286,7 @@ Summary
 <li><em>files from web</em> or <em>web databases</em> through specialized packages (i.e.&nbsp;<code class="sourceCode r">rgbif</code> or <code class="sourceCode r">sdmpredictors</code> packages; GBIF = <a href="https://www.gbif.org/">Global Biodiverstity Information Facility</a>)</li>
 <li>files from other specialized statistical software (i.e.&nbsp;SPSS, STATA, SAS)</li>
 </ul>
-<p>For importing files from the hard drive (most often <code>.txt</code>, <code>.csv</code> AND <code>xlsx</code>), there is a specific function that imports specific file type. For example, <code class="sourceCode r"><span class="fu">read.csv</span>()</code> is used to import comma separated values file, <code class="sourceCode r"><span class="fu">read.table</span>()</code> for text files and <code class="sourceCode r"><span class="fu">read_excel</span>()</code> for excel spreadsheets. All this functions have a common <strong>argument, we need to specify</strong>: <code class="sourceCode r">file</code> or <code class="sourceCode r">path</code> which is the <strong>location of the document you want to import on our hard-drives</strong>. There are two ways we can specify this locations:</p>
+<p>For importing files from the hard drive (most often <code>.txt</code>, <code>.csv</code> and <code>xlsx</code>), there is a specific function that imports specific file type. For example, <code class="sourceCode r"><span class="fu">read.csv</span>()</code> is used to import comma separated values file, <code class="sourceCode r"><span class="fu">read.table</span>()</code> for text files and <code class="sourceCode r"><span class="fu">read_excel</span>()</code> for excel spreadsheets. All this functions have a common <strong>argument, we need to specify</strong>: <code class="sourceCode r">file</code> or <code class="sourceCode r">path</code> which is the <strong>location of the document you want to import on our hard-drives</strong>. There are two ways we can specify this locations:</p>
 <ul>
 <li>full file path, i.e.&nbsp;<code class="sourceCode r">C<span class="sc">:</span>\Users\Matic\OneDrive <span class="sc">-</span> UPR\01_FAMNIT\02_VAJE\2021_22\201_sodobni pristopi\2_Importing data and data transfomations\01_data\example_data.csv</code> - <strong>not recommended</strong>.</li>
 <li>file path without the <strong>working directory</strong>, i.e.&nbsp;<code class="sourceCode r">01_data\example_data.csv</code> - <strong>better, but not optimal</strong>.</li>
@@ -379,7 +379,7 @@ Exercises
 <ol type="1">
 <li><p>Create two new folders within <code class="sourceCode r">My first R project</code> called <code>01_data</code> and <code>02_scripts</code>.</p></li>
 <li><p>Close R studio and reopen it by using the <strong>R project icon</strong> called <code class="sourceCode r">My first R project</code> from the new folder.</p></li>
-<li><p>Use <code class="sourceCode r"><span class="fu">getwd</span>()</code> function to check your current working directory. To what is it set now?</p></li>
+<li><p>Open an empty R script (if not already) and use <code class="sourceCode r"><span class="fu">getwd</span>()</code> function to check your current working directory. To what is it set now?</p></li>
 </ol>
 </div>
 </div>
@@ -622,12 +622,21 @@ Task
 <p>2.1) Find one dataset in either <code>.csv</code> or <code>.txt</code> format online.</p>
 <p>2.2) Download it, import it into R and assign it to an object with meaningful name.</p>
 <p>2.3) Check if it was imported correctly, i.e.&nbsp;that it contains the same number of rows and observations as the file on your hardrive. If not, check if you encountered one of the most common errors, that are listed above.</p>
+<hr>
+<ol start="3" type="1">
+<li>Save the script with all you commands</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="exercise-until-the-end-of-the-lab-if-not-completed-homework" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-until-the-end-of-the-lab-if-not-completed-homework">Exercise until the end of the lab, if not completed homework</h2>
-<p>ADD DATACAMP HOMEWORK …</p>
+<section id="exercise-until-the-end-of-the-lab-or-homework-if-not-completed" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-until-the-end-of-the-lab-or-homework-if-not-completed">Exercise until the end of the lab or homework, if not completed</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Ass_2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Datacamp assignment: data import.</figcaption>
+</figure>
+</div>
 <hr>
 <p>For those strugling to find the <code>.csv</code> or <code>.txt</code> datasets online: <a href="https://rstudio-conf-2020.github.io/r-for-excel/index.html#data-citations">link</a>.</p>
 

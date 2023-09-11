@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">Introduction to marine ecological data in R</div>
-                <div class="quarto-category">Introduction to R for biologists &amp; ecologists</div>
+                <div class="quarto-category">Introduction to R</div>
                 <div class="quarto-category">Introduction to GIS in R</div>
               </div>
                   </div>
@@ -209,6 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basics-of-working-with-r" id="toc-basics-of-working-with-r" class="nav-link" data-scroll-target="#basics-of-working-with-r">Basics of working with R</a></li>
   <li><a href="#data-types-vectors-dataframes-and-lists" id="toc-data-types-vectors-dataframes-and-lists" class="nav-link" data-scroll-target="#data-types-vectors-dataframes-and-lists">Data types: vectors, dataframes and lists</a></li>
   <li><a href="#take-home-message" id="toc-take-home-message" class="nav-link" data-scroll-target="#take-home-message">Take home message</a></li>
+  <li><a href="#datacamp-homework" id="toc-datacamp-homework" class="nav-link" data-scroll-target="#datacamp-homework">Datacamp homework</a></li>
   <li><a href="#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility." id="toc-partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility." class="nav-link" data-scroll-target="#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility."><img src="05_images/EU Erasmuslogo.jpg" class="img-fluid" alt="Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility."></a></li>
   </ul>
 </nav>
@@ -219,7 +220,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="callout-summary">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>In this lab, you will be introduced to:</p>
 <ul>
 <li>R and RStudio,</li>
@@ -227,6 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>using basic operations (addition, subtraction, multiplication) and logical operators in R,</li>
 <li>fundamental data types in R: vectors, dataframes and lists.</li>
 </ul>
+</div>
 </div>
 <section id="who-am-i-and-why-am-i-teaching-you-this-course" class="level3">
 <h3 class="anchored" data-anchor-id="who-am-i-and-why-am-i-teaching-you-this-course">Who am I and why am I teaching you this course?</h3>
@@ -241,8 +252,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>I have 7+ years of experience working with R and use it on regular basis for research and teaching (<em>Intro to R, Intro to GIS in R, Intro to data exploration and statistics in R, Species distribution modelling in R</em>, etc.). A couple of examples below.</p>
 <p>This code:</p>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>timelineplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temporal_distribution, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> N, <span class="at">color =</span> Gear)) <span class="sc">+</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
@@ -259,7 +268,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data =</span> year_df, <span class="fu">aes</span>(<span class="at">x =</span> year_date_range, <span class="at">y =</span> <span class="fl">0.058</span>,</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">label =</span> year_format, <span class="at">fontface=</span><span class="st">"bold"</span>), </span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color=</span><span class="st">'black'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>gives you this:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -270,8 +278,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This code:</p>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>PPUE_plot <span class="ot">&lt;-</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> PPUEsummary,<span class="fu">aes</span>(<span class="at">x =</span> Gear_Type, <span class="at">y =</span> PPUE)) <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> Net_Type), <span class="at">size =</span> <span class="dv">4</span>,</span>
@@ -289,7 +295,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>, <span class="at">color =</span> <span class="st">"black"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>gives you this:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -300,8 +305,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This code (note the <strong>…</strong> on several occasions):</p>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mixed_model_level1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(presence <span class="sc">~</span> <span class="fu">scale</span>(BO_bathymean) <span class="sc">+</span> <span class="fu">scale</span>(BO21_tempmean_ss)<span class="sc">+</span> <span class="fu">scale</span>(BO21_temprange_ss) <span class="sc">+</span> <span class="fu">scale</span>(BO21_tempmean_bdmean) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Animal_ID), </span>
@@ -324,7 +327,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(predictions_RCP26_2050_level1, <span class="at">main =</span> <span class="st">"Predicted suitability RCP26 2050 L1"</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>gives you this:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -386,8 +388,18 @@ Note
 </li>
 <li>One pane combines multiple tabs (<code>Environment</code>, <code>History</code> &amp; <code>Connections</code>). At this point, <code>Environment</code> is the only one important to us: it <strong>is the “place” where the data we will work with has to be available</strong>. You can see in the image below, that the environment is empty (<em>and it should be empty in your computers as well, if you haven’t done anything after the installation</em>).</li>
 </ul>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Open R studio. The interface should look like in the image below (the order of the panes might be different, which is OK).</p>
+</div>
 </div>
 <hr>
 <div class="quarto-figure quarto-figure-center">
@@ -396,9 +408,20 @@ Note
 <figcaption class="figure-caption">Rstudio interface.</figcaption>
 </figure>
 </div>
-<div class="callout-task">
+<p>žnj</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Open an empty R script from the <code class="sourceCode r">File</code> dropdown menu by clicking <code class="sourceCode r">New file \ R script</code>. The script will have a name Untitled1 (or Untitled2, if a blank script was already open).</p>
-<p>Save the script to the Desktop of your computer and name it <code>Introductory analysis of marine ecological data in R</code>.</p>
+<p>Save the script to the Desktop of your computer and name it <code>Introduction to R</code>.</p>
+</div>
 </div>
 <hr>
 </section>
@@ -440,13 +463,21 @@ Note
 </div>
 </div>
 <p>Lets use them in practice.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below calculations in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 <p><u>Type into the script and run a minimum of 10 own examples.</u></p>
 </div>
+</div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">-</span> <span class="dv">9</span></span>
@@ -458,7 +489,6 @@ Note
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">^</span> <span class="dv">5</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="co"># square root</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -523,13 +553,21 @@ Note
 </div>
 </div>
 <p>Lets use them in practice.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below calculations in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 <p><u>Type into the script and run a minimum of 10 own examples.</u></p>
 </div>
+</div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">5</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">&lt;=</span> <span class="dv">9</span></span>
@@ -541,39 +579,39 @@ Note
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">==</span> <span class="dv">5</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">!=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <hr>
 <p><strong>A cruical part of working with R is storing data as objects in R’s working environment</strong>, so we can access them when needed and not typing them multiple times. For this, assign operator <code class="sourceCode r"><span class="ot">&lt;-</span></code> is used. The value on the right side of it will be assigned to a name on the left. <strong>The name is choosen by us and it can be (almost) anything</strong>. When we use the assign operator the result of the code will not be displayed in the console, but a name should appear in R working environment.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 <p>What happened when executing each row?</p>
 </div>
+</div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># look into the working environment for this name</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>square_root_of_9 <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># if you click run next to a name, its content will be printed</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>square_root_of_9 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will not work as the first letter is CAPITAL</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Square_root_of_9 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'Square_root_of_9' not found</code></pre>
 </div>
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will not work as the 9 is not equal to nine</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Square_root_of_nine </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'Square_root_of_nine' not found</code></pre>
 </div>
@@ -607,9 +645,19 @@ Tip
 <p>Use auto-completion of the code enabled by <strong>RSudio</strong>: after typing three characters, RStudio will offer options that start with them. Instead of typing the whole command, you can select an option from the suggested list.</p>
 </div>
 </div>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><u>Type ten random names into the script and assign each a number or a result of a calculation</u> (as example above). Start clicking <code class="sourceCode r">Run</code> in the first typed row and move down with the cursor to each row. The result should be ten new names in your R’s working environment</p>
 <p><u>Using auto-completion, type this 10 names into the script again</u>. Start clicking <code class="sourceCode r">Run</code> in the first row and move down with the cursor to each row containing a name. The result should be ten printed names in the console with their corresponding values below.</p>
+</div>
 </div>
 <hr>
 <p>Questions to consider:</p>
@@ -633,12 +681,20 @@ Tip
 <li>Missing data or Not Available data (coded as <code>NA</code> and the only type that can be included in vectors of other types).</li>
 </ul>
 <p>We create vectors by using function <code class="sourceCode r"><span class="fu">c</span>()</code> and typing the values of the vector within the parenthesis separated by commas (<code>,</code>).</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 </div>
+</div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>numerical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>logical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
@@ -646,7 +702,6 @@ Tip
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>character_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"is"</span>, <span class="st">"a"</span>, <span class="st">"wonderful"</span>, <span class="st">"tool"</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>mixed_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="cn">TRUE</span>, <span class="fl">7.9631423</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -663,8 +718,6 @@ Note
 </div>
 <p>There are two properties of vectors that are of interest. The first is the number of elements that a vector contains and can be checked by using <code class="sourceCode r"><span class="fu">length</span>()</code> function and the name of the vector within its parenthesis. The second is the type of the vector that can be checked by using <code class="sourceCode r"><span class="fu">class</span>()</code> and the name of the vector within its parenthesis.</p>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>square_root_of_9 ; <span class="fu">length</span>(square_root_of_9) ; <span class="fu">class</span>(square_root_of_9)  <span class="co"># number </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># three numbers and one not available</span></span>
@@ -679,17 +732,24 @@ Note
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 elements, three coerced to characters by R automatically putting " " around all </span></span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># values of the vector</span></span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>mixed_vector ; <span class="fu">length</span>(mixed_vector) ; <span class="fu">class</span>(mixed_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <hr>
 <p>A data frame in its essence are multiple vectors combined in a table. Each vector we add to the table becomes one column of this table. Data frames are the most common and most used data type. Usually, data frames are imported from our computer hard-drive, but we will also take a look at how to manually create one.</p>
 <p>Like vectors, data frames have their own properties as well. We can check how many rows (<code class="sourceCode r"><span class="fu">nrow</span>()</code>) or columns a data frame has (<code class="sourceCode r"><span class="fu">ncol</span>()</code>), or simply check the dimensions of a data frame (<code class="sourceCode r"><span class="fu">dim</span>()</code>). We can also extract or change the names of the columns of our data frame with <code class="sourceCode r"><span class="fu">names</span>()</code> function. summary … print by typing and running its name ..</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 </div>
+</div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>example_data_frame <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(numerical_vector, </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                                 logical_vector, </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                                 character_vector, </span>
@@ -700,13 +760,9 @@ Note
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(example_data_frame)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(example_data_frame)</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(example_data_frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>example_data_frame</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  numerical_vector logical_vector character_vector mixed_vector
 1                1           TRUE                R            R
@@ -716,19 +772,36 @@ Note
 5                5           TRUE             tool    7.9631423</code></pre>
 </div>
 </div>
-<hr>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>On the whiteboard I will write a couple of our names, year of birth and hair colour. As some might feel uncomfortable with sharing this information, we will replace that with NAs instead.</p>
 <p>Type these values into script and assign them to vectors. Bind these vector to a dataframe called <code class="sourceCode r">best_class_ever</code>. Check the properties of our table with functions presented above. Compare if you inserted the values correctly based on the values on the whiteboard.</p>
 </div>
+</div>
 <hr>
 <p>Lists are objects which can contain elements of different types like numbers, character strings (= words), vectors, dataframes and even other lists. List is created by using <code class="sourceCode r"><span class="fu">list</span>()</code> function and typing object names within the parenthesis. Lists are complex data structures, that are suitable for advanced use as they offer high degree of flexibility. Below code gives an example list, that contains all types of objects listed above.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code in the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
 </div>
+</div>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>example_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Pula, Croatia"</span>,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                     mixed_vector,</span>
@@ -739,7 +812,6 @@ Note
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                          example_data_frame))</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>example_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 1
@@ -777,9 +849,19 @@ Note
 5                5           TRUE             tool    7.9631423</code></pre>
 </div>
 </div>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Save the R script to the desktop of your computer.</p>
 <p>When you close R studio, select <code>Yes</code> when it asks if you want to save your work-space.</p>
+</div>
 </div>
 <hr>
 <p>Questions to consider:</p>
@@ -796,15 +878,23 @@ Note
 <h3 class="anchored" data-anchor-id="take-home-message">Take home message</h3>
 <p>R is a language and learning it is similar to learning a foreign language. It takes time and patience. The good thing is that there are only two really important thing to grasp at the beginning: what is an object and a function, and how these two interact: a function (<em>usualy predefined by R developers</em>) is applied to an object (<em>which has a given name, usualy by us</em>) and we expect something to happen as a result. Note that you used several function on several objects today (i.e.&nbsp;functions <code class="sourceCode r"><span class="fu">c</span>()</code>, <code class="sourceCode r"><span class="fu">data.frame</span>()</code>, <code class="sourceCode r"><span class="fu">names</span>()</code> etc., on objects <code class="sourceCode r">character_vector</code>, <code class="sourceCode r">heigth</code>, <code class="sourceCode r">best_class_ever</code> etc.). This is the essence of working with R and most of the time you will be doing just that, <code class="sourceCode r"><span class="cf">function</span>(object)</code> and get what you wanted or get:</p>
 <div class="cell">
-<details>
-<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(object)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;text&gt;:2:0: unexpected end of input
 1: function(object)
    ^</code></pre>
 </div>
+</div>
+<hr>
+</section>
+<section id="datacamp-homework" class="level3">
+<h3 class="anchored" data-anchor-id="datacamp-homework">Datacamp homework</h3>
+<p>Now you will set up the Datacamp access to the online learning classroom and we will walk through your obligations and the DC workflow.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Ass_1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Datacamp assignment: introduction to R.</figcaption>
+</figure>
 </div>
 <hr>
 </section>
