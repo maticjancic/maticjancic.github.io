@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-09-18">
+<meta name="description" content="Advanced Topics in Conservation Biology, Lab 4">
+
+<title>Matic Jančič: Teaching portfolio - Graphical data exploration in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Graphical data exploration in R</h1>
+                  <div>
+        <div class="description">
+          Advanced Topics in Conservation Biology, Lab 4
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Introduction to R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 18, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-data-exploration" id="toc-why-data-exploration" class="nav-link active" data-scroll-target="#why-data-exploration">Why data exploration?</a>
+  <ul class="collapse">
+  <li><a href="#anscombe-quartet" id="toc-anscombe-quartet" class="nav-link" data-scroll-target="#anscombe-quartet">Anscombe quartet</a></li>
+  </ul></li>
+  <li><a href="#import-iris-dataset" id="toc-import-iris-dataset" class="nav-link" data-scroll-target="#import-iris-dataset">Import <code>iris</code> dataset</a></li>
+  <li><a href="#graphical-data-exploration" id="toc-graphical-data-exploration" class="nav-link" data-scroll-target="#graphical-data-exploration">Graphical data exploration</a>
+  <ul class="collapse">
+  <li><a href="#boxplots-dotcharts" id="toc-boxplots-dotcharts" class="nav-link" data-scroll-target="#boxplots-dotcharts">Boxplots &amp; dotcharts</a></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots">Scatterplots</a></li>
+  </ul></li>
+  <li><a href="#changing-plot-elements-and-design" id="toc-changing-plot-elements-and-design" class="nav-link" data-scroll-target="#changing-plot-elements-and-design">Changing plot elements and design</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#until-the-end-of-the-class-or-homework" id="toc-until-the-end-of-the-class-or-homework" class="nav-link" data-scroll-target="#until-the-end-of-the-class-or-homework">Until the end of the class or homework</a></li>
+  </ul></li>
+  <li><a href="#mandatory-reading-before-next-class" id="toc-mandatory-reading-before-next-class" class="nav-link" data-scroll-target="#mandatory-reading-before-next-class">Mandatory reading before next class</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this lab you will learn how to:</p>
+<ul>
+<li>explore data using boxplots, dotchart and scatterplots,</li>
+<li>effectively visualise data for multiple groups,</li>
+<li>manipulate plot elements and export plots in high quality.</li>
+</ul>
+</div>
+</div>
+<section id="why-data-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="why-data-exploration">Why data exploration?</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questions to consider
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Why is it recommended and very important to perform data exploration before starting any statistical analysis?</li>
+<li>What are the most common issues, that you can encounter in your biological datasets (referring to Zuur et al., 2010)?</li>
+</ul>
+</div>
+</div>
+<section id="anscombe-quartet" class="level3">
+<h3 class="anchored" data-anchor-id="anscombe-quartet">Anscombe quartet</h3>
+<p>An example dataset that shows the importance of visual data exploration is the famous Anscombe’s quartet, comprised of four data sets that have nearly identical descriptive statistics, yet are very different. Each dataset consists of eleven (x, y) points that were constructed by the statistician Francis Anscombe to demonstrate both the importance of graphing data before analyzing it and the effect of outliers and other influential observations on statistical properties. The dataset is available as built in dataset (can be loaded by <code class="sourceCode r"><span class="fu">data</span>(anscombe)</code> in a sligthly different format).</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">x1</th>
+<th style="text-align: right;">x2</th>
+<th style="text-align: right;">x3</th>
+<th style="text-align: right;">x4</th>
+<th style="text-align: right;">y1</th>
+<th style="text-align: right;">y2</th>
+<th style="text-align: right;">y3</th>
+<th style="text-align: right;">y4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8.04</td>
+<td style="text-align: right;">9.14</td>
+<td style="text-align: right;">7.46</td>
+<td style="text-align: right;">6.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6.95</td>
+<td style="text-align: right;">8.14</td>
+<td style="text-align: right;">6.77</td>
+<td style="text-align: right;">5.76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7.58</td>
+<td style="text-align: right;">8.74</td>
+<td style="text-align: right;">12.74</td>
+<td style="text-align: right;">7.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8.81</td>
+<td style="text-align: right;">8.77</td>
+<td style="text-align: right;">7.11</td>
+<td style="text-align: right;">8.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8.33</td>
+<td style="text-align: right;">9.26</td>
+<td style="text-align: right;">7.81</td>
+<td style="text-align: right;">8.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9.96</td>
+<td style="text-align: right;">8.10</td>
+<td style="text-align: right;">8.84</td>
+<td style="text-align: right;">7.04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7.24</td>
+<td style="text-align: right;">6.13</td>
+<td style="text-align: right;">6.08</td>
+<td style="text-align: right;">5.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">4.26</td>
+<td style="text-align: right;">3.10</td>
+<td style="text-align: right;">5.39</td>
+<td style="text-align: right;">12.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10.84</td>
+<td style="text-align: right;">9.13</td>
+<td style="text-align: right;">8.15</td>
+<td style="text-align: right;">5.56</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">4.82</td>
+<td style="text-align: right;">7.26</td>
+<td style="text-align: right;">6.42</td>
+<td style="text-align: right;">7.91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5.68</td>
+<td style="text-align: right;">4.74</td>
+<td style="text-align: right;">5.73</td>
+<td style="text-align: right;">6.89</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>First we will visualize this datasets. As we are looking at the relationship between two numerical variables, we need to use points for representation in 2D space and split the data by the ID of a sample.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How would you describe the relationship between x and y variable in each dataset? Is the relationships between x &amp; y the same among the datasets?</p>
+</div>
+</div>
+<p>Lets look at the summaries of the x and y variables divided by each ID value:</p>
+<ul>
+<li>the mean value and variance of x,</li>
+<li>the mean value and variance of y and</li>
+<li>correlation between x and y.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">ID</th>
+<th style="text-align: right;">mean_x</th>
+<th style="text-align: right;">var_x</th>
+<th style="text-align: right;">mean_y</th>
+<th style="text-align: right;">var_y</th>
+<th style="text-align: right;">correlation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">4.127269</td>
+<td style="text-align: right;">0.8164205</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">4.127629</td>
+<td style="text-align: right;">0.8162365</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">7.500000</td>
+<td style="text-align: right;">4.122620</td>
+<td style="text-align: right;">0.8162867</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">4.123249</td>
+<td style="text-align: right;">0.8165214</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Properties of the four dataset are almost identical, right? The differences start on the third decimal of variance and correlation factor.</p>
+<p>Similar to the statistical properties of x and y, the results of the linear regression are the same for all 4 datasets:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questions to consider
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Is there an actual linear relationship between x and y? In which dataset?<br>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="import-iris-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="import-iris-dataset">Import <code>iris</code> dataset</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Start the <strong>RStudio from the R project icon</strong> that you created in the previous lab!</p>
+</div>
+</div>
+<p>To be sure that the working directory is set to your project folder, use the get <code>getwd()</code> function. The result should end with <code>.../My first R project</code> (if you followed the instructions in the second lab).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Import the dataset, assign it to an object called <code>iris</code> and inspect that it was loaded correctly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"01_data/iris.csv"</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal_Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal_Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal_Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...</code></pre>
+</div>
+</div>
+<p>We will take one additional step in data preparation. In the first lab you were introduced to vector types. If we take a look at the column Species, You will see that it is treated as a character.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>Some functions we will use today, require however, the character data to be treated as<code>factors</code>. The values itself do not change, but R treats them differently. We will thus create a new column (for the sake of demonstration), named <code>Species_f</code>, with <code>f</code> remembering us that this is a factor. The function that will convert values from character to factor is<code>as.factor()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Species_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species Species_f
+1          5.1         3.5          1.4         0.2  setosa    setosa
+2          4.9         3.0          1.4         0.2  setosa    setosa
+3          4.7         3.2          1.3         0.2  setosa    setosa
+4          4.6         3.1          1.5         0.2  setosa    setosa
+5          5.0         3.6          1.4         0.2  setosa    setosa
+6          5.4         3.9          1.7         0.4  setosa    setosa</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris<span class="sc">$</span>Species_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="graphical-data-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="graphical-data-exploration">Graphical data exploration</h2>
+<section id="boxplots-dotcharts" class="level3">
+<h3 class="anchored" data-anchor-id="boxplots-dotcharts">Boxplots &amp; dotcharts</h3>
+<p>We will start with visualising <code>iris</code> data. We will take a look at how to create a boxplot and Cleveland dotplot (Zuur, Ieno &amp; Elphich, 2010, Step 1). A boxplot divides data based on its 25th and 75th quantiles (<em>the box</em>), and further on the upper and lower range of 1.5 * Inter Quantile Range (<em>upper and lower whisker</em>) and “outliers” - values that are outside these range (<em>solid dots</em>).</p>
+<p>We will use package <code class="sourceCode r">ggplot2</code> to create and design our boxplots. First we need to install it <code class="sourceCode r"><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</code> - and than load it to make its functionality available to use - <code class="sourceCode r"><span class="fu">library</span>(ggplot2)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The basic function to create any plot is <code class="sourceCode r"><span class="fu">ggplot</span>()</code> which contains two arguments we need to define: <code class="sourceCode r">data</code> and <code class="sourceCode r"><span class="fu">aes</span>()</code>. For <code class="sourceCode r">data</code> we specify the object in which information for our plot is stored, in our case this will be <code class="sourceCode r">iris</code>. In <code class="sourceCode r"><span class="fu">aes</span>()</code> argument we can set many different arguments, for us at this point the <code class="sourceCode r">y</code> and <code class="sourceCode r">x</code> are important, as with them we specify which column or variable we want to use as y and/or x axis of our plot. The <code class="sourceCode r"><span class="fu">aes</span>()</code> is a shortened version of <em>aesthetics</em>, meaning that with it we define visual characterics of our plots.</p>
+<p>A second function we add to <code class="sourceCode r"><span class="fu">ggplot</span>()</code> is a type of a plot we want to make, in our case this will <code class="sourceCode r"><span class="fu">geom_boxplot</span>()</code>, that initially does not require any arguments and which we add with a <code class="sourceCode r"><span class="sc">+</span></code> sign.</p>
+<p>First we will create a boxplot for all values of <code class="sourceCode r">Sepal_Length</code> column in <code class="sourceCode r">iris</code> dataframe. We will define <code class="sourceCode r">data <span class="ot">=</span> iris</code> and <code class="sourceCode r"><span class="fu">aes</span>(<span class="at">y =</span> Sepal_Length)</code> followed by the <code class="sourceCode r"><span class="sc">+</span></code> sign. We continue in the next row and add <code class="sourceCode r"><span class="fu">geom_boxplot</span>()</code> with empty brackets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="co"># which data object we will plot</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="co"># which variable will be displayed on y - axis</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Sepal_Length)) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># what type of a plot we will create</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/boxplot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p>Cleveland dotplot plots the row number of an observation againts the observation value, and provide more detailed information than a boxplot. Points that stick out on the right-hand side, or on the left-hand side, are observed values that are considerably larger, or smaller, than the majority of the observations, and require further investigation.</p>
+<p>Cleveland dotplot is a part of base R and it is created by using the <code class="sourceCode r"><span class="fu">dotchart</span>()</code> function. It takes one mandatory argument, the data we want to plot, and two additional arguments, with which we give names to x and y axis (<code class="sourceCode r">xlab</code> and <code class="sourceCode r">ylab</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dotchart</span>(iris<span class="sc">$</span>Sepal_Length,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Sepal length (cm)"</span>, <span class="co"># this is the name of x axis</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Order of the data"</span>) <span class="co">#this is the name of y axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p>Next, we know that we have data for three species. So in the next boxplot, we will display data separately for each group. We do this by adding <code class="sourceCode r">x <span class="ot">=</span> Species_f</code> inside <code class="sourceCode r"><span class="fu">aes</span>()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="co"># adding variable that will be displayed on x - axis</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Species_f, <span class="at">y =</span> Sepal_Length)) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For Cleveland dotplot, we include argument <code class="sourceCode r">groups <span class="ot">=</span> iris<span class="sc">$</span>Species_f</code>, to display data separately for the three groups:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dotchart</span>(iris<span class="sc">$</span>Sepal_Length,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">groups =</span> iris<span class="sc">$</span>Species_f,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Sepal length (cm)"</span>, <span class="co"># this is the name of x axis</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Order of the data"</span>) <span class="co">#this is the name of y axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questions to consider
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Take a look at the boxplot and dotplot, where data is grouped by species.</p>
+<ul>
+<li>Can you observe any patterns?</li>
+<li>What about the differences between the three species?</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+<section id="scatterplots" class="level3">
+<h3 class="anchored" data-anchor-id="scatterplots">Scatterplots</h3>
+<p>We are often interested in visualising two numerical variables, to inspect if there are any patterns within the data (similar to our introductory Anscombe example). We call this a scatterplot, and we will plot <code>Sepal_Length</code> on the <code>x</code> axis and <code>Sepal_Width</code> on the <code>y</code> axis. The initial call to <code>ggplot</code> stays the same, while this time we use <code>geom_point()</code> to add points to our plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, <span class="at">y =</span> Sepal_Width)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As before, we can extend this to incorporate the information about the species. One option is to use the <code>color =</code> argument within the <code>aes()</code> function. This will automatically give each species a predefined color and will display the legend on the side.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, <span class="at">y =</span> Sepal_Width, <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In case that observations are overlapping by a large degree, we can use faceting to divide plots by each species. For this we need to add the <code>facet_wrap()</code> function, where <code>~ Species_f</code> denotes that species is the variable by which R should divide the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, <span class="at">y =</span> Sepal_Width)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> Species_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By default, facets have the same values on the x and y axis. The good thing is, that this makes it easy to compare the three groups (species). On the other hand, in each facet, there is a lot of white (empty) space.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="changing-plot-elements-and-design" class="level2">
+<h2 class="anchored" data-anchor-id="changing-plot-elements-and-design">Changing plot elements and design</h2>
+<p>We will continue with just a bit of “polishing” to make plots more suitable for scientific/professional publications (including your masters thesis). We will extend the scatter plot, where the iris species were denoted by color. Remember, to add another commands to <code>ggplots</code> we simply continue the last line with the <code class="sourceCode r"><span class="sc">+</span></code> sign.</p>
+<p>First we will change the annotation of x and y - axis with <code class="sourceCode r"><span class="fu">xlab</span>()</code> and <code class="sourceCode r"><span class="fu">ylab</span>()</code> functions. Inside the brackets we will define the name of the axis - <code class="sourceCode r"><span class="st">"Fish length (cm)"</span></code>. Remember that character strings must be included in quotations <code class="sourceCode r"><span class="st">""</span></code>. As our variable is continuous number that cannot be lower than zero, we will set the begging of the y axis at 0. We do this by setting the limits of the axis with <code class="sourceCode r"><span class="fu">ylim</span>()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Sepal Length (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Legend title</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Sepal Length (cm)"</span>)<span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The last thing we will change today will be the design of plot elements. We can do that manually, but there are already several themes prepared (including some specific R packages, such as <code class="sourceCode r">ggthemes</code> - more info <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a> or <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">here</a>. To us, <code class="sourceCode r"><span class="fu">theme_bw</span>()</code> and <code class="sourceCode r"><span class="fu">theme_classic</span>()</code> are of interest.</p>
+<p>We use the same commands to create the boxplot, we add the <code class="sourceCode r"><span class="sc">+</span></code> sign, continue in the next row and add <code class="sourceCode r"><span class="fu">theme_bw</span>()</code> with empty brackets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Sepal Length (cm)"</span>)<span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We repeat the proccess and this time add <code class="sourceCode r"><span class="fu">theme_classic</span>()</code> with empty brackets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Sepal Length (cm)"</span>)<span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Are there any other things you would like to modify (for example change the size of the points)?</p>
+<p>If you have any suggestions, we can try to add them before exporting the plot!</p>
+</div>
+</div>
+<hr>
+<p>Lets also take a look at how we can export this boxplot in high resolution print quality. First we save our plot to an object, lets call it <code class="sourceCode r">plot_to_export</code>. Then, we install, if needed, and load the <code class="sourceCode r">ggpubr</code> package, from which we use <code class="sourceCode r">ggexport</code> function. Within it, we will define 4 arguments:<code class="sourceCode r">filename <span class="ot">=</span></code>, <code class="sourceCode r">width <span class="ot">=</span></code>, <code class="sourceCode r">height</code> and <code class="sourceCode r">res</code>, which is an abbreviation for <em>resolution</em> (300 is a minimum requirement for quality print):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plot_to_export <span class="ot">&lt;-</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> Sepal_Width, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"Sepal Length (cm)"</span>)<span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_classic</span>()</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># load required package</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggpubr"</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co"># we need to set width, height and res manually, </span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co"># usually change the numbers several times to get what we want</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggexport</span>(plot_to_export,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">filename =</span> <span class="st">"iris_scatter.png"</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">width =</span> <span class="dv">2400</span>, </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">height =</span> <span class="dv">1800</span>, </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">res=</span><span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u>Read the instructions carefully. If you don’t understand something or something doesn’t work straight away, first think about the problem/error, consult the materials in front of you, than google, than the neighbor on your left and on your right. If after all that you still don’t know how to fix the problem or proceed, than ask me for help!</u></p>
+<hr>
+<p>1.1) Import the <code>penguins</code> dataset and check if the file was correctly imported (344 observations, 8 variables), adjust the code if needed.</p>
+<p>1.2) Create new columns in which <code>species</code>, <code>island</code> and <code>sex</code> will be treated as factors by R.</p>
+<p>1.3) Create a boxplot which will display values of body mass separately for each species.</p>
+<p>1.4) Create a dotchart which will display values of flipper length for each species.</p>
+<p>1.5.1) Create a scatter plot which will display bill lengths in relationship to bill depths with species denoted by different colors.</p>
+<p>1.5.2) Rename x and y axis to <code>Bill Length (mm)</code> and <code>Bill Depth (mm)</code>, and legend title to <code>Species</code>.</p>
+<p>1.5.3) Change the plot theme to either <code>theme_bw()</code> or <code>theme_classic()</code>.</p>
+<p>1.5.4) Export the plot to your computer in high resolution and save it as <code>penguins_scatter.png</code>.</p>
+<p>Expected outputs of the exercises shown below:</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-22-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Did you get the following warnings after running the <code>ggplot</code> commands?</p>
+<p><code>Removed 2 rows containing non-finite values (stat_boxplot()).</code> <code>Removed 2 rows containing missing values (geom_point()).</code></p>
+<p>What do they mean?</p>
+</div>
+</div>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>2.1) Import the dataset you downloaded from the internet in the previous lab.</p>
+<p>2.2) Create new columns in which character data will be treated as factors by R.</p>
+<p>2.3) Choose one numerical variable and create a boxplot. Divide that boxplot by different groups if it makes sense. change the names of axis titles and change the default theme.</p>
+<p>2.4) Choose one numerical variable and create a dotchart. Divide that dotchart by different groups if it makes sense.</p>
+<p>2.5) If there are two numerical columns in you data, create a scatter plot. Color points according to different groups if it makes sense, change the names of axis titles and change the default theme.</p>
+</div>
+</div>
+<section id="until-the-end-of-the-class-or-homework" class="level3">
+<h3 class="anchored" data-anchor-id="until-the-end-of-the-class-or-homework">Until the end of the class or homework</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Ass_4.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Datacamp assignment, Lab 4</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="mandatory-reading-before-next-class" class="level2">
+<h2 class="anchored" data-anchor-id="mandatory-reading-before-next-class">Mandatory reading before next class</h2>
+<p>(on e-classroom)</p>
+<p>Dytham, 2011, Choosing and using statistics for biologists:</p>
+<p><strong>Chapter 5</strong>: Statistics, variables and distributions <strong>Chapter 6</strong>: Descriptive and presentational techniques</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

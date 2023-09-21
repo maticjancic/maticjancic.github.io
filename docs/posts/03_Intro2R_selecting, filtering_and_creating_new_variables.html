@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-09-15">
+<meta name="description" content="Advanced Topics in Conservation Biology, Lab 3">
+
+<title>Matic Jančič: Teaching portfolio - Selecting, filtering and creating new variables in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Selecting, filtering and creating new variables in R</h1>
+                  <div>
+        <div class="description">
+          Advanced Topics in Conservation Biology, Lab 3
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Introduction to R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 15, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#import-iris-dataset" id="toc-import-iris-dataset" class="nav-link active" data-scroll-target="#import-iris-dataset">Import <code>iris</code> dataset</a></li>
+  <li><a href="#selecting-and-filtering-dataframes" id="toc-selecting-and-filtering-dataframes" class="nav-link" data-scroll-target="#selecting-and-filtering-dataframes">Selecting and filtering dataframes</a>
+  <ul class="collapse">
+  <li><a href="#base-r" id="toc-base-r" class="nav-link" data-scroll-target="#base-r">Base R</a></li>
+  <li><a href="#dplyr-r-package" id="toc-dplyr-r-package" class="nav-link" data-scroll-target="#dplyr-r-package">Dplyr R package</a></li>
+  </ul></li>
+  <li><a href="#creating-new-variables-in-r" id="toc-creating-new-variables-in-r" class="nav-link" data-scroll-target="#creating-new-variables-in-r">Creating new variables in R</a></li>
+  <li><a href="#exporting-datasets" id="toc-exporting-datasets" class="nav-link" data-scroll-target="#exporting-datasets">Exporting datasets</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#until-the-end-of-the-class-or-homework" id="toc-until-the-end-of-the-class-or-homework" class="nav-link" data-scroll-target="#until-the-end-of-the-class-or-homework">Until the end of the class or homework</a></li>
+  </ul></li>
+  <li><a href="#mandatory-reading-before-next-class" id="toc-mandatory-reading-before-next-class" class="nav-link" data-scroll-target="#mandatory-reading-before-next-class">Mandatory reading before next class</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+<style type="text/css">
+pre {
+  max-height: 250px; # limits code output to 250 px and make it scrolable
+  overflow-y: auto;
+}
+</style>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this lab you will learn how to:</p>
+<ul>
+<li>filter and select data frames using <code>base</code> R and <code>dplyr</code> package,</li>
+<li>create new variables in your dataframes using <code>base</code> R and <code>dplyr</code>,</li>
+<li>export data frames to <code>.txt</code> and <code>.csv</code>.</li>
+</ul>
+</div>
+</div>
+<section id="import-iris-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="import-iris-dataset">Import <code>iris</code> dataset</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Start the <strong>RStudio from the R project icon</strong> that you created in the previous lab!</p>
+</div>
+</div>
+<p>To be sure that the working directory is set to your project folder, use the get <code>getwd()</code> function. The result should end with <code>.../My first R project</code> (if you followed instructions in the second lab).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/MaticFAMNIT/OneDrive - UPR/05_Side job/01_01_maticjancic.github.io/posts"</code></pre>
+</div>
+</div>
+<p>Import the dataset, assign it to an object called <code>iris</code> and inspect that it was loaded correctly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"01_data/iris.csv"</span>) </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal_Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal_Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal_Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="selecting-and-filtering-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-and-filtering-dataframes">Selecting and filtering dataframes</h2>
+<p>Everything in R can be done in multiple ways. We will look at how to filter and select parts of the data, how to create new variables and how to export our data. All of these are commonly used approaches, that you will use in the following exercises and also other classes. I will show you how to use <code class="sourceCode r">base R</code> functions and functions from <code class="sourceCode r">dplyr</code> package. Note, that there are some other packages and approaches, that can be used, each having its benefits and drawbacks (i.e.&nbsp;<code class="sourceCode r">data.table</code> package).</p>
+<section id="base-r" class="level3">
+<h3 class="anchored" data-anchor-id="base-r">Base R</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What does base R mean?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When we install R to our computers, we “only” get access to some functionalities that are available within R framework - this is called base R. The reason for this is, that there are so many available “tools/add-ons”, of which individual user doesn’t need a vast majority. Additional functionalities can be added easily and tailored to individual needs.</p>
+</div>
+</div>
+<p>For selecting a single column from a dataframe using <code class="sourceCode r">base R</code> we use the <code class="sourceCode r"><span class="sc">$</span></code> sign. Before <code class="sourceCode r"><span class="sc">$</span></code> sign we write the name of data object we want to select from, after <code class="sourceCode r"><span class="sc">$</span></code> sign the name of column we want to select. From the imported data frame, we would like to take only the values of <code class="sourceCode r">Petal_Length</code>. By doing this, R simply prints the values in the console:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal_Length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
+ [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
+ [37] 1.3 1.4 1.3 1.5 1.3 1.3 1.3 1.6 1.9 1.4 1.6 1.4 1.5 1.4 4.7 4.5 4.9 4.0
+ [55] 4.6 4.5 4.7 3.3 4.6 3.9 3.5 4.2 4.0 4.7 3.6 4.4 4.5 4.1 4.5 3.9 4.8 4.0
+ [73] 4.9 4.7 4.3 4.4 4.8 5.0 4.5 3.5 3.8 3.7 3.9 5.1 4.5 4.5 4.7 4.4 4.1 4.0
+ [91] 4.4 4.6 4.0 3.3 4.2 4.2 4.2 4.3 3.0 4.1 6.0 5.1 5.9 5.6 5.8 6.6 4.5 6.3
+[109] 5.8 6.1 5.1 5.3 5.5 5.0 5.1 5.3 5.5 6.7 6.9 5.0 5.7 4.9 6.7 4.9 5.7 6.0
+[127] 4.8 4.9 5.6 5.8 6.1 6.4 5.6 5.1 5.6 6.1 5.6 5.5 4.8 5.4 5.6 5.1 5.1 5.9
+[145] 5.7 5.2 5.0 5.2 5.4 5.1</code></pre>
+</div>
+</div>
+<p>Alternative way is to use square brackets - <code class="sourceCode r">[ , ]</code>. Comma in the brackets separates filtering by rows (left) and columns (right). For column <code class="sourceCode r">Petal_Length</code> we specify its position in a dataframe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>iris[,<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
+ [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
+ [37] 1.3 1.4 1.3 1.5 1.3 1.3 1.3 1.6 1.9 1.4 1.6 1.4 1.5 1.4 4.7 4.5 4.9 4.0
+ [55] 4.6 4.5 4.7 3.3 4.6 3.9 3.5 4.2 4.0 4.7 3.6 4.4 4.5 4.1 4.5 3.9 4.8 4.0
+ [73] 4.9 4.7 4.3 4.4 4.8 5.0 4.5 3.5 3.8 3.7 3.9 5.1 4.5 4.5 4.7 4.4 4.1 4.0
+ [91] 4.4 4.6 4.0 3.3 4.2 4.2 4.2 4.3 3.0 4.1 6.0 5.1 5.9 5.6 5.8 6.6 4.5 6.3
+[109] 5.8 6.1 5.1 5.3 5.5 5.0 5.1 5.3 5.5 6.7 6.9 5.0 5.7 4.9 6.7 4.9 5.7 6.0
+[127] 4.8 4.9 5.6 5.8 6.1 6.4 5.6 5.1 5.6 6.1 5.6 5.5 4.8 5.4 5.6 5.1 5.1 5.9
+[145] 5.7 5.2 5.0 5.2 5.4 5.1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If for filtering we use the number of column, the results might change if the input data changes! In case you change your <code>.csv</code> file on the hard-drive, and the third column now contains another variable, R will take the third column and not column with <code class="sourceCode r">Petal_Length</code>, as it doesn’t care for the changes you made and you might not notice that. However, this can (will) have effect on the subsequent analysis, if it depends on this particular filtering operation.</p>
+</div>
+</div>
+<hr>
+<p>To filter out specific values of one column using <code class="sourceCode r">base R</code> we use square brackets - <code class="sourceCode r">[ , ]</code> and specify a column with the <code class="sourceCode r"><span class="sc">$</span></code> and an expression for filtering. All of this must be <strong>on the left side of the comma</strong>! For example, if we would like to filter out all rows with <code class="sourceCode r">Petal_width</code> smaller than 0.2 cm:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span>,] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+10          4.9         3.1          1.5         0.1  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+33          5.2         4.1          1.5         0.1  setosa
+38          4.9         3.6          1.4         0.1  setosa</code></pre>
+</div>
+</div>
+<p>We can also combine two conditions for filtering (<em>AND</em> or <em>OR</em>). For two conditions to apply at the same time we use <em>AND</em> operator - <code class="sourceCode r"><span class="sc">&amp;</span></code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">&gt;</span> <span class="fl">4.8</span>,] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+10          4.9         3.1          1.5         0.1  setosa
+33          5.2         4.1          1.5         0.1  setosa
+38          4.9         3.6          1.4         0.1  setosa</code></pre>
+</div>
+</div>
+<p>To apply one <strong>OR</strong> the other condition, we use OR operator <code class="sourceCode r"><span class="sc">|</span></code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">|</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">&gt;</span> <span class="fl">7.6</span>, ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
+10           4.9         3.1          1.5         0.1    setosa
+13           4.8         3.0          1.4         0.1    setosa
+14           4.3         3.0          1.1         0.1    setosa
+33           5.2         4.1          1.5         0.1    setosa
+38           4.9         3.6          1.4         0.1    setosa
+118          7.7         3.8          6.7         2.2 virginica
+119          7.7         2.6          6.9         2.3 virginica
+123          7.7         2.8          6.7         2.0 virginica
+132          7.9         3.8          6.4         2.0 virginica
+136          7.7         3.0          6.1         2.3 virginica</code></pre>
+</div>
+</div>
+<p>In both cases, the whole expression must be written on the <strong>left side of the comma </strong> to work.</p>
+<p>Sometimes we want to filter based on a specific word. In our case, maybe only one of the three species. We use double equal sign and write the word precisely as it is in our dataframe, included within the quotes. With the <code class="sourceCode r"><span class="sc">$</span></code> we tell R in which column it should look for the word:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">"virginica"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
+101          6.3         3.3          6.0         2.5 virginica
+102          5.8         2.7          5.1         1.9 virginica
+103          7.1         3.0          5.9         2.1 virginica
+104          6.3         2.9          5.6         1.8 virginica
+105          6.5         3.0          5.8         2.2 virginica
+106          7.6         3.0          6.6         2.1 virginica
+107          4.9         2.5          4.5         1.7 virginica
+108          7.3         2.9          6.3         1.8 virginica
+109          6.7         2.5          5.8         1.8 virginica
+110          7.2         3.6          6.1         2.5 virginica
+111          6.5         3.2          5.1         2.0 virginica
+112          6.4         2.7          5.3         1.9 virginica
+113          6.8         3.0          5.5         2.1 virginica
+114          5.7         2.5          5.0         2.0 virginica
+115          5.8         2.8          5.1         2.4 virginica
+116          6.4         3.2          5.3         2.3 virginica
+117          6.5         3.0          5.5         1.8 virginica
+118          7.7         3.8          6.7         2.2 virginica
+119          7.7         2.6          6.9         2.3 virginica
+120          6.0         2.2          5.0         1.5 virginica
+121          6.9         3.2          5.7         2.3 virginica
+122          5.6         2.8          4.9         2.0 virginica
+123          7.7         2.8          6.7         2.0 virginica
+124          6.3         2.7          4.9         1.8 virginica
+125          6.7         3.3          5.7         2.1 virginica
+126          7.2         3.2          6.0         1.8 virginica
+127          6.2         2.8          4.8         1.8 virginica
+128          6.1         3.0          4.9         1.8 virginica
+129          6.4         2.8          5.6         2.1 virginica
+130          7.2         3.0          5.8         1.6 virginica
+131          7.4         2.8          6.1         1.9 virginica
+132          7.9         3.8          6.4         2.0 virginica
+133          6.4         2.8          5.6         2.2 virginica
+134          6.3         2.8          5.1         1.5 virginica
+135          6.1         2.6          5.6         1.4 virginica
+136          7.7         3.0          6.1         2.3 virginica
+137          6.3         3.4          5.6         2.4 virginica
+138          6.4         3.1          5.5         1.8 virginica
+139          6.0         3.0          4.8         1.8 virginica
+140          6.9         3.1          5.4         2.1 virginica
+141          6.7         3.1          5.6         2.4 virginica
+142          6.9         3.1          5.1         2.3 virginica
+143          5.8         2.7          5.1         1.9 virginica
+144          6.8         3.2          5.9         2.3 virginica
+145          6.7         3.3          5.7         2.5 virginica
+146          6.7         3.0          5.2         2.3 virginica
+147          6.3         2.5          5.0         1.9 virginica
+148          6.5         3.0          5.2         2.0 virginica
+149          6.2         3.4          5.4         2.3 virginica
+150          5.9         3.0          5.1         1.8 virginica</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="dplyr-r-package" class="level3">
+<h3 class="anchored" data-anchor-id="dplyr-r-package">Dplyr R package</h3>
+<p>One alternative to do all of the above is to use <code class="sourceCode r">dplyr</code> package, which is more intuitive to use. It cannot be applied to all data types, but works perfectly with the tidy data frames. It does not come with the base R, so we need to install and load it.</p>
+<p>In R, we install a package using <code class="sourceCode r"><span class="fu">install.packages</span>()</code> function <strong>with the name of the package in quotation marks within the parenthesis</strong>. This (should) automatically download and install the package. We need to load the package each time that we start or restart R or RStudio. This is done with <code class="sourceCode r"><span class="fu">library</span>()</code> function <strong>with the name of package without quotation marks in the parenthesis</strong>. Each package comes with a document in which all important information are available, example for <code class="sourceCode r">dplyr</code> can be accessed <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">here</a>. More popular packages usually have informative “cheat sheets” as well (<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">here</a>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To add new functionalities to base R, we need to install R packages from the internet (imagine R package as an add-on or extension of the base installation). <u>Installation needs to be done only once, before the first use of the package!</u></p>
+<p>However, installing the package does not make it available for use. Again, not all packages are needed all the time so we have to <u>load the package each time we restart R or RStudio to be able to use it!</u></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you encounter the following error: <code>Error in ... : could not find function "..."</code>, the most likely reason is that you have not run the <code>library</code> function, to make the package available within your current R session!</p>
+</div>
+</div>
+<p>For <strong>selecting</strong> a single column from a dataframe we use <code class="sourceCode r"><span class="fu">select</span>()</code> function which takes two arguments: the name of data object we want to select from and the name of column we want to select. With <code class="sourceCode r"><span class="fu">select</span>()</code> function <strong>we can choose multiple columns and also rename them inside a single command</strong>. Same example as above, taking only the values of <code class="sourceCode r">Petal_Length</code> from <code class="sourceCode r">iris</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(iris, Petal_Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Petal_Length
+1            1.4
+2            1.4
+3            1.3
+4            1.5
+5            1.4
+6            1.7
+7            1.4
+8            1.5
+9            1.4
+10           1.5
+11           1.5
+12           1.6
+13           1.4
+14           1.1
+15           1.2
+16           1.5
+17           1.3
+18           1.4
+19           1.7
+20           1.5
+21           1.7
+22           1.5
+23           1.0
+24           1.7
+25           1.9
+26           1.6
+27           1.6
+28           1.5
+29           1.4
+30           1.6
+31           1.6
+32           1.5
+33           1.5
+34           1.4
+35           1.5
+36           1.2
+37           1.3
+38           1.4
+39           1.3
+40           1.5
+41           1.3
+42           1.3
+43           1.3
+44           1.6
+45           1.9
+46           1.4
+47           1.6
+48           1.4
+49           1.5
+50           1.4
+51           4.7
+52           4.5
+53           4.9
+54           4.0
+55           4.6
+56           4.5
+57           4.7
+58           3.3
+59           4.6
+60           3.9
+61           3.5
+62           4.2
+63           4.0
+64           4.7
+65           3.6
+66           4.4
+67           4.5
+68           4.1
+69           4.5
+70           3.9
+71           4.8
+72           4.0
+73           4.9
+74           4.7
+75           4.3
+76           4.4
+77           4.8
+78           5.0
+79           4.5
+80           3.5
+81           3.8
+82           3.7
+83           3.9
+84           5.1
+85           4.5
+86           4.5
+87           4.7
+88           4.4
+89           4.1
+90           4.0
+91           4.4
+92           4.6
+93           4.0
+94           3.3
+95           4.2
+96           4.2
+97           4.2
+98           4.3
+99           3.0
+100          4.1
+101          6.0
+102          5.1
+103          5.9
+104          5.6
+105          5.8
+106          6.6
+107          4.5
+108          6.3
+109          5.8
+110          6.1
+111          5.1
+112          5.3
+113          5.5
+114          5.0
+115          5.1
+116          5.3
+117          5.5
+118          6.7
+119          6.9
+120          5.0
+121          5.7
+122          4.9
+123          6.7
+124          4.9
+125          5.7
+126          6.0
+127          4.8
+128          4.9
+129          5.6
+130          5.8
+131          6.1
+132          6.4
+133          5.6
+134          5.1
+135          5.6
+136          6.1
+137          5.6
+138          5.5
+139          4.8
+140          5.4
+141          5.6
+142          5.1
+143          5.1
+144          5.9
+145          5.7
+146          5.2
+147          5.0
+148          5.2
+149          5.4
+150          5.1</code></pre>
+</div>
+</div>
+<p>For <strong>filtering</strong> by row values we use <code class="sourceCode r"><span class="fu">filter</span>()</code> function which also takes two arguments: the name of data object we want to select from and the expression based on which we want to filter. Same example as above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+1          4.9         3.1          1.5         0.1  setosa
+2          4.8         3.0          1.4         0.1  setosa
+3          4.3         3.0          1.1         0.1  setosa
+4          5.2         4.1          1.5         0.1  setosa
+5          4.9         3.6          1.4         0.1  setosa</code></pre>
+</div>
+</div>
+<p>And combine two conditions within the select, same examples as above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> Sepal_Length <span class="sc">&gt;</span> <span class="fl">4.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+1          4.9         3.1          1.5         0.1  setosa
+2          5.2         4.1          1.5         0.1  setosa
+3          4.9         3.6          1.4         0.1  setosa</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">|</span> Sepal_Length <span class="sc">&gt;</span> <span class="fl">7.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
+1           4.9         3.1          1.5         0.1    setosa
+2           4.8         3.0          1.4         0.1    setosa
+3           4.3         3.0          1.1         0.1    setosa
+4           5.2         4.1          1.5         0.1    setosa
+5           4.9         3.6          1.4         0.1    setosa
+6           7.7         3.8          6.7         2.2 virginica
+7           7.7         2.6          6.9         2.3 virginica
+8           7.7         2.8          6.7         2.0 virginica
+9           7.9         3.8          6.4         2.0 virginica
+10          7.7         3.0          6.1         2.3 virginica</code></pre>
+</div>
+</div>
+<p>Next, filtering by word, same example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"virginica"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
+1           6.3         3.3          6.0         2.5 virginica
+2           5.8         2.7          5.1         1.9 virginica
+3           7.1         3.0          5.9         2.1 virginica
+4           6.3         2.9          5.6         1.8 virginica
+5           6.5         3.0          5.8         2.2 virginica
+6           7.6         3.0          6.6         2.1 virginica
+7           4.9         2.5          4.5         1.7 virginica
+8           7.3         2.9          6.3         1.8 virginica
+9           6.7         2.5          5.8         1.8 virginica
+10          7.2         3.6          6.1         2.5 virginica
+11          6.5         3.2          5.1         2.0 virginica
+12          6.4         2.7          5.3         1.9 virginica
+13          6.8         3.0          5.5         2.1 virginica
+14          5.7         2.5          5.0         2.0 virginica
+15          5.8         2.8          5.1         2.4 virginica
+16          6.4         3.2          5.3         2.3 virginica
+17          6.5         3.0          5.5         1.8 virginica
+18          7.7         3.8          6.7         2.2 virginica
+19          7.7         2.6          6.9         2.3 virginica
+20          6.0         2.2          5.0         1.5 virginica
+21          6.9         3.2          5.7         2.3 virginica
+22          5.6         2.8          4.9         2.0 virginica
+23          7.7         2.8          6.7         2.0 virginica
+24          6.3         2.7          4.9         1.8 virginica
+25          6.7         3.3          5.7         2.1 virginica
+26          7.2         3.2          6.0         1.8 virginica
+27          6.2         2.8          4.8         1.8 virginica
+28          6.1         3.0          4.9         1.8 virginica
+29          6.4         2.8          5.6         2.1 virginica
+30          7.2         3.0          5.8         1.6 virginica
+31          7.4         2.8          6.1         1.9 virginica
+32          7.9         3.8          6.4         2.0 virginica
+33          6.4         2.8          5.6         2.2 virginica
+34          6.3         2.8          5.1         1.5 virginica
+35          6.1         2.6          5.6         1.4 virginica
+36          7.7         3.0          6.1         2.3 virginica
+37          6.3         3.4          5.6         2.4 virginica
+38          6.4         3.1          5.5         1.8 virginica
+39          6.0         3.0          4.8         1.8 virginica
+40          6.9         3.1          5.4         2.1 virginica
+41          6.7         3.1          5.6         2.4 virginica
+42          6.9         3.1          5.1         2.3 virginica
+43          5.8         2.7          5.1         1.9 virginica
+44          6.8         3.2          5.9         2.3 virginica
+45          6.7         3.3          5.7         2.5 virginica
+46          6.7         3.0          5.2         2.3 virginica
+47          6.3         2.5          5.0         1.9 virginica
+48          6.5         3.0          5.2         2.0 virginica
+49          6.2         3.4          5.4         2.3 virginica
+50          5.9         3.0          5.1         1.8 virginica</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questions to consider
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Did you notice any difference between outputs after using the same operations in base R and dplyr?</li>
+<li>What is an R package? How do you access and use its functionalities?</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="creating-new-variables-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="creating-new-variables-in-r">Creating new variables in R</h2>
+<p>With the <code class="sourceCode r"><span class="sc">$</span></code> we can also create and assign new variables to our data frame. Before the assign operator we specify the name of the new variable (must not be the same as existing column names, otherwise it will overwrite one existing column). After the assign operator we specify what we want to be stored in this new variable. For example, we can calculate the ratio between <code class="sourceCode r">Sepal_Length</code> and <code class="sourceCode r">Sepal_Width</code>. R will go from row to row, calculate the ratio and store it in the same row of the new column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>ratio <span class="ot">&lt;-</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">/</span> iris<span class="sc">$</span>Sepal_Width</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sepal_Length" "Sepal_Width"  "Petal_Length" "Petal_Width"  "Species"     
+[6] "ratio"       </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  6 variables:
+ $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal_Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal_Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal_Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...
+ $ ratio       : num  1.46 1.63 1.47 1.48 1.39 ...</code></pre>
+</div>
+</div>
+<p>For creating new variables, we use <code class="sourceCode r"><span class="fu">mutate</span>()</code> function which also takes two arguments: the name of data object we want to select from and the name of the new variable followed by the expression, based on which the variable will be created. Same example as above, just choosing a different column name:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">mutate</span>(iris, <span class="at">ratio2 =</span> Sepal_Length <span class="sc">/</span> Sepal_Width)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sepal_Length" "Sepal_Width"  "Petal_Length" "Petal_Width"  "Species"     
+[6] "ratio"        "ratio2"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)      </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  7 variables:
+ $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal_Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal_Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal_Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...
+ $ ratio       : num  1.46 1.63 1.47 1.48 1.39 ...
+ $ ratio2      : num  1.46 1.63 1.47 1.48 1.39 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="exporting-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="exporting-datasets">Exporting datasets</h2>
+<p>Opposite to importing files with <code class="sourceCode r">read</code> functions, we export files with corresponding <code class="sourceCode r">write</code> functions. For exporting to <code class="sourceCode r">.csv</code> file, we use <code class="sourceCode r"><span class="fu">write.csv</span>()</code> and for <code class="sourceCode r">.txt</code> file <code class="sourceCode r"><span class="fu">write.table</span>()</code>. Both have two arguments, first is <code class="sourceCode r">x</code>, which is the R object we want to export (in our case <code class="sourceCode r">iris</code>) and the other <code class="sourceCode r">file</code>, the name of the file that will be created on computers hard drive, in our case <code class="sourceCode r">“iris_new.csv<span class="st">"</span></code>. Adding prefix <code>"01_data/..."</code> will save it to that particular folder within our working directory.The argument <code>rownames = FALSE</code> will prevent R to add a column with row names, that would contain consecutive numbers starting from 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> iris, <span class="at">file =</span> <span class="st">"01_data/iris_new.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(<span class="at">x =</span> iris, <span class="at">file =</span> <span class="st">"01_data/iris_new.txt"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check your R project directory on the hard drive, if the two files are indeed there.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u>Read the instructions carefully. If you don’t understand something or something doesn’t work straight away, first think about the problem/error, consult the materials in front of you, than google, than the neighbor on your left and on your right. If after all that you still don’t know how to fix the problem or proceed, than ask me for help!</u></p>
+<hr>
+<p>1.1) Import the <code>penguins</code> dataset and check if the file was correctly imported (344 observations, 8 variables) adjust the code if needed.</p>
+<p>1.2) Inspect the dataset and figure which penguin species are included and on which islands they were monitored in the dataset?</p>
+<p>1.3) Using base R, filter the dataset to contain only penguins with <code>bill_length_mm</code> less than 17.3.</p>
+<p>1.4) Using base R, filter the dataset to contain only all penguins from Dream island in 2008. Were all three species recorded there that year?</p>
+<p>1.5) Using dplyr, filter the dataset to contain only penguins with <code>flipper_length_mm</code> more than 213.</p>
+<p>1.6) Using dplyr, filter the dataset to contain only penguin <code>female</code> penguins from <code>Biscoe</code> island.</p>
+<p>1.7) Using base R, create a new column in which you calculate the <strong>ratio</strong> of bill length to bill depth.</p>
+<p>1.8) Using dplyr, create a new column in which body mass will be expressed in kilograms instead of grams (<code>body_mass_g</code>).</p>
+<p>1.9) Export the dataframe with two new columns as a <code class="sourceCode r">penguins_new.txt</code> file.</p>
+<hr>
+<p>2.1) Import the dataset you downloaded from the internet in the previous lab.</p>
+<p>2.2) Using base R and dplyr, perform four sensible filtering and/or selecting operations.</p>
+<p>2.3) In case your data has two or more numerical columns, create one new column using mathematical operation on two other columns of your choice by both base R and dplyr.</p>
+<p>2.4) In case your data has only one column with numerical data, calculate a new column as a square root or squared value of the numerical column.</p>
+<p>2.5) export your dataset with new columns in a format of your choice.</p>
+</div>
+</div>
+<section id="until-the-end-of-the-class-or-homework" class="level3">
+<h3 class="anchored" data-anchor-id="until-the-end-of-the-class-or-homework">Until the end of the class or homework</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Ass_3.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Datacamp assignment, Lab 3</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="mandatory-reading-before-next-class" class="level2">
+<h2 class="anchored" data-anchor-id="mandatory-reading-before-next-class">Mandatory reading before next class</h2>
+<p>(on e-classroom)</p>
+<p>Zuur, Ieno &amp; Elphick, 2010, A protocol for data exploration to avoid common statistical problems</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
