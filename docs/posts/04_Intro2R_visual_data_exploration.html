@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2023-09-18">
 <meta name="description" content="Advanced Topics in Conservation Biology, Lab 4">
 
-<title>Matic Jančič: Teaching portfolio - Graphical data exploration in R</title>
+<title>Matic Jančič: Teaching portfolio - GRAPHICAL DATA EXPLORATION IN R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -161,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Graphical data exploration in R</h1>
+      <h1 class="title">GRAPHICAL DATA EXPLORATION IN R</h1>
                   <div>
         <div class="description">
           Advanced Topics in Conservation Biology, Lab 4
@@ -688,7 +688,7 @@ Note
 <section id="changing-plot-elements-and-design" class="level2">
 <h2 class="anchored" data-anchor-id="changing-plot-elements-and-design">Changing plot elements and design</h2>
 <p>We will continue with just a bit of “polishing” to make plots more suitable for scientific/professional publications (including your masters thesis). We will extend the scatter plot, where the iris species were denoted by color. Remember, to add another commands to <code>ggplots</code> we simply continue the last line with the <code class="sourceCode r"><span class="sc">+</span></code> sign.</p>
-<p>First we will change the annotation of x and y - axis with <code class="sourceCode r"><span class="fu">xlab</span>()</code> and <code class="sourceCode r"><span class="fu">ylab</span>()</code> functions. Inside the brackets we will define the name of the axis - <code class="sourceCode r"><span class="st">"Fish length (cm)"</span></code>. Remember that character strings must be included in quotations <code class="sourceCode r"><span class="st">""</span></code>. As our variable is continuous number that cannot be lower than zero, we will set the begging of the y axis at 0. We do this by setting the limits of the axis with <code class="sourceCode r"><span class="fu">ylim</span>()</code>:</p>
+<p>First we will change the annotation of x and y - axis with <code class="sourceCode r"><span class="fu">xlab</span>()</code> and <code class="sourceCode r"><span class="fu">ylab</span>()</code> functions. Inside the brackets we will define the name of the axis - <code class="sourceCode r"><span class="st">"Sepal Length (cm)"</span></code> and <code>"Sepal Width (cm)"</code>. Remember that character strings must be included in quotations <code class="sourceCode r"><span class="st">""</span></code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
@@ -700,7 +700,7 @@ Note
 <p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Legend title</p>
+<p>We can also change the legend title, which now includes the <code>_f</code>. To do that, we can use <code>labs()</code> function in which we tell R that the name of the variable that we are using to color the points is <code>Species</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
