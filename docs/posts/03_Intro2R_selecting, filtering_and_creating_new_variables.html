@@ -268,15 +268,12 @@ Task
 <p>To be sure that the working directory is set to your project folder, use the get <code>getwd()</code> function. The result should end with <code>.../My first R project</code> (if you followed instructions in the second lab).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "C:/Users/MaticFAMNIT/OneDrive - UPR/05_Side job/01_01_maticjancic.github.io/posts"</code></pre>
-</div>
 </div>
 <p>Import the dataset, assign it to an object called <code>iris</code> and inspect that it was loaded correctly:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"01_data/iris.csv"</span>) </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"01_data/iris.csv"</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -286,7 +283,7 @@ Task
 5          5.0         3.6          1.4         0.2  setosa
 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   150 obs. of  5 variables:
  $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -318,7 +315,7 @@ What does base R mean?
 </div>
 <p>For selecting a single column from a dataframe using <code class="sourceCode r">base R</code> we use the <code class="sourceCode r"><span class="sc">$</span></code> sign. Before <code class="sourceCode r"><span class="sc">$</span></code> sign we write the name of data object we want to select from, after <code class="sourceCode r"><span class="sc">$</span></code> sign the name of column we want to select. From the imported data frame, we would like to take only the values of <code class="sourceCode r">Petal_Length</code>. By doing this, R simply prints the values in the console:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal_Length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal_Length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
  [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
@@ -333,7 +330,7 @@ What does base R mean?
 </div>
 <p>Alternative way is to use square brackets - <code class="sourceCode r">[ , ]</code>. Comma in the brackets separates filtering by rows (left) and columns (right). For column <code class="sourceCode r">Petal_Length</code> we specify its position in a dataframe.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>iris[,<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris[,<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3 1.4
  [19] 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4 1.5 1.2
@@ -362,7 +359,7 @@ Warning
 <hr>
 <p>To filter out specific values of one column using <code class="sourceCode r">base R</code> we use square brackets - <code class="sourceCode r">[ , ]</code> and specify a column with the <code class="sourceCode r"><span class="sc">$</span></code> and an expression for filtering. All of this must be <strong>on the left side of the comma</strong>! For example, if we would like to filter out all rows with <code class="sourceCode r">Petal_width</code> smaller than 0.2 cm:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span>,] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span>,] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
 10          4.9         3.1          1.5         0.1  setosa
@@ -374,7 +371,7 @@ Warning
 </div>
 <p>We can also combine two conditions for filtering (<em>AND</em> or <em>OR</em>). For two conditions to apply at the same time we use <em>AND</em> operator - <code class="sourceCode r"><span class="sc">&amp;</span></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">&gt;</span> <span class="fl">4.8</span>,] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">&gt;</span> <span class="fl">4.8</span>,] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
 10          4.9         3.1          1.5         0.1  setosa
@@ -384,7 +381,7 @@ Warning
 </div>
 <p>To apply one <strong>OR</strong> the other condition, we use OR operator <code class="sourceCode r"><span class="sc">|</span></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">|</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">&gt;</span> <span class="fl">7.6</span>, ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">|</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">&gt;</span> <span class="fl">7.6</span>, ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
 10           4.9         3.1          1.5         0.1    setosa
@@ -402,7 +399,7 @@ Warning
 <p>In both cases, the whole expression must be written on the <strong>left side of the comma </strong> to work.</p>
 <p>Sometimes we want to filter based on a specific word. In our case, maybe only one of the three species. We use double equal sign and write the word precisely as it is in our dataframe, included within the quotes. With the <code class="sourceCode r"><span class="sc">$</span></code> we tell R in which column it should look for the word:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">"virginica"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>iris[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">"virginica"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
 101          6.3         3.3          6.0         2.5 virginica
@@ -478,10 +475,10 @@ Packages
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -498,7 +495,7 @@ Tip
 </div>
 <p>For <strong>selecting</strong> a single column from a dataframe we use <code class="sourceCode r"><span class="fu">select</span>()</code> function which takes two arguments: the name of data object we want to select from and the name of column we want to select. With <code class="sourceCode r"><span class="fu">select</span>()</code> function <strong>we can choose multiple columns and also rename them inside a single command</strong>. Same example as above, taking only the values of <code class="sourceCode r">Petal_Length</code> from <code class="sourceCode r">iris</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(iris, Petal_Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(iris, Petal_Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Petal_Length
 1            1.4
@@ -655,7 +652,7 @@ Tip
 </div>
 <p>For <strong>filtering</strong> by row values we use <code class="sourceCode r"><span class="fu">filter</span>()</code> function which also takes two arguments: the name of data object we want to select from and the expression based on which we want to filter. Same example as above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
 1          4.9         3.1          1.5         0.1  setosa
@@ -667,7 +664,7 @@ Tip
 </div>
 <p>And combine two conditions within the select, same examples as above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> Sepal_Length <span class="sc">&gt;</span> <span class="fl">4.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> Sepal_Length <span class="sc">&gt;</span> <span class="fl">4.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal_Length Sepal_Width Petal_Length Petal_Width Species
 1          4.9         3.1          1.5         0.1  setosa
@@ -676,7 +673,7 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">|</span> Sepal_Length <span class="sc">&gt;</span> <span class="fl">7.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Petal_Width <span class="sc">&lt;</span> <span class="fl">0.2</span> <span class="sc">|</span> Sepal_Length <span class="sc">&gt;</span> <span class="fl">7.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
 1           4.9         3.1          1.5         0.1    setosa
@@ -693,7 +690,7 @@ Tip
 </div>
 <p>Next, filtering by word, same example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"virginica"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"virginica"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Sepal_Length Sepal_Width Petal_Length Petal_Width   Species
 1           6.3         3.3          6.0         2.5 virginica
@@ -771,14 +768,14 @@ Questions to consider
 <h2 class="anchored" data-anchor-id="creating-new-variables-in-r">Creating new variables in R</h2>
 <p>With the <code class="sourceCode r"><span class="sc">$</span></code> we can also create and assign new variables to our data frame. Before the assign operator we specify the name of the new variable (must not be the same as existing column names, otherwise it will overwrite one existing column). After the assign operator we specify what we want to be stored in this new variable. For example, we can calculate the ratio between <code class="sourceCode r">Sepal_Length</code> and <code class="sourceCode r">Sepal_Width</code>. R will go from row to row, calculate the ratio and store it in the same row of the new column:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>ratio <span class="ot">&lt;-</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">/</span> iris<span class="sc">$</span>Sepal_Width</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>ratio <span class="ot">&lt;-</span> iris<span class="sc">$</span>Sepal_Length <span class="sc">/</span> iris<span class="sc">$</span>Sepal_Width</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sepal_Length" "Sepal_Width"  "Petal_Length" "Petal_Width"  "Species"     
 [6] "ratio"       </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   150 obs. of  6 variables:
  $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -791,14 +788,14 @@ Questions to consider
 </div>
 <p>For creating new variables, we use <code class="sourceCode r"><span class="fu">mutate</span>()</code> function which also takes two arguments: the name of data object we want to select from and the name of the new variable followed by the expression, based on which the variable will be created. Same example as above, just choosing a different column name:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">mutate</span>(iris, <span class="at">ratio2 =</span> Sepal_Length <span class="sc">/</span> Sepal_Width)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">mutate</span>(iris, <span class="at">ratio2 =</span> Sepal_Length <span class="sc">/</span> Sepal_Width)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sepal_Length" "Sepal_Width"  "Petal_Length" "Petal_Width"  "Species"     
 [6] "ratio"        "ratio2"      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)      </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris)      </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   150 obs. of  7 variables:
  $ Sepal_Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
@@ -815,9 +812,9 @@ Questions to consider
 <h2 class="anchored" data-anchor-id="exporting-datasets">Exporting datasets</h2>
 <p>Opposite to importing files with <code class="sourceCode r">read</code> functions, we export files with corresponding <code class="sourceCode r">write</code> functions. For exporting to <code class="sourceCode r">.csv</code> file, we use <code class="sourceCode r"><span class="fu">write.csv</span>()</code> and for <code class="sourceCode r">.txt</code> file <code class="sourceCode r"><span class="fu">write.table</span>()</code>. Both have two arguments, first is <code class="sourceCode r">x</code>, which is the R object we want to export (in our case <code class="sourceCode r">iris</code>) and the other <code class="sourceCode r">file</code>, the name of the file that will be created on computers hard drive, in our case <code class="sourceCode r">“iris_new.csv<span class="st">"</span></code>. Adding prefix <code>"01_data/..."</code> will save it to that particular folder within our working directory.The argument <code>rownames = FALSE</code> will prevent R to add a column with row names, that would contain consecutive numbers starting from 1.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> iris, <span class="at">file =</span> <span class="st">"01_data/iris_new.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(<span class="at">x =</span> iris, <span class="at">file =</span> <span class="st">"01_data/iris_new.txt"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> iris, <span class="at">file =</span> <span class="st">"01_data/iris_new.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(<span class="at">x =</span> iris, <span class="at">file =</span> <span class="st">"01_data/iris_new.txt"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
