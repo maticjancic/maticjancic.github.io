@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič &amp; assist. prof. Peter Glasnović; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-09-05">
+
+<title>Matic Jančič: Teaching portfolio - Obtaining occurrences and creating pseudo-absences of species</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-binding-2.2.0.9000/leaflet.js"></script>
+<script src="../site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="../site_libs/leaflet-providers-plugin-2.2.0.9000/leaflet-providers-plugin.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Obtaining occurrences and creating pseudo-absences of species</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">INTRODUCTION TO SPECIES DISTRIBUTION MODELS IN R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič &amp; assist. prof. Peter Glasnović; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 5, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#before-we-start" id="toc-before-we-start" class="nav-link active" data-scroll-target="#before-we-start">Before we start</a></li>
+  <li><a href="#lab-plan" id="toc-lab-plan" class="nav-link" data-scroll-target="#lab-plan">Lab plan</a></li>
+  <li><a href="#occurence-data-for-distribution-models" id="toc-occurence-data-for-distribution-models" class="nav-link" data-scroll-target="#occurence-data-for-distribution-models">Occurence data for distribution models</a>
+  <ul class="collapse">
+  <li><a href="#map-occurences-with-leaflet-interactive-maps" id="toc-map-occurences-with-leaflet-interactive-maps" class="nav-link" data-scroll-target="#map-occurences-with-leaflet-interactive-maps">Map occurences with <code class="sourceCode r">leaflet</code> interactive maps</a></li>
+  </ul></li>
+  <li><a href="#absences-and-what-to-do-if-we-dont-have-them" id="toc-absences-and-what-to-do-if-we-dont-have-them" class="nav-link" data-scroll-target="#absences-and-what-to-do-if-we-dont-have-them">Absences and what to do if we don’t have them</a></li>
+  <li><a href="#finalising-presence-absence-datasets" id="toc-finalising-presence-absence-datasets" class="nav-link" data-scroll-target="#finalising-presence-absence-datasets">Finalising presence absence datasets</a></li>
+  <li><a href="#export-the-data" id="toc-export-the-data" class="nav-link" data-scroll-target="#export-the-data">Export the data</a></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this lab you will:</p>
+<ul>
+<li>use R code to access species occurrence data on GBIF server and download it,</li>
+<li>filter and select data to retain only information of interest,</li>
+<li>learn how to simulate pseudo-absence points in areas around species presences,</li>
+<li>create an interactive map of spatial points.</li>
+</ul>
+</div>
+</div>
+<section id="before-we-start" class="level2">
+<h2 class="anchored" data-anchor-id="before-we-start">Before we start</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Create new R project following <a href="https://maticjancic.github.io/posts/02_Intro2R_data_import_and_exploration.html">Lab 2 of Intro to R</a>, and name it <code>Introduction to species distribution models</code>,</p></li>
+<li><p>Create folders <code>01_data</code>, <code>02_scripts</code>, <code>03_results</code>,</p></li>
+<li><p>Open new R script and save it as <code>Erebia stirius</code>.</p></li>
+<li><p>When following this lab, copy &amp; paste the code so it is organised as it is in the teaching materials.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="lab-plan" class="level2">
+<h2 class="anchored" data-anchor-id="lab-plan">Lab plan</h2>
+<p><img src="05_images/Lab plan 1.jpg" class="img-fluid"></p>
+<hr>
+<p><img src="05_images/data _ env_space _ projection_1.png" class="img-fluid"></p>
+</section>
+<section id="occurence-data-for-distribution-models" class="level2">
+<h2 class="anchored" data-anchor-id="occurence-data-for-distribution-models">Occurence data for distribution models</h2>
+<p>Occurrences of organisms can be collected from multiple sources (see Guisan et al., 2017, pp.&nbsp;111):</p>
+<ul>
+<li>Field data,</li>
+<li>Tracking data,</li>
+<li>Literature data,</li>
+<li>Herbarium and museum data or</li>
+<li>Databases (that can contain all of the above).</li>
+</ul>
+<p>The <strong>minimum number of presences</strong> ought to be <strong>more than 30</strong> (as model performance declines severely, if fewer than), while sample size effects usually become less critical above 50 presences. Additionally, for more robust parameter estimation, a rule of thumb is to have a minimum of ten presence observations available per environmental variable used. Guisan et al.&nbsp;(2017) advises this <strong>minimum</strong> to be raised to <strong>20 - 50 observations per predictor</strong> (depending on the complexity of the models to be built).</p>
+<p>We will take advantage of obtaining occurrences provided by a global and freely accessible database <strong>Global Biodiversity Information Facility</strong> - <strong>GBIF</strong>. GBIF is an international network and data infrastructure funded by the world’s governments and aimed at providing anyone, anywhere, <strong>open access</strong> to data about all types of life on Earth. More about GBIF database you can find <a href="https://www.gbif.org/">here</a>.</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/GBIF.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">GBIF dataset website</figcaption>
+</figure>
+</div>
+</center>
+<p>Our lab will be focused on a butterfly species of <em>Erebia</em> genus:</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Stirius.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption"><em>E. stirius</em>.</figcaption>
+</figure>
+</div>
+</center>
+<ul>
+<li><em>Erebia stirius</em> - Stirian ringlet: endemic to the area between the SE Alps and the N Dinaric Alps, where it inhabits grassy, rocky slopes, between 700 and 1800 m. Caterpillars feed mainly on the grass species <em>Sesleria caerulea</em>. The species is listed as Least Concerned by the IUCN (<a href="https://www.iucnredlist.org/species/173210/6974555">link</a>)</li>
+</ul>
+<p><br></p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Stirius distribution.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption"><em>E. stirius</em> distribution.</figcaption>
+</figure>
+</div>
+</center>
+<p><br></p>
+<p>We will access the occurrence data straight from R with using <code class="sourceCode r"><span class="fu">occ_search</span>()</code> function from <code class="sourceCode r">rgbif</code> package to download the data from the portal. To do this for <em>E. stirius</em> we have to set argument <code class="sourceCode r">scientificName <span class="ot">=</span> <span class="st">"Erebia stirius"</span></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rgbif"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgbif)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># access data: Erebia stirius and assign it to object stirius_gbif</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>stirius_gbif <span class="ot">&lt;-</span> <span class="fu">occ_search</span>(<span class="at">scientificName =</span> <span class="st">"Erebia stirius"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># increase the default number of retrieved </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># locations to 1000 </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">limit =</span> <span class="dv">1000</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The downloaded dataset is a <code class="sourceCode r">list</code> from which we extract only <code class="sourceCode r">data</code> element with the <code class="sourceCode r"><span class="sc">$</span></code> sign:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> stirius_gbif<span class="sc">$</span>data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Click on the <code>stirius_gbif</code> and explore the dataframe. What are the columns that are useful to us and which do not seem important?</p>
+</div>
+</div>
+<p>When we examine the returned data frame, there are many columns, that seem to have no particular meaning for us. So we will select only those, that we might need for further investigation or use. For sure we need GPS coordinates (<code class="sourceCode r">decimalLatitude</code> and <code class="sourceCode r">decimalLongitude</code>) while along with that, we will extract the error of the GPS coordinates (coordinateUncertaintyInMeters), year of publishing the record, basis of record (basisOfRecord). Remember that within <code class="sourceCode r"><span class="fu">select</span>()</code> we can rename columns in the same step (<code class="sourceCode r">lat <span class="ot">=</span></code> and <code class="sourceCode r">lon <span class="ot">=</span></code> for example) and using <code>%&gt;%</code> operator we chain operations, meaning that the subsequent operations will be executed on the object preceding the operator.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Functions <code class="sourceCode r"><span class="fu">select</span>()</code> and <code class="sourceCode r"><span class="fu">filter</span>()</code> are defined in multiple R packages. Depending on which package was loaded last by <code class="sourceCode r"><span class="fu">library</span>()</code>, R chooses which version of the function it will apply. If we do not get the expected result from the function or an unexpected error after running it, this is the likeliest cause.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can avoid problems with commonly named functions by telling R <em>a priori</em> which function from which package we want to use. For example, <code class="sourceCode r"><span class="fu">select</span>()</code> or <code class="sourceCode r"><span class="fu">filter</span>()</code> from <code class="sourceCode r">dplyr</code> as follows:</p>
+<ul>
+<li><code class="sourceCode r">dplyr<span class="sc">::</span><span class="fu">filter</span>()</code>,</li>
+<li><code class="sourceCode r">dplyr<span class="sc">::</span><span class="fu">select</span>()</code>.</li>
+</ul>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> stirius <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(species, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">lat =</span> decimalLatitude,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">lon =</span> decimalLongitude,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">gps_error_m =</span> coordinateUncertaintyInMeters,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>           year,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">record_origin =</span> basisOfRecord)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next steps in occurrence data preparation is to:</p>
+<ul>
+<li>exclude all NA values in the GPS coordinates (with <code class="sourceCode r"><span class="fu">drop_na</span>()</code> from <code class="sourceCode r">tidyr</code>), as <strong>if we do not have coordinates, we cannot use these occurrences in the analysis</strong>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> stirius <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">drop_na</span>(lat, lon) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>examine the year when the record was published and decide, what year range we will include (i.e.&nbsp;very old records might be biased due to differences in environmental conditions)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stirius, <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_SDMs_species_occurence_and_absence_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>examine record origin (if museum, we need to check that location provided is not museum location!),</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(stirius<span class="sc">$</span>record_origin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ HUMAN_OBSERVATION    LIVING_SPECIMEN  MATERIAL_CITATION    MATERIAL_SAMPLE 
+                67                  1                119                  2 
+        OCCURRENCE PRESERVED_SPECIMEN 
+               352                 44 </code></pre>
+</div>
+</div>
+<ul>
+<li>examine gps errors and decide, what to do with records with large location error (i.e.&nbsp;more than 5 km).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stirius, <span class="fu">aes</span>(<span class="at">x =</span> gps_error_m)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_SDMs_species_occurence_and_absence_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>And retain only the observations that satisfy our criteria. For later convenience, we will also add a column <code>ID</code> with consecutive numbers starting from 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    stirius <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        year <span class="sc">&gt;</span> <span class="dv">1950</span>, <span class="co"># retain only records after 1950</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># retain observations and occurences</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        record_origin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"HUMAN_OBSERVATION"</span>, <span class="st">"OCCURRENCE"</span>), </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        gps_error_m <span class="sc">&lt;=</span> <span class="dv">5000</span> <span class="co"># with 5000 m or less error</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> stirius <span class="sc">%&gt;%</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add an ID column: numbers from 1 to max number of rows</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(stirius)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lastly, lets check the properties of our data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(stirius)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [154 × 7] (S3: tbl_df/tbl/data.frame)
+ $ species      : chr [1:154] "Erebia parmenio" "Erebia parmenio" "Erebia parmenio" "Erebia parmenio" ...
+ $ lat          : num [1:154] 45.8 45.7 46 46.4 46.4 ...
+ $ lon          : num [1:154] 11.2 10.8 10.7 13.6 13.6 ...
+ $ gps_error_m  : num [1:154] 61 184 25 25 26 6 25 50 20 50 ...
+ $ year         : int [1:154] 2022 2022 2022 2021 2021 2021 2020 2020 2020 2020 ...
+ $ record_origin: chr [1:154] "HUMAN_OBSERVATION" "HUMAN_OBSERVATION" "HUMAN_OBSERVATION" "HUMAN_OBSERVATION" ...
+ $ ID           : int [1:154] 1 2 3 4 5 6 7 8 9 10 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stirius)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   species               lat             lon         gps_error_m  
+ Length:154         Min.   :45.27   Min.   :10.68   Min.   :   2  
+ Class :character   1st Qu.:45.80   1st Qu.:13.20   1st Qu.:  25  
+ Mode  :character   Median :46.37   Median :13.72   Median : 500  
+                    Mean   :46.20   Mean   :13.44   Mean   :1614  
+                    3rd Qu.:46.44   3rd Qu.:14.02   3rd Qu.:5000  
+                    Max.   :47.62   Max.   :15.15   Max.   :5000  
+      year      record_origin            ID        
+ Min.   :1951   Length:154         Min.   :  1.00  
+ 1st Qu.:1972   Class :character   1st Qu.: 39.25  
+ Median :1981   Mode  :character   Median : 77.50  
+ Mean   :1989                      Mean   : 77.50  
+ 3rd Qu.:2013                      3rd Qu.:115.75  
+ Max.   :2022                      Max.   :154.00  </code></pre>
+</div>
+</div>
+<section id="map-occurences-with-leaflet-interactive-maps" class="level3">
+<h3 class="anchored" data-anchor-id="map-occurences-with-leaflet-interactive-maps">Map occurences with <code class="sourceCode r">leaflet</code> interactive maps</h3>
+<p>Now that we have downloaded the data, we will display them on a map, so we get a feeling of where our two species have been observed. For that we will use <code class="sourceCode r">leaflet</code> package which provides us an easy way for creating interactive maps. It functions similar to creating plots with <code class="sourceCode r">ggplot</code>, the difference is that we add new layers to the plots with <code class="sourceCode r"><span class="sc">%&gt;%</span></code> operator. The basic function for mapping is <code class="sourceCode r"><span class="fu">leaflet</span>()</code> inside which we specify data object we want to plot, in our case <code class="sourceCode r">stirius</code>. With <code class="sourceCode r"><span class="fu">addProviderTiles</span>()</code> we add background to our map and with argument <code class="sourceCode r">provider <span class="ot">=</span> <span class="st">"Stamen.TerrainBackground"</span></code> we specify which type of background. You can explore other options for background <a href="http://leaflet-extras.github.io/leaflet-providers/preview/">here</a>. You can change the background by replacing <code class="sourceCode r"><span class="st">"Stamen.TerrainBackground"</span></code> with another name, i.e.&nbsp;<code class="sourceCode r"><span class="st">"OpenTopoMap"</span></code>. Next we add our points with function <code class="sourceCode r"><span class="fu">addCircleMarkers</span>()</code>, within which we must specify names of columns in our data that represent longitude (<code class="sourceCode r">lon</code>) and latitude (<code class="sourceCode r">lat</code>) preceeded by the <code>~</code> sign.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"leaflet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet) <span class="co"># fast, simple and efficient interactive mapping</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(stirius) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(<span class="at">provider =</span> <span class="st">"Stamen.TerrainBackground"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>lon, </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lat =</span> <span class="sc">~</span>lat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0c205ecacd0d482c69c7" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0c205ecacd0d482c69c7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[45.780564,45.717284,45.953491,46.426311,46.426403,46.427067,46.426164,46.489836,46.482458,46.480237,46.456944,46.375362,45.702587,45.702585,45.702586,46.483544,45.748532,45.884988,46.396024,45.909355,46.42,46.3767,46.3767,46.3767,46.3767,46.438291,46.425797,46.435396,46.430959,46.37,46.459304,46.392174,46.416204,46.332143,46.41,46.41,46.439657,46.436344,46.436179,46.410832,46.411069,46.411645,46.331034,46.424769,46.429795,46.46423,45.800537,45.773368,46.445771,46.445771,46.443857,46.443857,46.443857,46.432212,46.441938,45.768975,46.420945,46.448136,45.800623,46.316666,45.8,45.8,45.95,46.45,45.666668,46.65,46.65,46.333332,46.333332,45.81,47.616665,45.8,45.8,46.316666,46.45,46.266666,46.266666,45.8,45.9,45.65,46.266666,45.716667,45.716667,46.5,46.366665,46.333332,46.366665,47,46.628887,46.592777,45.81,45.5,45.5,46.533333,46.533333,46.533333,46.533333,45.8,45.8,45.95,45.5,45.5,45.666668,45.683334,45.5,46.316666,46.316666,46.316666,45.666668,45.5,46.366665,45.8,45.666668,45.716667,45.8,45.5,46.383335,46.216667,46.45,46.333332,46.133335,46.333332,45.666668,45.9,45.883335,45.883335,46.316666,46.73,46.4,46.4,46.4875,46.318054,46.604443,46.466946,46.4875,46.53,46.016666,45.8,46.36222,45.666668,45.5,46.333332,46.366943,46.38389,46.604168,46.218056,46.422222,46.425,46.433334,45.266666,46.316666,46.5,46.5,46.366665],[11.219617,10.847438,10.746479,13.602318,13.602187,13.604769,13.600312,11.60905,11.571527,11.570144,14.500556,14.530198,11.116495,11.116492,11.116506,14.594447,10.871693,13.968489,14.219691,13.922224,13.61,14.6656,14.6656,14.6656,14.6656,13.631669,13.598918,13.626142,13.742192,14.5936,13.684499,13.821766,14.64057,13.638168,13.72,13.72,13.741519,13.741285,13.741788,13.723879,13.72401,13.72504,13.644598,13.742726,13.741211,14.504743,13.997308,14.048213,14.488349,14.488349,14.264299,14.264299,14.264299,13.742929,13.637345,10.861037,13.5866,14.48792,13.99738,13.266666,14,14,13.866667,13.333333,10.816667,12.75,12.75,13.55,13.75,14.05,13.683333,14,14,13.266666,13.183333,12.516666,12.516666,14,13.9,15.15,12.516666,13.55,13.55,12.166667,13.716666,13.75,13.716666,12.64,13.452778,13.338333,14.05,14.666667,14.666667,11.566667,11.566667,11.566667,11.566667,14,14,13.866667,14.666667,14.666667,10.816667,11.216666,14.666667,13.266666,13.266666,13.266666,10.816667,14.666667,13.716666,14,10.816667,13.55,14,14.866667,13.833333,13.966666,13.65,13.75,12.5,14.083333,10.816667,13.9,13.883333,13.883333,13.083333,12.22,13.016666,13.016666,15.104722,14.583889,14.584723,13.768056,15.104722,14.03,11.3,14,14.161667,10.683333,14.866667,13.766666,13.8,13.7,12.945833,14.1,13.583333,14.604167,13.733334,15.133333,13.083333,13.583333,13.583333,13.133333],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.266666,47.616665],"lng":[10.683333,15.15]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To confirm whether the occurence locations are reliable, we should compare them with the known distribution range of the species. Do this map reflect the species distribution according to IUCN?</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Stirius distribution.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption"><em>E. stirius</em> distribution.</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>However, there are some points, that don’t seem OK:</p>
+<ul>
+<li>one is located at the center of Garda lake,</li>
+<li>another is located at the Adriatic coast (there seem to be more occurences here, as the point is not transparent).</li>
+</ul>
+<p>Lets adapt the map a bit, to figure out which points in the data these two are. We will add the <code class="sourceCode r">label <span class="ot">=</span></code> argument, that will pop-up the <code class="sourceCode r">ID</code> of each point, when we hover over:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(stirius) <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(<span class="at">provider =</span> <span class="st">"Stamen.TerrainBackground"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>lon, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lat =</span> <span class="sc">~</span>lat, </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> <span class="sc">~</span>ID) <span class="co"># pop up with the ID number</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-85fe36ef7560df2b118f" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-85fe36ef7560df2b118f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[45.780564,45.717284,45.953491,46.426311,46.426403,46.427067,46.426164,46.489836,46.482458,46.480237,46.456944,46.375362,45.702587,45.702585,45.702586,46.483544,45.748532,45.884988,46.396024,45.909355,46.42,46.3767,46.3767,46.3767,46.3767,46.438291,46.425797,46.435396,46.430959,46.37,46.459304,46.392174,46.416204,46.332143,46.41,46.41,46.439657,46.436344,46.436179,46.410832,46.411069,46.411645,46.331034,46.424769,46.429795,46.46423,45.800537,45.773368,46.445771,46.445771,46.443857,46.443857,46.443857,46.432212,46.441938,45.768975,46.420945,46.448136,45.800623,46.316666,45.8,45.8,45.95,46.45,45.666668,46.65,46.65,46.333332,46.333332,45.81,47.616665,45.8,45.8,46.316666,46.45,46.266666,46.266666,45.8,45.9,45.65,46.266666,45.716667,45.716667,46.5,46.366665,46.333332,46.366665,47,46.628887,46.592777,45.81,45.5,45.5,46.533333,46.533333,46.533333,46.533333,45.8,45.8,45.95,45.5,45.5,45.666668,45.683334,45.5,46.316666,46.316666,46.316666,45.666668,45.5,46.366665,45.8,45.666668,45.716667,45.8,45.5,46.383335,46.216667,46.45,46.333332,46.133335,46.333332,45.666668,45.9,45.883335,45.883335,46.316666,46.73,46.4,46.4,46.4875,46.318054,46.604443,46.466946,46.4875,46.53,46.016666,45.8,46.36222,45.666668,45.5,46.333332,46.366943,46.38389,46.604168,46.218056,46.422222,46.425,46.433334,45.266666,46.316666,46.5,46.5,46.366665],[11.219617,10.847438,10.746479,13.602318,13.602187,13.604769,13.600312,11.60905,11.571527,11.570144,14.500556,14.530198,11.116495,11.116492,11.116506,14.594447,10.871693,13.968489,14.219691,13.922224,13.61,14.6656,14.6656,14.6656,14.6656,13.631669,13.598918,13.626142,13.742192,14.5936,13.684499,13.821766,14.64057,13.638168,13.72,13.72,13.741519,13.741285,13.741788,13.723879,13.72401,13.72504,13.644598,13.742726,13.741211,14.504743,13.997308,14.048213,14.488349,14.488349,14.264299,14.264299,14.264299,13.742929,13.637345,10.861037,13.5866,14.48792,13.99738,13.266666,14,14,13.866667,13.333333,10.816667,12.75,12.75,13.55,13.75,14.05,13.683333,14,14,13.266666,13.183333,12.516666,12.516666,14,13.9,15.15,12.516666,13.55,13.55,12.166667,13.716666,13.75,13.716666,12.64,13.452778,13.338333,14.05,14.666667,14.666667,11.566667,11.566667,11.566667,11.566667,14,14,13.866667,14.666667,14.666667,10.816667,11.216666,14.666667,13.266666,13.266666,13.266666,10.816667,14.666667,13.716666,14,10.816667,13.55,14,14.866667,13.833333,13.966666,13.65,13.75,12.5,14.083333,10.816667,13.9,13.883333,13.883333,13.083333,12.22,13.016666,13.016666,15.104722,14.583889,14.584723,13.768056,15.104722,14.03,11.3,14,14.161667,10.683333,14.866667,13.766666,13.8,13.7,12.945833,14.1,13.583333,14.604167,13.733334,15.133333,13.083333,13.583333,13.583333,13.133333],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,null,null,["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.266666,47.616665],"lng":[10.683333,15.15]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><br></p>
+<p>We will remove this two as they seem erroneous. Within <code class="sourceCode r"><span class="fu">filter</span>()</code> we will use <code class="sourceCode r"><span class="sc">!</span></code> to retain the inverse of the IDs we will provide (I added also the ID 82 &amp; 83, as both lie directly below the record number 104):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> stirius <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>ID <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">82</span>, <span class="dv">83</span>, <span class="dv">114</span>, <span class="dv">140</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now redraw the map, to see if it was successful:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(stirius) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(<span class="at">provider =</span> <span class="st">"Stamen.TerrainBackground"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>lon, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lat =</span> <span class="sc">~</span>lat, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> <span class="sc">~</span>ID) <span class="co"># pop up with the ID number</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5b083220f20471b97a16" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-5b083220f20471b97a16">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[45.780564,45.717284,45.953491,46.426311,46.426403,46.427067,46.426164,46.489836,46.482458,46.480237,46.456944,46.375362,45.702587,45.702585,45.702586,46.483544,45.748532,45.884988,46.396024,45.909355,46.42,46.3767,46.3767,46.3767,46.3767,46.438291,46.425797,46.435396,46.430959,46.37,46.459304,46.392174,46.416204,46.332143,46.41,46.41,46.439657,46.436344,46.436179,46.410832,46.411069,46.411645,46.331034,46.424769,46.429795,46.46423,45.800537,45.773368,46.445771,46.445771,46.443857,46.443857,46.443857,46.432212,46.441938,45.768975,46.420945,46.448136,45.800623,46.316666,45.8,45.8,45.95,46.45,45.666668,46.65,46.65,46.333332,46.333332,45.81,47.616665,45.8,45.8,46.316666,46.45,46.266666,46.266666,45.8,45.9,45.65,46.266666,46.5,46.366665,46.333332,46.366665,47,46.628887,46.592777,45.81,45.5,45.5,46.533333,46.533333,46.533333,46.533333,45.8,45.8,45.95,45.5,45.5,45.666668,45.683334,45.5,46.316666,46.316666,46.316666,45.666668,45.5,46.366665,45.8,45.666668,45.8,45.5,46.383335,46.216667,46.45,46.333332,46.133335,46.333332,45.666668,45.9,45.883335,45.883335,46.316666,46.73,46.4,46.4,46.4875,46.318054,46.604443,46.466946,46.4875,46.53,46.016666,45.8,46.36222,45.5,46.333332,46.366943,46.38389,46.604168,46.218056,46.422222,46.425,46.433334,45.266666,46.316666,46.5,46.5,46.366665],[11.219617,10.847438,10.746479,13.602318,13.602187,13.604769,13.600312,11.60905,11.571527,11.570144,14.500556,14.530198,11.116495,11.116492,11.116506,14.594447,10.871693,13.968489,14.219691,13.922224,13.61,14.6656,14.6656,14.6656,14.6656,13.631669,13.598918,13.626142,13.742192,14.5936,13.684499,13.821766,14.64057,13.638168,13.72,13.72,13.741519,13.741285,13.741788,13.723879,13.72401,13.72504,13.644598,13.742726,13.741211,14.504743,13.997308,14.048213,14.488349,14.488349,14.264299,14.264299,14.264299,13.742929,13.637345,10.861037,13.5866,14.48792,13.99738,13.266666,14,14,13.866667,13.333333,10.816667,12.75,12.75,13.55,13.75,14.05,13.683333,14,14,13.266666,13.183333,12.516666,12.516666,14,13.9,15.15,12.516666,12.166667,13.716666,13.75,13.716666,12.64,13.452778,13.338333,14.05,14.666667,14.666667,11.566667,11.566667,11.566667,11.566667,14,14,13.866667,14.666667,14.666667,10.816667,11.216666,14.666667,13.266666,13.266666,13.266666,10.816667,14.666667,13.716666,14,10.816667,14,14.866667,13.833333,13.966666,13.65,13.75,12.5,14.083333,10.816667,13.9,13.883333,13.883333,13.083333,12.22,13.016666,13.016666,15.104722,14.583889,14.584723,13.768056,15.104722,14.03,11.3,14,14.161667,14.866667,13.766666,13.8,13.7,12.945833,14.1,13.583333,14.604167,13.733334,15.133333,13.083333,13.583333,13.583333,13.133333],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,null,null,["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","141","142","143","144","145","146","147","148","149","150","151","152","153","154"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.266666,47.616665],"lng":[10.746479,15.15]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questions to consider
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How reliable is the data obtained from GBIF?</p>
+<p>Should we put more considerations on the origin of the occurrence data? For example, is it coming from research studies or was it provided by the citizen scientists?</p>
+<p>In general, what are the main possible errors or biases that can be present in collecting species occurrence data?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="absences-and-what-to-do-if-we-dont-have-them" class="level2">
+<h2 class="anchored" data-anchor-id="absences-and-what-to-do-if-we-dont-have-them">Absences and what to do if we don’t have them</h2>
+<p>Real absences are hard to obtain in most cases (i.e.&nbsp;species present, but not detected; research areas to big to monitor all available area, etc.). For that reason, there are multiple options to generate pseudo-absences, depending on the species, type of data, research question, scale of inference (global, regional, local):</p>
+<ul>
+<li>background,</li>
+<li>buffer,</li>
+<li>Correlated Random Walks,</li>
+<li>reverse Correlated Random Walks,</li>
+<li>other.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Pseudo absences generation methods.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Pseudo absence generation methods (Hazen et al., 2021)</figcaption>
+</figure>
+</div>
+<p>For simplicity, we will use the <strong>buffer</strong> method. For now, we will just create a buffer around our points, which will be later used as an area for pseudo-absence points creation. In order to perform spatial operations on our data, we need to transform it into appropriate spatial format with <code class="sourceCode r"><span class="fu">coordinates</span>()</code> function from <code class="sourceCode r">sp</code> package. We will create a new object called <code class="sourceCode r">stirius_sp</code>, which we will transform. After the assign operator we define which columns in our data represent longitude and latitude. With <code class="sourceCode r"><span class="fu">class</span>()</code> we check that the transformation was successful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sp"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"raster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>stirius_sp <span class="ot">&lt;-</span> stirius</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># In order to perform spatial operations on our data, we need to transform it</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># into appropriate type of object with coordinates function</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(stirius_sp) <span class="ot">&lt;-</span> <span class="er">~</span> lon <span class="sc">+</span> lat</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(stirius_sp) <span class="co"># we want SpatialPointsDataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatialPointsDataFrame"
+attr(,"package")
+[1] "sp"</code></pre>
+</div>
+</div>
+<p>Next we create a buffer around our points with <code class="sourceCode r"><span class="fu">buffer</span>()</code> function and set its <code class="sourceCode r">width <span class="ot">=</span></code> to 20 km (20000m). As the <code class="sourceCode r"><span class="fu">buffer</span>()</code> function is contained in more than one package, I specified that I want the one from <code class="sourceCode r">raster</code> package with <code class="sourceCode r"><span class="sc">::</span></code>. Note that 25 km buffer width is an arbitrary number, I choose it based on the assumed dispersal potential of the butterfly species. When creating buffers it is crucial, that we choose a distance, that is biologically or ecologically sensible. For example, whales can travel tens of km per day, while a mole will likely spend its entire lifespan within a single small or medium meadow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>stirius_buffer <span class="ot">&lt;-</span> raster<span class="sc">::</span><span class="fu">buffer</span>(stirius_sp, <span class="co"># arround occurences of E. stirius </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="dv">25000</span>) <span class="co"># create 25 km buffer </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(stirius_buffer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatialPolygons"
+attr(,"package")
+[1] "sp"</code></pre>
+</div>
+</div>
+<p>Lets map the created buffer with <code class="sourceCode r">leaflet</code>, this time instead of mapping points we add a the buffer layer with <code class="sourceCode r"><span class="fu">addPolygons</span>()</code> function without any additional arguments:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(stirius_buffer) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(<span class="at">provider =</span> <span class="st">"Stamen.TerrainBackground"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPolygons</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-51e8944e56422bd089e4" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-51e8944e56422bd089e4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[15.45188,15.44777,15.43592,15.41666,15.39045,15.35796,15.31998,15.27745,15.2314,15.18297,15.13333,15.08369,15.03526,14.98922,14.94669,14.90871,14.87622,14.85001,14.83074,14.8189,14.81478,14.81603,14.7682,14.76667,14.76514,14.71651,14.66667,14.61682,14.5682,14.52196,14.47926,14.44112,14.4085,14.38218,14.36283,14.35094,14.3468,14.35055,14.36208,14.38115,14.40728,14.43985,14.47805,14.52093,14.56745,14.61643,14.66667,14.7169,14.76589,14.76667,14.76745,14.81643,14.84739,14.86372,14.88992,14.92257,14.96087,15.00388,15.05051,15.09963,15.15,15.20037,15.24949,15.29612,15.33913,15.37743,15.41008,15.43628,15.4554,15.46697,15.47072,15.46657,15.45464,15.43524,15.40886,15.37614,15.3379,15.30704,15.32117,15.35921,15.39165,15.41767,15.43666,15.44816,15.45188],"lat":[45.26622,45.23104,45.19675,45.16419,45.13415,45.10738,45.08452,45.06614,45.05268,45.04447,45.04171,45.04447,45.05268,45.06614,45.08452,45.10738,45.13415,45.16419,45.19675,45.23104,45.26622,45.27795,45.28602,45.28647,45.28602,45.27782,45.27506,45.27782,45.28602,45.29948,45.31786,45.34072,45.36749,45.39752,45.43009,45.46438,45.49955,45.53475,45.5691,45.60176,45.63192,45.65883,45.68182,45.70033,45.71388,45.72215,45.72493,45.72215,45.71388,45.71365,45.71388,45.72215,45.72387,45.75176,45.78191,45.80882,45.83182,45.85032,45.86388,45.87215,45.87493,45.87215,45.86388,45.85032,45.83182,45.80882,45.78191,45.75176,45.7191,45.68475,45.64955,45.61437,45.58009,45.54753,45.51749,45.49072,45.46787,45.45462,45.4485,45.4255,45.39859,45.36844,45.33578,45.30142,45.26622]}],[{"lng":[11.47568,11.44294,11.40468,11.36184,11.31546,11.26667,11.21667,11.16666,11.11788,11.08295,11.06647,11.01767,11.01349,11.00463,10.9618,10.91543,10.86666,10.81667,10.76668,10.71791,10.67154,10.62871,10.59046,10.55773,10.53134,10.51193,10.5,10.49586,10.49961,10.51118,10.5303,10.53899,10.54011,10.51911,10.48622,10.45969,10.44018,10.42819,10.42402,10.42779,10.43942,10.45863,10.48498,10.51781,10.55632,10.59955,10.64645,10.69583,10.74648,10.79713,10.84651,10.8934,10.93664,10.97515,10.99746,11.01183,11.0382,11.07107,11.10962,11.15291,11.19985,11.24929,11.3,11.35071,11.40015,11.44709,11.49038,11.52893,11.5618,11.58817,11.60741,11.61906,11.62283,11.61865,11.60664,11.58711,11.56055,11.52762,11.52285,11.52573,11.53732,11.54108,11.53692,11.53074,11.53382,11.53757,11.53342,11.52149,11.50208,11.47568],"lat":[45.55083,45.52406,45.5012,45.48282,45.46936,45.46116,45.4584,45.46116,45.46936,45.4795,45.48041,45.48862,45.48983,45.48454,45.46616,45.4527,45.44449,45.44173,45.44449,45.4527,45.46616,45.48454,45.50739,45.53416,45.56419,45.59675,45.63104,45.66622,45.70142,45.73577,45.76843,45.77842,45.78174,45.79422,45.82099,45.85102,45.88358,45.91786,45.95304,45.98823,46.02258,46.05524,46.0854,46.1123,46.13529,46.1538,46.16736,46.17563,46.17841,46.17563,46.16736,46.1538,46.13529,46.1123,46.09402,46.11841,46.14857,46.17548,46.19847,46.21697,46.23053,46.2388,46.24158,46.2388,46.23053,46.21697,46.19847,46.17548,46.14857,46.11841,46.08576,46.05141,46.01621,45.98104,45.94675,45.91419,45.88416,45.8574,45.85456,45.84966,45.81531,45.78011,45.74494,45.72721,45.71808,45.68288,45.64771,45.61342,45.58086,45.55083]}],[{"lng":[12.59959,12.55041,12.5,12.44959,12.40041,12.35366,12.31047,12.2719,12.2389,12.21228,12.19271,12.18068,12.17649,12.18027,12.19194,12.20115,12.19657,12.19237,12.19349,12.16667,12.11593,12.06642,12.01935,11.97587,11.93705,11.90382,11.89237,11.87184,11.83863,11.79981,11.75634,11.70928,11.69654,11.67036,11.62087,11.57014,11.51942,11.46993,11.42288,11.37942,11.34061,11.3074,11.28061,11.26091,11.2488,11.24458,11.24617,11.24501,11.24079,11.24459,11.25634,11.27576,11.30238,11.33556,11.37448,11.41817,11.46557,11.51548,11.56667,11.61785,11.66777,11.71516,11.75886,11.79777,11.83095,11.85757,11.8584,11.87312,11.88335,11.90255,11.91858,11.90935,11.89718,11.89294,11.89676,11.90855,11.92804,11.95475,11.98805,12.02711,12.07096,12.11853,12.16863,12.22,12.27137,12.32147,12.32304,12.31556,12.3113,12.31513,12.32698,12.34656,12.37342,12.40688,12.44613,12.49021,12.53802,12.58836,12.64,12.69164,12.74198,12.78979,12.83387,12.87312,12.90658,12.93344,12.95302,12.96487,12.9687,12.96444,12.95221,12.93232,12.90527,12.88767,12.89881,12.9426,12.94736,12.99709,13.04707,13.09452,13.13827,13.15272,13.18968,13.23712,13.25973,13.26025,13.30402,13.3515,13.4015,13.45278,13.50406,13.55406,13.60153,13.64531,13.68429,13.71753,13.7442,13.76365,13.76579,13.76806,13.80104,13.83782,13.88152,13.92891,13.97882,14.03,14.08118,14.13109,14.17848,14.22218,14.26109,14.27592,14.29344,14.32009,14.35331,14.39228,14.43604,14.48349,14.53347,14.58472,14.63598,14.68596,14.73341,14.77716,14.81613,14.84935,14.87601,14.89545,14.89956,14.9127,14.95636,15.00371,15.05358,15.10472,15.15587,15.20574,15.25309,15.29675,15.33563,15.36878,15.39538,15.41478,15.42652,15.43033,15.42611,15.414,15.3943,15.3675,15.33429,15.29547,15.252,15.20495,15.15545,15.10472,15.05399,15.0045,14.96159,14.95459,14.92785,14.89471,14.85597,14.85265,14.84586,14.81275,14.77405,14.73072,14.68381,14.63446,14.58389,14.53332,14.48397,14.43706,14.39905,14.38816,14.3615,14.32845,14.28982,14.24656,14.23259,14.25598,14.26023,14.27808,14.31082,14.3371,14.35627,14.36787,14.37163,14.36853,14.36963,14.36548,14.35352,14.33408,14.30764,14.27485,14.23653,14.19362,14.14716,14.0983,14.04821,13.99813,13.94927,13.90281,13.8599,13.82817,13.8089,13.77056,13.73776,13.71691,13.69465,13.65625,13.6234,13.5969,13.57742,13.56544,13.56191,13.56039,13.5484,13.54423,13.54799,13.55962,13.57884,13.60518,13.63535,13.59401,13.58523,13.55,13.49941,13.45005,13.43276,13.41349,13.36658,13.31724,13.26667,13.21609,13.175,13.13391,13.08333,13.03276,12.98342,12.93651,12.89317,12.85448,12.82137,12.81883,12.81529,12.81973,12.82351,12.81932,12.80729,12.78772,12.7611,12.7281,12.68953,12.64634,12.59959],"lat":[45.91938,45.91118,45.90842,45.91118,45.91938,45.93284,45.95122,45.97407,46.00083,46.03086,46.06342,46.0977,46.13288,46.16807,46.20242,46.21802,46.23103,46.26621,46.27655,46.2751,46.27785,46.28606,46.29952,46.31789,46.34074,46.3675,46.38034,46.35734,46.33058,46.30773,46.28935,46.2759,46.27378,46.2663,46.25809,46.25533,46.25809,46.2663,46.27975,46.29813,46.32098,46.34774,46.37777,46.41032,46.4446,46.47977,46.49443,46.4977,46.53287,46.56806,46.60241,46.63506,46.66522,46.69212,46.71511,46.73362,46.74717,46.75545,46.75823,46.75545,46.74717,46.73362,46.71511,46.69212,46.66522,46.63506,46.63367,46.62172,46.61013,46.63189,46.6449,46.66008,46.69436,46.72953,46.76472,46.79907,46.83172,46.86188,46.88878,46.91177,46.93028,46.94383,46.95211,46.95489,46.95211,46.94383,46.94339,46.96436,46.99953,47.03472,47.06906,47.10172,47.13187,47.15877,47.18176,47.20027,47.21382,47.22209,47.22487,47.22209,47.21382,47.20027,47.18176,47.15877,47.13187,47.10172,47.06906,47.03472,46.99953,46.96436,46.93008,46.89753,46.86751,46.85346,46.85028,46.83178,46.82898,46.82628,46.81801,46.80445,46.78595,46.77743,46.79306,46.80662,46.81036,46.81067,46.82917,46.84272,46.851,46.85378,46.851,46.84272,46.82917,46.81067,46.78767,46.76077,46.73062,46.69796,46.69172,46.69184,46.69005,46.71178,46.73029,46.74384,46.75211,46.75489,46.75211,46.74384,46.73029,46.71178,46.68879,46.67676,46.70617,46.73633,46.76323,46.78622,46.80473,46.81828,46.82655,46.82933,46.82655,46.81828,46.80473,46.78622,46.76323,46.73633,46.70617,46.67352,46.66152,46.66928,46.68779,46.70134,46.70961,46.71239,46.70961,46.70134,46.68779,46.66928,46.64629,46.61939,46.58923,46.55658,46.52223,46.48704,46.45187,46.41758,46.38503,46.355,46.32824,46.30539,46.28701,46.27356,46.26535,46.2626,46.26535,46.27356,46.28583,46.27423,46.2442,46.21744,46.19459,46.19318,46.18556,46.15879,46.13594,46.11756,46.10411,46.0959,46.09314,46.0959,46.10411,46.11756,46.13368,46.11558,46.08556,46.05879,46.03594,46.01756,46.01355,45.98674,45.9795,45.96882,45.94191,45.91175,45.8791,45.84474,45.80955,45.78329,45.77292,45.73774,45.70345,45.67089,45.64086,45.61409,45.59124,45.57286,45.5594,45.55119,45.54844,45.55119,45.5594,45.57286,45.59124,45.61016,45.61841,45.64126,45.66803,45.69169,45.70121,45.72406,45.75083,45.78086,45.81342,45.84771,45.87755,45.88008,45.91437,45.94955,45.98474,46.01909,46.05175,46.0819,46.10663,46.10888,46.11034,46.10842,46.11118,46.11939,46.12435,46.11618,46.10272,46.09451,46.09176,46.09451,46.10135,46.09451,46.09176,46.09451,46.10272,46.11618,46.13455,46.1574,46.18417,46.18702,46.18114,46.16807,46.13288,46.0977,46.06342,46.03086,46.00083,45.97407,45.95122,45.93284,45.91938]},{"lng":[12.51667,12.51887,12.49078,12.49234,12.49122,12.51667],"lat":[46.49157,46.49145,46.51401,46.49954,46.49018,46.49157]}],[{"lng":[14.01201,14.01588,14.01157,13.99919,13.97906,13.9517,13.91777,13.87813,13.83373,13.78568,13.73514,13.68333,13.63153,13.58099,13.53293,13.48854,13.44889,13.41497,13.3876,13.36748,13.3551,13.35078,13.35466,13.36664,13.38645,13.41361,13.44747,13.48718,13.53178,13.58015,13.63109,13.68333,13.73558,13.78652,13.83489,13.87948,13.9192,13.95305,13.98021,14.00003,14.01201],"lat":[47.65137,47.61618,47.58102,47.54675,47.5142,47.48418,47.45743,47.43458,47.41622,47.40277,47.39456,47.39181,47.39456,47.40277,47.41622,47.43458,47.45743,47.48418,47.5142,47.54675,47.58102,47.61618,47.65137,47.68571,47.71836,47.74851,47.77542,47.79841,47.81691,47.83046,47.83874,47.84152,47.83874,47.83046,47.81691,47.79841,47.77542,47.74851,47.71836,47.68571,47.65137]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.04171394091524,47.84151537261974],"lng":[10.42401734958838,15.47071562150655]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The next thing we will do is create a set of pseudo absence points within our buffer. For this we will need the <code class="sourceCode r">terra</code> package and change the <code class="sourceCode r">stirius_buffer</code> into appropriate <code class="sourceCode r">terra</code> format. We will save it in a new object called <code class="sourceCode r">stirius_buffer_tr</code>, and transform it using <code class="sourceCode r"><span class="fu">vect</span>()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>stirius_buffer_tr <span class="ot">&lt;-</span> <span class="fu">vect</span>(stirius_buffer)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(stirius_buffer_tr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatVector"
+attr(,"package")
+[1] "terra"</code></pre>
+</div>
+</div>
+<p>The pseudo absence points can be created using <code class="sourceCode r"><span class="fu">spatSample</span>()</code> function, that performs random sampling within the buffer provided (<code class="sourceCode r">stirius_buffer_tr</code>). The second argument tells the function, how many points we want to create. At this step, there <strong>are many considerations, that need to be taken into account, as the subsequent results can depend heavily on the number of points that we decide to sample (Barbet-Massin et al., 2012, Fieberg et al., 2021)</strong>. We will keep it simple and create the same number of pseudo absences as we have presences (<code class="sourceCode r"><span class="fu">nrow</span>(stirius)</code> = 150). We will save these points into object <code class="sourceCode r">stirius_abs</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>stirius_abs <span class="ot">&lt;-</span> <span class="fu">spatSample</span>(stirius_buffer_tr,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">size =</span> <span class="fu">nrow</span>(stirius))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(stirius_abs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatVector"
+attr(,"package")
+[1] "terra"</code></pre>
+</div>
+</div>
+<p>Before displaying the points on a map, we need to change the <code class="sourceCode r">stirius_abs</code> from <code class="sourceCode r">terra</code> format to a regular data frame. For that, we extract the coordinates from the object <code class="sourceCode r">stirius_abs</code> (<code class="sourceCode r">terra<span class="sc">::</span><span class="fu">geom</span>()</code>) and change it to dataframe (<code class="sourceCode r"><span class="fu">as.data.frame</span>()</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>stirius_abs_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(terra<span class="sc">::</span><span class="fu">geom</span>(stirius_abs))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(stirius_abs_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>With <code class="sourceCode r"><span class="fu">head</span>()</code> function, we display the first six rows of the dataframe, and we can note that the coordinates are stored in columns <code class="sourceCode r">x</code> and <code class="sourceCode r">y</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stirius_abs_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  geom part        x        y hole
+1    1    1 10.58623 45.60428    0
+2    2    1 13.62337 46.47506    0
+3    3    1 13.32867 46.71282    0
+4    4    1 12.81040 46.19281    0
+5    5    1 10.99707 45.68529    0
+6    6    1 15.03421 45.20357    0</code></pre>
+</div>
+</div>
+<p>And map them, to see where they were created:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(stirius_abs_df) <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(<span class="at">provider =</span> <span class="st">"Stamen.TerrainBackground"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>x, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lat =</span> <span class="sc">~</span>y, </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b4227d329b102af2dcfc" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b4227d329b102af2dcfc">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[45.60427715237686,46.47506023612616,46.71281877282638,46.19280697251708,45.68528517422877,45.20356887453641,45.78072880395664,46.46097245635301,46.1979722941458,46.09746293912864,47.48313149165767,46.55297173178481,45.93519535913136,47.06645406488571,46.72663049809206,46.49169981485748,46.45062688339097,46.61570005427819,45.34077246144092,46.34032482404453,46.59226089708498,45.55642271117652,46.12869280569564,45.65529062648778,46.28813103734102,45.66065467460157,45.85954129403001,46.56134133069376,45.37253277102342,46.14719451841,45.88669310777426,46.26291877610341,46.06918060790839,46.45222921604871,46.64038252923734,47.51167363005028,46.20371963415777,45.54282374667822,45.46435828944329,46.00825221744878,46.58170011042423,46.08868041649404,46.14998532800718,46.74143738371716,45.5798832633184,45.48388679990935,46.16685597352944,46.1361367562501,46.64820536269805,45.79524113023128,45.98763013125792,46.62328472532806,45.89819352971998,45.41147881100137,46.71351863024,45.77472832686641,46.21507309871884,46.36946842099931,46.7098466836758,45.97978594448033,46.02715687422279,46.08264617989938,47.60020422809955,46.53998095568193,45.91586385275229,45.75518321675884,46.29618929644666,45.88478288290018,45.47325343145485,45.60120696482008,46.5057914831425,46.57539806775447,45.62110088069169,46.5224377167831,45.90632799538448,46.49776309772182,45.8207471784766,45.28582669162021,46.83870760439434,45.73613665798436,46.13364430178861,46.21469485397979,47.15900723019924,46.19547897250964,45.98787493303198,46.22265327577345,47.48614727951185,46.40558869928721,46.18439654754624,46.36328389704585,46.01063265292844,47.78853316825173,45.59827142361748,46.08592277310817,45.49033794451535,46.02690450759663,45.96246223845793,46.2451602762069,45.37459771956936,46.29865204741145,46.44684433192753,46.12246262148037,45.59890310048019,45.80562603953199,45.75895246166778,45.56310945349669,46.98723266155847,47.09066274831763,46.30429808182579,45.58480061524037,46.80489415685323,46.50078285697193,47.62269579903556,45.67395293759776,46.1510077326042,46.23761261662835,45.50080374840412,45.93715631196309,45.24937698810949,45.72186657606919,45.77506836631782,46.42793554920411,45.95720386400846,45.94868731527846,46.3603361705778,46.81930258197828,45.95787746815728,47.40980384449558,46.26857180379518,46.15853505117397,45.7391413489269,45.59026952928552,45.38333615447876,46.43831440779388,46.70141664365325,46.53440124079874,46.57910070541947,45.7020834904565,46.63429765012224,46.12506824428687,46.30753937597416,45.63465191207175,45.82254619331874,45.98588860636682,46.4026444749004,46.29590846161872,45.5541038592586,47.71805363015328,45.44543223207364,46.03563387354551],[10.5862328299871,13.62336913721631,13.3286660337634,12.81040225093248,10.99707194003721,15.03420855432328,11.04375364348147,14.85392401180336,14.61363204772284,11.14121982174246,13.65956331255482,13.36211302239514,13.63475112740308,12.79773726473377,11.60732351364161,11.97732850046724,11.62437536161178,13.53224226243195,15.00345004098044,12.71860677099624,12.74111186666362,10.81703958804987,10.7028607852771,10.77024852015187,11.51752626021509,14.19356842608924,10.8389524941992,15.19802722994657,14.91602691110057,12.93523608829636,14.18377499465702,12.83566505064852,11.00967140132048,12.15142770346761,13.97787744680606,13.67928775599981,12.58751310356183,10.71758403883347,10.73781612328747,14.10083427577854,12.31020618303808,10.659042324086,10.64307892006438,11.48924501710663,14.37580381523892,10.69713499645244,11.26537618672859,13.93830051978831,12.3782619900761,14.19146084517813,12.45607753605432,14.55279791863001,11.27789001107077,15.17455534229707,13.16580716079837,13.92267201176348,14.77267971322687,12.64004918215916,12.03141594989493,12.63774537815436,13.67513084775216,13.87332607731742,13.56529983784374,14.83425110530461,10.70334370405099,13.68020997482387,13.21687997135894,13.91627311368944,10.96785919640457,14.1066186877425,14.04213981723243,14.44898553503755,15.02498788755326,12.99955739638616,11.39404440362272,12.36307556328768,10.96576695380701,14.76086054643259,12.1476449569432,10.88569387824814,11.46987830474879,12.27164780495364,12.62447757898375,14.77398370825577,13.67450792202375,14.59621112707524,13.71627560566256,15.12507171799884,14.053496759798,13.81152031897788,14.17343058859,13.66522008873418,11.41374233836882,12.64508352531061,14.84653715379664,10.68145237173586,10.59193292819944,14.17854366455633,14.90503707657229,14.40311984830739,11.67171054265659,13.09898808856013,10.77004440518095,11.04311775701345,15.05232053097465,11.10196340765188,12.51914268837897,12.40614142707083,12.32723552827541,13.93370219890979,12.98112075598192,11.95084300044934,13.62407457937063,14.21350885600314,12.40520306116815,13.62909616322317,15.26231627095527,13.58082952972336,15.30284665194848,11.2021258422669,10.9463653845702,14.99753045697651,12.45959279093983,12.42418617210969,12.47646093265547,13.49556145904425,12.58622103888331,13.56543476353346,13.45432454122412,14.60824796142109,13.64939787388739,13.95653447995403,14.73158830272168,12.51365532674404,13.8587155209539,13.95831239488331,11.4402137202316,14.2661913560616,12.32048820870007,11.18535825898157,11.58269916465579,14.2049878738148,15.09436890637079,13.88504133275882,12.89278789777189,15.07086059619311,10.92735097184383,13.42516723285132,10.86397128651965,13.75592488584576],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"red","weight":5,"opacity":0.5,"fill":true,"fillColor":"red","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.20356887453641,47.78853316825173],"lng":[10.5862328299871,15.30284665194848]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="finalising-presence-absence-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="finalising-presence-absence-datasets">Finalising presence absence datasets</h2>
+<p>There is one more step in preparation of presences of <em>E. stirius</em> (<code class="sourceCode r">stirius</code>) dataset. We need to add a column (new variable) that will denote that this are points, where species is present (1). As we will not need other variables, we will select only species, both coordinates and presence columns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>stirius <span class="ot">&lt;-</span> stirius <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create new column, denoting this are points where species is present</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">presence =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        species,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        lat,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        lon,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        presence</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The same step is needed in preparation of pseudo-absences, only this time time we need to add a column (new variable) that will denote that this are points, where the species is not present (0), or better said points that we have created as pseudo absences. As we will not need other variables, we will select only species, both coordinates (and rename them to <code class="sourceCode r">lat</code> and <code class="sourceCode r">lon</code>) and presence column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#stirius_abs_df &lt;- readRDS("01_data/stirius_abs_df.RDS") </span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>stirius_abs_df <span class="ot">&lt;-</span> stirius_abs_df <span class="sc">%&gt;%</span>  </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">species =</span> <span class="st">"Erebia parmenio"</span>, <span class="co"># create now column with species name</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>                  <span class="co"># create new column, denoting this are points where species is pseudo absent</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">presence =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        species,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> y, <span class="co"># rename y to lat</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> x, <span class="co"># rename x to lon</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        presence</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this last step today, we will merge the two dataframes together. Above steps prepared them to contain columns with the same names and the same information, which is a prerequisite for merging. We use <code class="sourceCode r"><span class="fu">rbind</span>()</code> function, which binds (merges) two tables in a way, that the first data frame is continued by the second, retaining the same number of columns as original data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stirius) ; <span class="fu">head</span>(stirius_abs_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  species           lat   lon presence
+  &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1 Erebia parmenio  45.8  11.2        1
+2 Erebia parmenio  45.7  10.8        1
+3 Erebia parmenio  46.0  10.7        1
+4 Erebia parmenio  46.4  13.6        1
+5 Erebia parmenio  46.4  13.6        1
+6 Erebia parmenio  46.4  13.6        1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          species      lat      lon presence
+1 Erebia parmenio 45.60428 10.58623        0
+2 Erebia parmenio 46.47506 13.62337        0
+3 Erebia parmenio 46.71282 13.32867        0
+4 Erebia parmenio 46.19281 12.81040        0
+5 Erebia parmenio 45.68529 10.99707        0
+6 Erebia parmenio 45.20357 15.03421        0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>stirius_pa <span class="ot">&lt;-</span> <span class="fu">rbind</span>(stirius_abs_df, stirius)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="export-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="export-the-data">Export the data</h2>
+<p>We will export the presence absence dataframe and the buffer, so they will be available to us in the following labs, when we will need it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(stirius_pa, <span class="st">"01_data/stirius_pa.RDS"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(stirius_buffer, <span class="st">"01_data/stirius_buffer.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="assignment" class="level2">
+<h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Create new R script and name it as the species you choose to work on.</p></li>
+<li><p>Copy - paste the code from the <code>Erebia stirius</code> script to your empty script.</p></li>
+<li><p>Adapt the code to achieve the following:</p></li>
+</ol>
+<p>3.1) download the data for your species from GBIF,</p>
+<p>3.2) filter the data to retain only reliable occurrence locations,</p>
+<p>3.3) create a spatial buffer around occurrences and sample pseudo-absence within it,</p>
+<p>3.4) merge the presence and pseudo-absence dataframes, and export them to the hard drive (also the buffer),</p>
+<p>3.5) save the script with the code for your species,</p>
+<p>3.6) make sure that the project folder will be available to you next week at the labs (either store it on usb, cloud or similar, in case it gets deleted from computers).</p>
+</div>
+</div>
+<hr>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
