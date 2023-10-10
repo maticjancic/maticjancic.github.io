@@ -2,10 +2,10 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/01_SDMs_species_occurence_and_absence.html",
       "/posts/05_Intro2R_summary statistics.html",
       "/posts/04_Intro2R_visual_data_exploration.html",
       "/posts/03_Intro2R_selecting, filtering_and_creating_new_variables.html",
-      "/posts/01_SDMs_species_occurence_and_absence.html",
       "/posts/02_Intro2R_data_import_and_exploration.html",
       "/posts/04_DATA EXPLORATION.html",
       "/posts/03_GIS_GLOBAL ENV DATA.html",
