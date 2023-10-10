@@ -217,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#until-the-end-of-the-class-or-homework" id="toc-until-the-end-of-the-class-or-homework" class="nav-link" data-scroll-target="#until-the-end-of-the-class-or-homework">Until the end of the class or homework</a></li>
   </ul></li>
-  <li><a href="#mandatory-reading-before-next-class" id="toc-mandatory-reading-before-next-class" class="nav-link" data-scroll-target="#mandatory-reading-before-next-class">Mandatory reading before next class</a></li>
+  <li><a href="#reading-before-next-lab" id="toc-reading-before-next-lab" class="nav-link" data-scroll-target="#reading-before-next-lab">Reading before next lab</a></li>
   </ul>
 </nav>
     </div>
@@ -588,7 +588,7 @@ Task
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># what type of a plot we will create</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/boxplot-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/boxplot-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <hr>
@@ -599,7 +599,7 @@ Task
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Sepal length (cm)"</span>, <span class="co"># this is the name of x axis</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Order of the data"</span>) <span class="co">#this is the name of y axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <hr>
@@ -610,7 +610,7 @@ Task
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Species_f, <span class="at">y =</span> Sepal_Length)) <span class="sc">+</span> </span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>For Cleveland dotplot, we include argument <code class="sourceCode r">groups <span class="ot">=</span> iris<span class="sc">$</span>Species_f</code>, to display data separately for the three groups:</p>
@@ -620,7 +620,7 @@ Task
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">"Sepal length (cm)"</span>, <span class="co"># this is the name of x axis</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"Order of the data"</span>) <span class="co">#this is the name of y axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -649,7 +649,7 @@ Questions to consider
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, <span class="at">y =</span> Sepal_Width)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>As before, we can extend this to incorporate the information about the species. One option is to use the <code>color =</code> argument within the <code>aes()</code> function. This will automatically give each species a predefined color and will display the legend on the side.</p>
@@ -657,7 +657,7 @@ Questions to consider
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, <span class="at">y =</span> Sepal_Width, <span class="at">color =</span> Species_f)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>In case that observations are overlapping by a large degree, we can use faceting to divide plots by each species. For this we need to add the <code>facet_wrap()</code> function, where <code>~ Species_f</code> denotes that species is the variable by which R should divide the data:</p>
@@ -666,7 +666,7 @@ Questions to consider
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> Species_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -697,7 +697,7 @@ Note
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Sepal Length (cm)"</span>) <span class="sc">+</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>We can also change the legend title, which now includes the <code>_f</code>. To do that, we can use <code>labs()</code> function in which we tell R that the name of the variable that we are using to color the points is <code>Species</code>:</p>
@@ -710,7 +710,7 @@ Note
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Sepal Width (cm)"</span>) <span class="sc">+</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>The last thing we will change today will be the design of plot elements. We can do that manually, but there are already several themes prepared (including some specific R packages, such as <code class="sourceCode r">ggthemes</code> - more info <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">here</a> or <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">here</a>. To us, <code class="sourceCode r"><span class="fu">theme_bw</span>()</code> and <code class="sourceCode r"><span class="fu">theme_classic</span>()</code> are of interest.</p>
@@ -725,10 +725,10 @@ Note
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
-<p>We repeat the proccess and this time add <code class="sourceCode r"><span class="fu">theme_classic</span>()</code> with empty brackets.</p>
+<p>We repeat the process, but this time add <code class="sourceCode r"><span class="fu">theme_classic</span>()</code> with empty brackets.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal_Length, </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Sepal_Width, </span>
@@ -739,7 +739,7 @@ Note
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Intro2R_visual_data_exploration_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -798,9 +798,9 @@ Task
 <hr>
 <p>1.1) Import the <code>penguins</code> dataset and check if the file was correctly imported (344 observations, 8 variables), adjust the code if needed.</p>
 <p>1.2) Create new columns in which <code>species</code>, <code>island</code> and <code>sex</code> will be treated as factors by R.</p>
-<p>1.3) Create a boxplot which will display values of body mass separately for each species.</p>
-<p>1.4) Create a dotchart which will display values of flipper length for each species.</p>
-<p>1.5.1) Create a scatter plot which will display bill lengths in relationship to bill depths with species denoted by different colors.</p>
+<p>1.3) Create a boxplot which will display values of <code>body_mass_g</code> separately for each species.</p>
+<p>1.4) Create a dotchart which will display values of <code>flipper_length_mm</code> for each species.</p>
+<p>1.5.1) Create a scatter plot which will display <code>bill_length_mm</code> in relationship to <code>bill_depth_mm</code> with species denoted by different colors.</p>
 <p>1.5.2) Rename x and y axis to <code>Bill Length (mm)</code> and <code>Bill Depth (mm)</code>, and legend title to <code>Species</code>.</p>
 <p>1.5.3) Change the plot theme to either <code>theme_bw()</code> or <code>theme_classic()</code>.</p>
 <p>1.5.4) Export the plot to your computer in high resolution and save it as <code>penguins_scatter.png</code>.</p>
@@ -845,8 +845,8 @@ Task
 </div>
 <div class="callout-body-container callout-body">
 <p>2.1) Import the dataset you downloaded from the internet in the previous lab.</p>
-<p>2.2) Create new columns in which character data will be treated as factors by R.</p>
-<p>2.3) Choose one numerical variable and create a boxplot. Divide that boxplot by different groups if it makes sense. change the names of axis titles and change the default theme.</p>
+<p>2.2) Create new columns in which character data will be treated as factors by R (if you have any).</p>
+<p>2.3) Choose one numerical variable and create a boxplot. Divide that boxplot by different groups if it makes sense. Change the names of axis titles and change the default theme.</p>
 <p>2.4) Choose one numerical variable and create a dotchart. Divide that dotchart by different groups if it makes sense.</p>
 <p>2.5) If there are two numerical columns in you data, create a scatter plot. Color points according to different groups if it makes sense, change the names of axis titles and change the default theme.</p>
 </div>
@@ -861,8 +861,8 @@ Task
 </div>
 </section>
 </section>
-<section id="mandatory-reading-before-next-class" class="level2">
-<h2 class="anchored" data-anchor-id="mandatory-reading-before-next-class">Mandatory reading before next class</h2>
+<section id="reading-before-next-lab" class="level2">
+<h2 class="anchored" data-anchor-id="reading-before-next-lab">Reading before next lab</h2>
 <p>(on e-classroom)</p>
 <p>Dytham, 2011, Choosing and using statistics for biologists:</p>
 <p><strong>Chapter 5</strong>: Statistics, variables and distributions <strong>Chapter 6</strong>: Descriptive and presentational techniques</p>
