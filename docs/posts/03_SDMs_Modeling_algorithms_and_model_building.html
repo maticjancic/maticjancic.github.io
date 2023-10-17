@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič &amp; assist. prof. Peter Glasnović; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-10-24">
+<meta name="description" content="Introduction to species distribution models, Lab 3">
+
+<title>Matic Jančič: Teaching portfolio - MODELING ALGORITHMS AND MODEL FITTING</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-binding-2.2.0.9000/leaflet.js"></script>
+<script src="../site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="../site_libs/leaflet-providers-plugin-2.2.0.9000/leaflet-providers-plugin.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">MODELING ALGORITHMS AND MODEL FITTING</h1>
+                  <div>
+        <div class="description">
+          Introduction to species distribution models, Lab 3
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Introduction to species distribution models in R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič &amp; assist. prof. Peter Glasnović; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 24, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#before-we-start" id="toc-before-we-start" class="nav-link active" data-scroll-target="#before-we-start">Before we start</a></li>
+  <li><a href="#lab-plan" id="toc-lab-plan" class="nav-link" data-scroll-target="#lab-plan">Lab plan</a></li>
+  <li><a href="#visualise-stirius_pa_final-data" id="toc-visualise-stirius_pa_final-data" class="nav-link" data-scroll-target="#visualise-stirius_pa_final-data">Visualise <code class="sourceCode r">stirius_pa_final</code> data</a></li>
+  <li><a href="#modelling-algorithms" id="toc-modelling-algorithms" class="nav-link" data-scroll-target="#modelling-algorithms">Modelling algorithms</a></li>
+  <li><a href="#generalised-linear-models-glm-guisan-et-al.-2017-p.-167" id="toc-generalised-linear-models-glm-guisan-et-al.-2017-p.-167" class="nav-link" data-scroll-target="#generalised-linear-models-glm-guisan-et-al.-2017-p.-167">Generalised linear models (GLM; Guisan et al., 2017, p.&nbsp;167)</a>
+  <ul class="collapse">
+  <li><a href="#application-of-glm-to-erebia-stirius-dataset" id="toc-application-of-glm-to-erebia-stirius-dataset" class="nav-link" data-scroll-target="#application-of-glm-to-erebia-stirius-dataset">Application of GLM to <em>Erebia stirius</em> dataset</a></li>
+  </ul></li>
+  <li><a href="#random-forest-rf-guisan-et-al.-2017-p.-203" id="toc-random-forest-rf-guisan-et-al.-2017-p.-203" class="nav-link" data-scroll-target="#random-forest-rf-guisan-et-al.-2017-p.-203">Random forest (RF; Guisan et al., 2017, p.&nbsp;203)</a>
+  <ul class="collapse">
+  <li><a href="#application-of-rf-to-erebia-stirius-dataset" id="toc-application-of-rf-to-erebia-stirius-dataset" class="nav-link" data-scroll-target="#application-of-rf-to-erebia-stirius-dataset">Application of RF to <em>Erebia stirius</em> dataset</a></li>
+  <li><a href="#take-home-message" id="toc-take-home-message" class="nav-link" data-scroll-target="#take-home-message">Take home message</a></li>
+  </ul></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this lab you will:</p>
+<ul>
+<li>use R code to access the marine species occurrence data on GBIF server and download it,</li>
+<li>filter and select data to retain only information of interest,</li>
+<li>create a map of spatial points,</li>
+<li>learn how to simulate pseudo-absence points in areas around species presences.</li>
+</ul>
+</div>
+</div>
+<section id="before-we-start" class="level2">
+<h2 class="anchored" data-anchor-id="before-we-start">Before we start</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Open the folder <code>Introduction to species distribution models</code>,</p></li>
+<li><p>Start RStudio from the <code>Rproject icon</code> named <code>Introduction to species distribution models</code>.</p></li>
+<li><p>Open the R script named <code>Erebia stirius</code>.</p></li>
+<li><p>When following this lab, continue to copy &amp; paste the code in the script so it is organised as it is in teaching materials.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="lab-plan" class="level2">
+<h2 class="anchored" data-anchor-id="lab-plan">Lab plan</h2>
+<p><img src="05_images/Lab plan 3.jpg" class="img-fluid"></p>
+<hr>
+<p><img src="05_images/data _ env_space _ projection_3.png" class="img-fluid"></p>
+</section>
+<section id="visualise-stirius_pa_final-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualise-stirius_pa_final-data">Visualise <code class="sourceCode r">stirius_pa_final</code> data</h2>
+<p>First, we will load the data that we prepared in the last lab. The dataset is saved as <code class="sourceCode r">.RDS</code> files in <code class="sourceCode r">01_data</code> folder. We will import it using <code class="sourceCode r"><span class="fu">readRDS</span>()</code> function and assign it to the objects with the same names as in lab 2: <code class="sourceCode r">stirius_pa_final</code>. This is a dataframe in which we prepared species presence points and pseudo-absence points and extracted values for environmental variables that are not highly correlated (bio2, bio4, bio6, bio 8, bio15, bio17 and bio18).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stirius_pa_final <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"01_data/stirius_pa_final.RDS"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stirius_pa_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          species      lat      lon presence ID wc2.1_2.5m_bio_2
+1 Erebia parmenio 45.95096 11.44143        0  1         7.052333
+2 Erebia parmenio 46.00191 14.06301        0  2         8.737666
+3 Erebia parmenio 46.91182 12.49829        0  3         7.005333
+4 Erebia parmenio 46.49978 13.67425        0  4         9.366000
+5 Erebia parmenio 46.48025 12.94345        0  5         8.426000
+6 Erebia parmenio 46.58441 14.02201        0  6        10.477333
+  wc2.1_2.5m_bio_4 wc2.1_2.5m_bio_6 wc2.1_2.5m_bio_8 wc2.1_2.5m_bio_15
+1         650.0859           -5.364        13.902666          45.91653
+2         701.4801           -5.088         4.383333          20.45457
+3         620.9182           -9.740         8.678666          30.58824
+4         692.6573           -7.992         5.906000          24.87869
+5         646.9081           -6.872        13.117333          30.09015
+6         791.2856           -6.952        17.753334          30.01317
+  wc2.1_2.5m_bio_17 wc2.1_2.5m_bio_18
+1                65               232
+2               408               495
+3               212               469
+4               262               478
+5               200               447
+6               168               374</code></pre>
+</div>
+</div>
+<p>This is how our presence - pseudo-absences are distributed in geographical space. Note that pseudo-absences were generated randomly and they are very likely different on your computers.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-97cf20079cff07849b81" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-97cf20079cff07849b81">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[45.9509624048806,46.0019057428285,46.91182226075374,46.49978076038441,46.48024817852464,46.58441397379696,46.38240375719312,46.41081196916539,46.56187207021829,46.639779380056,46.69291813810562,46.11689871211024,46.63717152270796,45.60180666183764,45.85975281338684,46.05014380177633,45.6888786284761,45.27135005158296,46.21541677039645,45.45379882303459,47.12724928854751,46.16999434361824,46.81420554769146,46.29930889222459,46.46653097564462,47.42496561094611,45.48107969844419,45.85707182699506,46.64904448451687,46.33539842840904,45.61545708897452,45.59940835025419,46.80610032648772,45.40564174734383,47.04953015719156,46.05286753147134,45.46669426135469,46.56420742179112,45.91523412565679,46.1865458421989,46.20095053486338,46.08306810621499,46.28144289388691,45.80567225487494,46.11905048667072,46.40287384813845,46.05262829512604,46.25642118909328,46.64366608951663,46.74122961955988,47.03505801658981,47.11869689999732,45.60167696590646,45.59264936190952,46.20672320865366,45.60676703906417,46.16128521844573,46.52025292261222,45.8683122177871,46.42436886250602,45.07533478498557,46.16748388302079,46.31846554257597,45.36891204557815,45.50153879707846,45.77219552886211,46.64058278185162,46.36582640916407,47.58721091980977,46.47235326202596,45.58457517758966,46.79194332957215,46.3180242433642,46.15636004518808,45.49278700476491,45.38661758641354,46.79191701331578,46.34864151404706,46.29288854646303,46.40808701094808,47.54800024692445,45.78937203222083,45.45279481901692,46.38609690197103,45.75261971922087,46.44951538992908,45.61290806771285,46.04936922605999,46.35187011873609,46.23730045339281,45.84854191776128,45.57961336629372,45.40030999914902,46.02728217304246,46.35761224063434,46.27073459926024,45.54316600623331,46.26465945821025,45.5287315956889,46.39189551098301,46.34345036541708,46.04945336870603,45.79726863299889,46.10800258740165,45.35847212685008,46.68459515214559,46.3944187804891,46.13149820118833,46.5171980335281,46.65712845836608,47.51443365675996,46.00425939534953,46.42471895241974,46.46109631971806,46.73854925156339,45.92661204545339,45.587580802928,45.56490866953713,46.31320014951804,46.453370473098,46.29010836721749,46.60087814534641,46.12545336334593,46.62636243175528,46.65967939786661,46.17897247719263,46.66570991827373,46.6884760522916,45.28841500850678,46.92883396617751,46.85585389262072,46.25739230549985,47.54207897992394,46.08910681574725,46.62132638253556,46.61206556341247,45.93981982593079,46.72140160490308,46.01862034782174,46.78946391107383,45.70803567249488,46.23221918445024,46.68203484996205,46.80560100055851,46.6349275504272,46.45063742528979,46.24507633474025,47.51679410969349,46.01944443942936,46.8023103400462,45.780564,45.717284,45.953491,46.426311,46.426403,46.427067,46.426164,46.489836,46.482458,46.480237,46.456944,46.375362,45.702587,45.702585,45.702586,46.483544,45.748532,45.884988,46.396024,45.909355,46.42,46.3767,46.3767,46.3767,46.3767,46.438291,46.425797,46.435396,46.430959,46.37,46.459304,46.392174,46.416204,46.332143,46.41,46.41,46.439657,46.436344,46.436179,46.410832,46.411069,46.411645,46.331034,46.424769,46.429795,46.46423,45.800537,45.773368,46.445771,46.445771,46.443857,46.443857,46.443857,46.432212,46.441938,45.768975,46.420945,46.448136,45.800623,46.316666,45.8,45.8,45.95,46.45,45.666668,46.65,46.65,46.333332,46.333332,45.81,47.616665,45.8,45.8,46.316666,46.45,46.266666,46.266666,45.8,45.9,45.65,46.266666,46.5,46.366665,46.333332,46.366665,47,46.628887,46.592777,45.81,45.5,45.5,46.533333,46.533333,46.533333,46.533333,45.8,45.8,45.95,45.5,45.5,45.666668,45.683334,45.5,46.316666,46.316666,46.316666,45.666668,45.5,46.366665,45.8,45.666668,45.8,45.5,46.383335,46.216667,46.45,46.333332,46.133335,46.333332,45.666668,45.9,45.883335,45.883335,46.316666,46.73,46.4,46.4,46.4875,46.318054,46.604443,46.466946,46.4875,46.53,46.016666,45.8,46.36222,45.5,46.333332,46.366943,46.38389,46.604168,46.218056,46.422222,46.425,46.433334,45.266666,46.316666,46.5,46.5,46.366665],[11.4414306653109,14.06300520605888,12.4982923744133,13.6742523251472,12.94344578113611,14.02200714076467,12.50848217896312,12.32641999809995,11.85283229302682,14.07618727765976,13.9989541886276,14.35612306258206,13.69372311463187,14.41618943031798,11.42846596068033,12.70137598894317,11.38457378519623,15.26292406913234,12.22022812848862,14.42263867695609,12.71924855138465,13.31842063052985,12.1428201198515,13.10619264326848,12.35278123771057,13.53135520106812,14.68134866072867,15.15015382116344,13.29967233745287,13.40153068418606,11.22455457572189,15.10244669562633,12.63045693422101,14.49916024784666,12.62130700843852,12.45579240448286,14.4575527505523,13.22829615605972,10.99179224846735,14.01195236339517,14.72484863872568,13.63274933801818,12.11656773416074,14.98860297942913,12.49532343515309,11.92633364257309,11.38387162000957,14.28701526200939,15.16586721929759,13.39850304510077,12.75092772333332,12.59703917889333,10.81829034567603,14.76348315358658,12.68202563126652,11.2425368349746,12.90930103073422,11.71577601859631,10.57666674136652,12.39290843208865,15.10458204179237,12.73154738941137,13.98528855680217,14.50400321059998,15.28198566264802,13.70310377716757,14.16709244017883,15.32476731597733,13.98659724342642,14.4950707029379,10.67894590921644,13.45100052422713,11.5403440327039,13.8464046471957,15.36478655817932,14.77836140376058,12.1782703434625,12.46961220786792,13.01890212197599,14.97532509676476,13.45863643911796,15.11968330885688,14.96287133183476,13.75940369339828,10.56990519906454,11.59820248264382,11.40524061680286,11.30721871573064,13.15188264734771,12.85683467440673,15.06687692800822,10.65064951221136,14.72255130037759,12.5695700952831,13.71103373422479,13.88792157349389,14.88743873480045,12.34035467018969,11.12101597513917,13.49512864402464,11.56754472836243,14.01131532186169,14.97053619031034,13.0922777624397,14.42644613023228,11.92464727633867,14.57708109111013,12.55887240102398,14.46116826174641,13.06164979771535,13.73609375067126,10.87763519308377,14.52315337869545,13.01193306995193,13.50423129757958,11.4670464758234,15.13772930039944,14.63390248991895,13.20762363043297,14.06967581793103,12.54850122207444,13.50622006267237,12.37307072514546,12.10281693020898,11.31043001924186,13.66443718118296,13.45423234491676,14.87189433292467,14.60580436738582,12.74684126481344,12.68511655720073,14.3791304685625,13.70813295928752,13.65518716721589,13.46555725750872,12.03021767432784,12.45515823395467,13.53631716705889,13.86107234235647,11.92833298312927,11.52407647667685,12.2333389524586,14.98180949932264,13.27849557173011,14.71274907921488,12.00887306279078,13.83495389071388,13.57832381322612,12.56535119784032,12.7039101500841,11.219617,10.847438,10.746479,13.602318,13.602187,13.604769,13.600312,11.60905,11.571527,11.570144,14.500556,14.530198,11.116495,11.116492,11.116506,14.594447,10.871693,13.968489,14.219691,13.922224,13.61,14.6656,14.6656,14.6656,14.6656,13.631669,13.598918,13.626142,13.742192,14.5936,13.684499,13.821766,14.64057,13.638168,13.72,13.72,13.741519,13.741285,13.741788,13.723879,13.72401,13.72504,13.644598,13.742726,13.741211,14.504743,13.997308,14.048213,14.488349,14.488349,14.264299,14.264299,14.264299,13.742929,13.637345,10.861037,13.5866,14.48792,13.99738,13.266666,14,14,13.866667,13.333333,10.816667,12.75,12.75,13.55,13.75,14.05,13.683333,14,14,13.266666,13.183333,12.516666,12.516666,14,13.9,15.15,12.516666,12.166667,13.716666,13.75,13.716666,12.64,13.452778,13.338333,14.05,14.666667,14.666667,11.566667,11.566667,11.566667,11.566667,14,14,13.866667,14.666667,14.666667,10.816667,11.216666,14.666667,13.266666,13.266666,13.266666,10.816667,14.666667,13.716666,14,10.816667,14,14.866667,13.833333,13.966666,13.65,13.75,12.5,14.083333,10.816667,13.9,13.883333,13.883333,13.083333,12.22,13.016666,13.016666,15.104722,14.583889,14.584723,13.768056,15.104722,14.03,11.3,14,14.161667,14.866667,13.766666,13.8,13.7,12.945833,14.1,13.583333,14.604167,13.733334,15.133333,13.083333,13.583333,13.583333,13.133333],5,null,null,{"interactive":true,"className":"","stroke":true,"color":["#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF","#0000FF"],"fillOpacity":0.75},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#FF0000","#0000FF"],"labels":["0","1"],"na_color":null,"na_label":"NA","opacity":1,"position":"bottomright","type":"factor","title":"Presence","extra":null,"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[45.07533478498557,47.616665],"lng":[10.56990519906454,15.36478655817932]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<hr>
+<p>We will first visualise, how presences (1) and pseudo-absences (0) are distributed along one environmental variable of choice (bio2):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stirius_pa_final, <span class="fu">aes</span>(<span class="at">x =</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_2, <span class="at">y =</span> presence)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>Presences and pseudo-absences along two environmental variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stirius_pa_final, <span class="fu">aes</span>(<span class="at">x =</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_2, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">y =</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col =</span> <span class="fu">as.factor</span>(presence))) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>Presences and pseudo-absences along three environmental variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"scatterplot3d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"scatterplot3d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> colors[<span class="fu">as.factor</span>(stirius_pa_final<span class="sc">$</span>presence)]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot3d</span>(dplyr<span class="sc">::</span><span class="fu">select</span>(stirius_pa_final, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                            wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_2,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                            wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                            wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_6,), </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">color =</span> colors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modify the above code by changing the environmental variables along which presences - pseudo-absences are plotted. You need to change only the numbers at the end of <code>wc2.1_2.5m_bio_x</code>, but keep in mind, that not all numbers from 1 - 19 are available, but only those that were selected in the previous lab.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="modelling-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="modelling-algorithms">Modelling algorithms</h2>
+<p>Remember our introductory class and the questions for you:</p>
+<ul>
+<li>What is a model?<br>
+</li>
+<li>How do you understand / perceive the term model?</li>
+</ul>
+<p><strong>Algorithms for predicting/projecting the distribution of species in geographic space on the basis of a mathematical representation of their known distribution in environmental space.</strong></p>
+<p>The task of a <strong>modelling algorithm</strong> is to <strong>identify potentially complex non-linear relationships</strong> in multi-dimensional environmental space <strong>and project them to 2 dimensional geographic space</strong> (Pearson 2010). Simplified, the algorithms project:</p>
+<ul>
+<li>to areas of known distributional area,</li>
+<li>to parts of the actual distribution area, that is currently unknown but occupied,</li>
+<li>to areas that are currently not occupied.</li>
+</ul>
+<p>Additionally, we need to acknowledge some degree of error in the algorithms ability to fit observed records, and thus expect the fourth projection:</p>
+<ul>
+<li>areas that are neither the actual nor the potential distribution of the species (Pearson 2010).</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/model projections.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Theoretical species distribution model projections.</figcaption>
+</figure>
+</div>
+<p>Modeling algorithms will identify areas with similar environments to where the species has been observed. Most algorithms generally do not return the presence (1) or absence (0) of the species, but the <strong>probability</strong> or <strong>suitability</strong> for finding the species in any given cell on a map based on observed species-environment relationships.</p>
+<p><img src="05_images/data _ env_space _ projection_3.png" class="img-fluid"></p>
+<p>There is plethora of different modelling algorithms used for modelling species/habitat distribution in the literature, that broadly belong to:</p>
+<ul>
+<li>statistical (regression), i.e.:
+<ul>
+<li>Generalized Additive Models (GAM),</li>
+<li>Generalized Linear Models (GLM),</li>
+<li>Lasso and Elastic-Net Regularized Generalized Linear Models (GLMNET),</li>
+<li>Multivariate Adaptive Regression Splines (MARS),</li>
+<li>Mixture Discriminant Analysis (MDA),</li>
+<li>Flexible Discriminant Analysis (FDA), etc.,</li>
+</ul></li>
+<li>machine learning, i.e.:
+<ul>
+<li>Boosted Regression Trees (BRT),</li>
+<li>Classification and Regression Trees (CART)</li>
+<li>Maximum Entropy (MAXENT)</li>
+<li>Random Forests (RF),</li>
+<li>Recursive Partitioning and Regression Trees (RPART), etc.,</li>
+</ul></li>
+<li>artificial intelligence algorithms, i.e.:
+<ul>
+<li>Artificial Neural Networks (ANN),<br>
+</li>
+<li>Support Vector Machines (SVM), etc.</li>
+</ul></li>
+</ul>
+<p>These algorithms are implemented in multiple R packages, including: <code class="sourceCode r">sdm</code>, <code class="sourceCode r">ENMTools</code>, <code class="sourceCode r">biomod2</code>, <code class="sourceCode r">ecospat</code>, etc.</p>
+<p>The modelling algorithm selection is based on multiple considerations, is not a straigthforward process and there are no simple answers (Pearson 2010):</p>
+<ul>
+<li>data (presence only, presence - background, presence - (pseudo)absence)</li>
+<li>aim of the study
+<ul>
+<li>understanding which variables influence our species distribution?</li>
+<li>prediction accuracy to identify potential present distribution?<br>
+</li>
+<li>prediction accuracy to extrapolation beyond the range of data used to build the model (past/future scenarios)?</li>
+</ul></li>
+</ul>
+<p>Additionally, a developing approach is to create an <strong>ensemble of modeling algorithms</strong> - which essentially means applying multiple modeling algorithms to the data and “merge” the models together to project into present geographic space or new conditions (past / future).</p>
+<p>Due to high complexity of this field, we will only use the two following algorithms and just briefly address their main strengths and weaknesses:</p>
+<ul>
+<li>Generalized Linear Models (GLM) and</li>
+<li>Random Forests (RF).</li>
+</ul>
+<hr>
+</section>
+<section id="generalised-linear-models-glm-guisan-et-al.-2017-p.-167" class="level2">
+<h2 class="anchored" data-anchor-id="generalised-linear-models-glm-guisan-et-al.-2017-p.-167">Generalised linear models (GLM; Guisan et al., 2017, p.&nbsp;167)</h2>
+<p>The family of presence-absence approaches is diverse and relies on different statistical principles. Among the many methods from this group we will create a model using the Generalized linear model (GLM) method. This is a regression-based approach which relates a response variable (in our case presence-absence) to a set of pre selected environmental predictors (in our case bioclimatic variables). The classical linear regression (ordinary least-square) is valid only when the response variable is normally distributed. GLMs represent a more flexible family of regression models, which allow the response variable to follow different exponential distributions (including binomial).</p>
+<p>ADVANTAGES</p>
+<ul>
+<li>The response variable can have any form of exponential distribution type (binomial in our case)</li>
+<li>Able to deal with categorical predictors</li>
+<li>Relatively easy to interpret and allows a clear understanding of how each of the predictors are influencing the outcome</li>
+<li>Less susceptible to overfitting</li>
+</ul>
+<p>LIMITATIONS</p>
+<ul>
+<li>Needs relatively large datasets. The more predictor variables, the larger the sample size required. As a rule of thumb, the number of predictor variables should be less than number of presences divided by 10.</li>
+<li>Sensitive to outliers</li>
+</ul>
+<p><br></p>
+<p>A generalized linear model consists of a linear predictor:</p>
+<p><span class="math display">\[
+\begin{equation}
+\ η_{i} = β_{0} + β_{1}x_{1i} + ... + β_{p}x_{pi}
+\end{equation}
+\]</span></p>
+<p>and a link function, that describes how response depends on the linear predictor:</p>
+<p><span class="math display">\[
+\begin{equation}
+\ g(µ_{i}) = η_{i}
+\end{equation}
+\]</span></p>
+<p>When using GLM on binary data (0 and 1) a logistic function is most commonly used as a link function.</p>
+<p>The process of model building can be forward or backward, sometimes also combining both strategies:</p>
+<ul>
+<li>forward building means starting with one predictor and adding one more in each round until full model (with all predictors)</li>
+<li>backward building means starting with full model and removing predictors one by one until finding the best model.</li>
+</ul>
+<hr>
+<section id="application-of-glm-to-erebia-stirius-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="application-of-glm-to-erebia-stirius-dataset">Application of GLM to <em>Erebia stirius</em> dataset</h3>
+<p>Generalized linear models can be fitted in R using the <code class="sourceCode r"><span class="fu">glm</span>()</code> function that is included in <code class="sourceCode r">base R</code>. The main arguments to a <code class="sourceCode r"><span class="fu">glm</span>()</code> function are:</p>
+<ul>
+<li><code class="sourceCode r">formula</code>,</li>
+<li><code class="sourceCode r">family <span class="ot">=</span></code> and<br>
+</li>
+<li><code class="sourceCode r">data</code>.</li>
+</ul>
+<p>The formula to glm is specified as y ∼ x1 + x2 … xi, where y is a response variable, x1, x2 to xi are the names of numeric vectors (continuous variables) or factors (categorical variables) - which are our predictor variables. All specified variables must be in the workspace or in the data frame passed to the data argument. The family argument takes the name of a family function which specifies the link function and the variance function. The exponential family functions available in R are:</p>
+<ul>
+<li><strong>binomial(link = “logit”)</strong></li>
+<li>gaussian(link = “identity”)</li>
+<li>Gamma(link = “inverse”)</li>
+<li>inverse.gaussian(link = “1/mu2”)</li>
+<li>poisson(link = “log”)</li>
+</ul>
+<p>There are many other arguments (<code>weights, subset, na.action, start = NULL, etastart, mustart, offset, control = glm.control(...), model = TRUE, method = ”glm.fit”, x = FALSE, y = TRUE, contrasts = NULL, ...</code>) that we will not delve in, but with which we can calibrate our models to different specific situations.</p>
+<p>We will do the model building as a backward process, starting by a full model. This model will include all possible environmental variables within our dataset and will be the most complex of all models. Within <code class="sourceCode r"><span class="fu">glm</span>()</code> function we specify:</p>
+<ul>
+<li><code class="sourceCode r">presence <span class="sc">~</span> bio2 <span class="sc">+</span> bio4 <span class="sc">+</span> bio8 <span class="sc">+</span> bio15 <span class="sc">+</span> bio17 <span class="sc">+</span> bio18</code> (presence explained by a linear combination of all bio variables),</li>
+<li><code class="sourceCode r">family <span class="ot">=</span> <span class="st">"binomial"</span></code> (our response variable - presence - follows binomial distribution (0 and 1) and the model needs to take this into account)</li>
+<li><code class="sourceCode r">data <span class="ot">=</span> stirius_pa_final</code> (to tell the model, where to look for the data).</li>
+</ul>
+<p>We will save the results of this call to an object named <code class="sourceCode r">glm_full</code> - “full” indicating that all possible variables are included in the model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>glm_full <span class="ot">&lt;-</span> <span class="fu">glm</span>(presence <span class="sc">~</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_2 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_6 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_8 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_15 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_17 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_18, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="co"># modeling presence with all env variables </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="co"># using binomial distribution, and logistic function by default</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> stirius_pa_final) <span class="co"># variables and presence stored in stirius_pa_final</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We explore the results of a generalised linear model using the <code class="sourceCode r"><span class="fu">summary</span>()</code> function, applied on the object in which we stored the model (<code class="sourceCode r">glm_full</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presence ~ wc2.1_2.5m_bio_2 + wc2.1_2.5m_bio_4 + 
+    wc2.1_2.5m_bio_6 + wc2.1_2.5m_bio_8 + wc2.1_2.5m_bio_15 + 
+    wc2.1_2.5m_bio_17 + wc2.1_2.5m_bio_18, family = "binomial", 
+    data = stirius_pa_final)
+
+Coefficients:
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -2.4664717  3.5819782  -0.689 0.491089    
+wc2.1_2.5m_bio_2   0.2842938  0.2594362   1.096 0.273160    
+wc2.1_2.5m_bio_4   0.0004804  0.0062703   0.077 0.938925    
+wc2.1_2.5m_bio_6  -0.1024304  0.1081918  -0.947 0.343767    
+wc2.1_2.5m_bio_8  -0.2111851  0.0573542  -3.682 0.000231 ***
+wc2.1_2.5m_bio_15  0.0569347  0.0347636   1.638 0.101470    
+wc2.1_2.5m_bio_17  0.0043713  0.0044787   0.976 0.329057    
+wc2.1_2.5m_bio_18 -0.0032971  0.0032837  -1.004 0.315332    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 415.89  on 299  degrees of freedom
+Residual deviance: 366.14  on 292  degrees of freedom
+AIC: 382.14
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><strong>Interpreting Coefficients, P-Values, Deviance and Akaike Information Criteria</strong></p>
+<p>The coefficient estimate (<code class="sourceCode r">Estimate</code>) in the output indicate the average change in the log odds of the response variable associated with a one unit increase in each predictor variable. For example, a one unit increase in the predictor variable bio2 is associated with an average change of -0.024 in the log odds of the response variable presence. This means that higher values of <code>bio2</code> are associated with a lower likelihood of the presence variable taking on a value of 1.</p>
+<p>The standard error gives us an idea of the variability associated with the coefficient estimate. The p-value (<code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code>) tells us the probability associated with a particular z value. This essentially tells us how well each predictor variable is able to predict the value of the response variable in the model.</p>
+<p>For example, the p-value associated with the <code>bio2</code> variable is .931. Since this value is more than .05, we would say that <code>bio2</code> is not statistically significant predictor variable in the model. Depending on our choice, we may decide to use a significance level of .01, .05, or 0.10 to determine whether or not each predictor variable is statistically significant. In this model, only <code>bio8</code> is statistically significant (<code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code> &lt; 0.05), while <code>bio17</code> has the highest <code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code> value (0.987), which means we can consider it as a candidate variable to exclude for the next model.</p>
+<p>The null deviance in the output tells us how well the response variable can be predicted by a model with only an intercept term (meaning no predictors) and the residual deviance tells us how well the response variable can be predicted by the specific model that we fit with the selected predictor variables. The lower the value, the better the model is able to predict the value of the response variable.</p>
+<p>The Akaike information criterion (AIC) is a metric that is used to compare the fit of different regression models. The actual value for the AIC is meaningless, however, when we compare two modely, the one with lower AIC value is considered to be better. However, if we fit several regression models, we can compare the AIC value of each model. The model with the lowest AIC offers the best fit, but we need to take into account the number of predictor variables in each (generally, the model who explains more/better with less variables should be selected).</p>
+<hr>
+<p>In the next step, we will build a model from which we will remove the <code>bio17</code> variable, that has the highest <code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code> value in the full model and was not statistically significant for describing the response variable. We will save this model in a new object called <code class="sourceCode r">glm_2</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>glm_2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presence <span class="sc">~</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_2 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_6 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_8 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_15 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_18,                 </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> stirius_pa_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And explore the results of a generalised linear model using the <code class="sourceCode r"><span class="fu">summary</span>()</code> function, applied on the object in which we stored the model (<code class="sourceCode r">glm_2</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presence ~ wc2.1_2.5m_bio_2 + wc2.1_2.5m_bio_4 + 
+    wc2.1_2.5m_bio_6 + wc2.1_2.5m_bio_8 + wc2.1_2.5m_bio_15 + 
+    wc2.1_2.5m_bio_18, family = "binomial", data = stirius_pa_final)
+
+Coefficients:
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -0.8612365  3.1958417  -0.269    0.788    
+wc2.1_2.5m_bio_2   0.2631602  0.2551330   1.031    0.302    
+wc2.1_2.5m_bio_4   0.0003148  0.0062487   0.050    0.960    
+wc2.1_2.5m_bio_6  -0.0300533  0.0790514  -0.380    0.704    
+wc2.1_2.5m_bio_8  -0.2441128  0.0469849  -5.196 2.04e-07 ***
+wc2.1_2.5m_bio_15  0.0386499  0.0288147   1.341    0.180    
+wc2.1_2.5m_bio_18 -0.0007964  0.0020547  -0.388    0.698    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 415.89  on 299  degrees of freedom
+Residual deviance: 367.11  on 293  degrees of freedom
+AIC: 381.11
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>In this model, again only <code>bio8</code> is statistically significant (<code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code> &lt; 0.05), while <code>bio2</code> has the highest <code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code> value (0.93), which means we can consider it as a candidate variable to exclude for the next model.</p>
+<hr>
+<p>In this step, we will build a model from which we will remove the <code>bio2</code> variable, that had the highest <code class="sourceCode r"><span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>z<span class="sc">|</span>)</code> value in the <code>glm_2</code> and was not statistically significant. We will save this model in a new object called <code class="sourceCode r">glm_3</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>glm_3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presence <span class="sc">~</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_6 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_8 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_15 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_18, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> stirius_pa_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And explore the results of a generalised linear model using the <code class="sourceCode r"><span class="fu">summary</span>()</code> function, applied on the object in which we stored the model (<code class="sourceCode r">glm_3</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presence ~ wc2.1_2.5m_bio_4 + wc2.1_2.5m_bio_6 + 
+    wc2.1_2.5m_bio_8 + wc2.1_2.5m_bio_15 + wc2.1_2.5m_bio_18, 
+    family = "binomial", data = stirius_pa_final)
+
+Coefficients:
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -1.9182694  3.0254926  -0.634    0.526    
+wc2.1_2.5m_bio_4   0.0052376  0.0040373   1.297    0.195    
+wc2.1_2.5m_bio_6  -0.0351972  0.0792775  -0.444    0.657    
+wc2.1_2.5m_bio_8  -0.2439038  0.0469769  -5.192 2.08e-07 ***
+wc2.1_2.5m_bio_15  0.0338647  0.0283973   1.193    0.233    
+wc2.1_2.5m_bio_18 -0.0006277  0.0020456  -0.307    0.759    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 415.89  on 299  degrees of freedom
+Residual deviance: 368.19  on 294  degrees of freedom
+AIC: 380.19
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>We will drop also the <code>bio18</code> variable and than conclude with modifying the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>glm_4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presence <span class="sc">~</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_6 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_8 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_15, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"binomial"</span>, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> stirius_pa_final)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presence ~ wc2.1_2.5m_bio_4 + wc2.1_2.5m_bio_6 + 
+    wc2.1_2.5m_bio_8 + wc2.1_2.5m_bio_15, family = "binomial", 
+    data = stirius_pa_final)
+
+Coefficients:
+                   Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -2.120876   2.947161  -0.720   0.4718    
+wc2.1_2.5m_bio_4   0.005060   0.003989   1.269   0.2046    
+wc2.1_2.5m_bio_6  -0.019715   0.061032  -0.323   0.7467    
+wc2.1_2.5m_bio_8  -0.242115   0.046605  -5.195 2.05e-07 ***
+wc2.1_2.5m_bio_15  0.038892   0.023166   1.679   0.0932 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 415.89  on 299  degrees of freedom
+Residual deviance: 368.28  on 295  degrees of freedom
+AIC: 378.28
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<hr>
+<p>Now we’ve fit several GLM models, we can compare the AIC value of each model. The model with the lowest AIC generally offers the best fit.</p>
+<p>To resolve a common question about AIC: What is considered a good AIC value?</p>
+<p>The simple answer: There is no value for AIC that can be considered “good” or “bad” because we simply use AIC as a way to compare regression models. The model with the lowest AIC offers the best fit. The absolute value of the AIC value is not important. A rule of thumb is that models within 2 units of difference (ΔAIC) are considered as the best candidate models, while often ΔAIC ≤ 6 (maximum ≤ 10) is used for final model selection (Richards et al., 2011). Important consideration is also the number of explanatory (predictor) variables in candidate models, with simpler (parsimonious) models with the lowest number of predictors being better than models with higher number of predictor variables.</p>
+<p>We extract the AIC value of the GLM models using AIC() function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glm_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 382.1426</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glm_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 381.1143</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glm_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 380.1873</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glm_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 378.2817</code></pre>
+</div>
+</div>
+<p>Having the lowest AIC and the lowest number of predictors, the <code>glm_4</code> is the best candidate model among the three models we have created and will be used in the next lab to project the habitat suitability to geographic space.</p>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="random-forest-rf-guisan-et-al.-2017-p.-203" class="level2">
+<h2 class="anchored" data-anchor-id="random-forest-rf-guisan-et-al.-2017-p.-203">Random forest (RF; Guisan et al., 2017, p.&nbsp;203)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/rf.jpeg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">A random forest in R.</figcaption>
+</figure>
+</div>
+<p>Random forests or random decision forests are an ensemble learning method for classification, regression and other tasks that operates by constructing a multitude of decision trees at training time. The method is relatively new, being defined and originally developed in 2001. Random forests are frequently used as “blackbox” models, as they generate reasonable predictions across a wide range of data while requiring little configuration. Random forests can be also used to rank the <strong>importance of variables in a regression or classification problem</strong> and are implemented in the R package <code class="sourceCode r">randomForest</code>.</p>
+<p>The random forest model essentially represents an assembly of a selected number of decision trees, which are itself commonly used supervised classification algorithms. They are very popular for a few reasons:</p>
+<ul>
+<li>They perform quite well on classification problems,</li>
+<li>the decision path is relatively easy to interpret, and</li>
+<li>the algorithm to build (train) them is fast and simple.</li>
+</ul>
+<p>A decision tree is a flowchart-like structure made of nodes and branches. At each node, a split on the data is performed based on one of the input features, generating two or more branches as output. More and more splits are made in the upcoming nodes and increasing numbers of branches are generated to partition the original data. This continues until a node is generated where all or almost all of the data belong to the same class and further splits — or branches — are no longer possible.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/decision tree - random forest.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">From decision tree to a random forest.</figcaption>
+</figure>
+</div>
+<p>A nice explanation of decision tree to random forest model can be found <a href="https://www.youtube.com/watch?v=J4Wdy0Wc_xQ&amp;t=22s">here</a>.</p>
+<p>ADVANTAGES</p>
+<ul>
+<li>higher accuracy than a single decision tree and other classifying/regression methods</li>
+<li>offer a way of averaging multiple deep decision trees to reduce variance</li>
+</ul>
+<p>LIMITATIONS</p>
+<ul>
+<li>lower interpretability within decision trees</li>
+<li>following the paths of tens or hundreds of trees to confirm that the model has learned realistic information is very hard</li>
+</ul>
+<section id="application-of-rf-to-erebia-stirius-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="application-of-rf-to-erebia-stirius-dataset">Application of RF to <em>Erebia stirius</em> dataset</h3>
+<p>The random forest model can be fitted using <code class="sourceCode r"><span class="fu">randomForest</span>()</code> function from the <code class="sourceCode r">randomForest</code> package. A call to build a random forest needs the following arguments:</p>
+<ul>
+<li><code class="sourceCode r">formula</code>,</li>
+<li><code class="sourceCode r">data</code>,</li>
+</ul>
+<p>while these are optional or predefined:</p>
+<ul>
+<li><code class="sourceCode r">importance <span class="ot">=</span> <span class="cn">TRUE</span></code>,</li>
+<li><code class="sourceCode r">na.action <span class="ot">=</span> na.omit</code>,</li>
+<li><code class="sourceCode r">ntree <span class="ot">=</span></code></li>
+<li><code class="sourceCode r">mtry <span class="ot">=</span></code></li>
+<li><code class="sourceCode r">maxnodes <span class="ot">=</span></code>, etc. …</li>
+</ul>
+<p>We will build only a full random forest model that will include all possible environmental variables within our dataset. By default, the random forest will consist of <strong>500 trees</strong> and will test random two variables at each split (<code class="sourceCode r">mtry <span class="ot">=</span> <span class="fu">sqrt</span>(p)</code>; p = number of predictor variables). Within <code class="sourceCode r"><span class="fu">randomForest</span>()</code> function we specify:,</p>
+<ul>
+<li><code class="sourceCode r">presence <span class="sc">~</span> bio2 <span class="sc">+</span> bio4 <span class="sc">+</span> bio6 <span class="sc">+</span> bio8 <span class="sc">+</span> bio15 <span class="sc">+</span> bio17 <span class="sc">+</span> bio18</code> (presence explained by a linear combination of all bio variables),</li>
+<li><code class="sourceCode r">data <span class="ot">=</span> stirius_pa_final</code> (to tell the model, where to look for the data),</li>
+<li><code class="sourceCode r">importance <span class="ot">=</span> <span class="cn">TRUE</span></code> (To assess importance of predictors in the model),</li>
+<li><code class="sourceCode r">na.action <span class="ot">=</span> na.omit</code> (A function to specify the action to be taken if NAs are found - we will disregards NAs if present).</li>
+</ul>
+<p>We will save the results of this call to an object named <code class="sourceCode r">rf_full</code> - “full” indicating that all possible variables are included in the model.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"randomForest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>rf_full <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(presence <span class="sc">~</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_2 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_4 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_6 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_8 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_15 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_17 <span class="sc">+</span> wc2<span class="fl">.1</span>_2<span class="fl">.5</span>m_bio_18, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> stirius_pa_final,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">importance =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">na.action =</span> na.omit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can check the properties of our model, by typing the name of the object and running it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>rf_full</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(formula = presence ~ wc2.1_2.5m_bio_2 + wc2.1_2.5m_bio_4 +      wc2.1_2.5m_bio_6 + wc2.1_2.5m_bio_8 + wc2.1_2.5m_bio_15 +      wc2.1_2.5m_bio_17 + wc2.1_2.5m_bio_18, data = stirius_pa_final,      importance = TRUE, na.action = na.omit) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 2
+
+          Mean of squared residuals: 0.1351942
+                    % Var explained: 45.92</code></pre>
+</div>
+</div>
+<p>The output first shows us the formula, by which model was built and the type of random forest that this model belongs to (regression - numerical response value) and we didn’t need to specify that. <code class="sourceCode r"><span class="fu">randomForest</span>()</code> function will perform nonlinear multiple regression as long as the response variable is numeric. It confirms, that 500 trees were built and that 2 variables were tried at each split.</p>
+<p>The output provides us also the mean of squared residuals and % variance explained, both measures indicating how well the model fits the data. Residuals are a difference between prediction of the model and the actual value. In our example, 0.14 means that the model was wrong (deviation from either 0 or 1) by 14% on average.</p>
+<p>The model calibration can be done by changing the <code class="sourceCode r">ntree <span class="ot">=</span></code> and <code class="sourceCode r">mtry <span class="ot">=</span></code> arguments and try to achieve smaller mean squared residuals or higher % variance explained.</p>
+<hr>
+<p>If we want to understand which variables are important according to the model, we set the <code class="sourceCode r">importance <span class="ot">=</span> <span class="cn">TRUE</span></code> as in the code above. Random forest regression will provide two numerical outputs for our variables:</p>
+<ul>
+<li>decrease in mean square error (<code class="sourceCode r">%IncMSE</code>) and</li>
+<li>node purity.</li>
+</ul>
+<p>Prediction error described as MSE is based on permuting out-of-bag sections of the data per individual tree and predictor, and the errors are then averaged. In the regression context, Node purity is the total decrease in residual sum of squares when splitting on a variable averaged over all trees (i.e.&nbsp;how well a predictor decreases variance). Of the two, MSE is a more reliable measure of variable importance that shows how much our model accuracy decreases, if we leave out each variable. With the <code class="sourceCode r"><span class="fu">varImpPlot</span>()</code> we can visualize the results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   %IncMSE IncNodePurity
+wc2.1_2.5m_bio_2  23.92002      7.167248
+wc2.1_2.5m_bio_4  29.07177      9.182019
+wc2.1_2.5m_bio_6  24.70096      6.878796
+wc2.1_2.5m_bio_8  31.58929     10.947611
+wc2.1_2.5m_bio_15 28.34652     12.828353
+wc2.1_2.5m_bio_17 28.89483     11.649919
+wc2.1_2.5m_bio_18 31.25486     10.041249</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can see from the results that <code>bio4</code> is the variable with lowest <code class="sourceCode r">%IncMSE</code> value, but its actual value is 24.9. That means that the accuracy of our model would drop by ~24% if we would leave this variable out. Based on this, we will not be removing any variables from our model.</p>
+<hr>
+<p>Lastly, lets visualise some of the decision trees in our random forests. The tools for visualising them are not available in a formal R package on CRAN, but from a repository on github. For that we need to install <code class="sourceCode r">devtools</code> package first, and from it use the <code class="sourceCode r"><span class="fu">install_github</span>()</code> function to install <code class="sourceCode r">araastat<span class="sc">/</span>reprtree</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">'araastat/reprtree'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As always, we need to use library to access the function and plot them using <code class="sourceCode r"><span class="fu">plot.getTree</span>()</code> function. Within it we specify the random forest model, from which we want to plot the tree (<code class="sourceCode r">rf_full</code>), the number of nodes to display (<code class="sourceCode r">depth <span class="ot">=</span> <span class="dv">4</span></code>) and the consecutive number of tree to be shown (<code class="sourceCode r">k <span class="ot">=</span> <span class="dv">500</span></code>, 1 is the default).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprtree)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>reprtree<span class="sc">::</span><span class="fu">plot.getTree</span>(rf_full, <span class="at">depth =</span> <span class="dv">4</span>) <span class="co"># first</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>reprtree<span class="sc">::</span><span class="fu">plot.getTree</span>(rf_full, <span class="at">k =</span> <span class="dv">500</span>, <span class="at">depth =</span> <span class="dv">4</span>) <span class="co"># 500th</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>reprtree<span class="sc">::</span><span class="fu">plot.getTree</span>(rf_full, <span class="at">k =</span> <span class="dv">333</span>, <span class="at">depth =</span> <span class="dv">4</span>) <span class="co"># 333th</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="03_SDMs_Modeling_algorithms_and_model_building_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</section>
+<section id="take-home-message" class="level3">
+<h3 class="anchored" data-anchor-id="take-home-message">Take home message</h3>
+<p>In terms of model building, calibration and assessment, it always comes down to some theory and/or logic behind the data. Do the top predictors make biological/ecological sense? If not, why?</p>
+<p>Modeling is an iterative process. we can get a better idea about the predictive error of our models when we save some data for performance testing only and we can also try out other methods as well.</p>
+<p>“Rome was not built in one day, nor was any reliable model.”</p>
+<p>(Good &amp; Hardin, 2012)</p>
+<hr>
+</section>
+</section>
+<section id="assignment" class="level2">
+<h2 class="anchored" data-anchor-id="assignment">Assignment</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Open R script that you named after the species you choose to work on.</p></li>
+<li><p>Copy - paste <code>today's</code> code from the <code>Erebia stirius</code> script to the end of your script.</p></li>
+<li><p>Adapt the code to achieve the following:</p></li>
+</ol>
+<p>3.1) visualise, how presences (1) and pseudo-absences (0) are distributed along one, two and three environmental variables,</p>
+<p>3.2) fit multiple Generalised Linear Models in a backward way. This means you start with all selected environmental variables and exclude step by step the ones that have the highest p-values.</p>
+<p>3.3) fit a Random Forest Model with all environmental variables.</p>
+<p>3.4) save the script with the code for your species,</p>
+<p>3.5) make sure that the project folder will be available to you next week at the labs (either store it on USB, cloud or similar, in case it gets deleted from computers).</p>
+</div>
+</div>
+<hr>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

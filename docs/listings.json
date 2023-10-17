@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/03_SDMs_Modeling_algorithms_and_model_building.html",
+      "/posts/02_SDMs_env_covariates_terra.html",
       "/posts/01_SDMs_species_occurence_and_absence.html",
       "/posts/05_Intro2R_summary statistics.html",
       "/posts/04_Intro2R_visual_data_exploration.html",
