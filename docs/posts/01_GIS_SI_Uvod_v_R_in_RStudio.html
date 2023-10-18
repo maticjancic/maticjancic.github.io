@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-03-21">
+<meta name="description" content="Geografski informacijski sistemi in vede, Vaja 1">
+
+<title>Matic Jančič: Teaching portfolio - UVOD V UPORABO PROGRAMSKEGA JEZIKA R KOT GIS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-binding-2.2.0.9000/leaflet.js"></script>
+<script src="../site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="../site_libs/leaflet-providers-plugin-2.2.0.9000/leaflet-providers-plugin.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">UVOD V UPORABO PROGRAMSKEGA JEZIKA R KOT GIS</h1>
+                  <div>
+        <div class="description">
+          Geografski informacijski sistemi in vede, Vaja 1
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Uvod v R kot GIS</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 21, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#nekaj-o-meni" id="toc-nekaj-o-meni" class="nav-link active" data-scroll-target="#nekaj-o-meni">Nekaj o meni</a></li>
+  <li><a href="#kaj-je-r-in-zakaj-bi-ga-vi-sploh-uporabljali" id="toc-kaj-je-r-in-zakaj-bi-ga-vi-sploh-uporabljali" class="nav-link" data-scroll-target="#kaj-je-r-in-zakaj-bi-ga-vi-sploh-uporabljali">Kaj je R in zakaj bi ga vi sploh uporabljali?</a></li>
+  <li><a href="#osnovne-operacije-v-r-u" id="toc-osnovne-operacije-v-r-u" class="nav-link" data-scroll-target="#osnovne-operacije-v-r-u">Osnovne operacije v R-u</a></li>
+  <li><a href="#objekti-v-r-u" id="toc-objekti-v-r-u" class="nav-link" data-scroll-target="#objekti-v-r-u">Objekti v R-u</a></li>
+  <li><a href="#tipi-podatkov-in-podatkovnih-struktur" id="toc-tipi-podatkov-in-podatkovnih-struktur" class="nav-link" data-scroll-target="#tipi-podatkov-in-podatkovnih-struktur">Tipi podatkov in podatkovnih struktur</a>
+  <ul class="collapse">
+  <li><a href="#vektorji-vectors" id="toc-vektorji-vectors" class="nav-link" data-scroll-target="#vektorji-vectors">Vektorji (<code>vectors</code>)</a></li>
+  <li><a href="#primer-vektorjev-z-geografskimi-podatki" id="toc-primer-vektorjev-z-geografskimi-podatki" class="nav-link" data-scroll-target="#primer-vektorjev-z-geografskimi-podatki">Primer vektorjev z geografskimi podatki</a></li>
+  <li><a href="#tabele-data-frames" id="toc-tabele-data-frames" class="nav-link" data-scroll-target="#tabele-data-frames">Tabele (<code>data frames</code>)</a></li>
+  <li><a href="#seznami-lists" id="toc-seznami-lists" class="nav-link" data-scroll-target="#seznami-lists">Seznami (<code>lists</code>)</a></li>
+  </ul></li>
+  <li><a href="#take-home-message" id="toc-take-home-message" class="nav-link" data-scroll-target="#take-home-message">Take home message</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Povzetek
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Na teh vajah boste:</p>
+<ul>
+<li>spoznali R in RStudio,</li>
+<li>uporabili R skript za tipkanje in izvajanje osnovnih ukazov,</li>
+<li>uporabili osnovne matematične in logične operatorje,</li>
+<li>spoznali osnonve tipe podatkov v R in osnovne podatkovne strukture: vektorje, tabele in sezname.</li>
+</ul>
+</div>
+</div>
+<section id="nekaj-o-meni" class="level2">
+<h2 class="anchored" data-anchor-id="nekaj-o-meni">Nekaj o meni</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/me.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">To sem jaz, pred približno 7 leti.</figcaption>
+</figure>
+</div>
+<p>Več informacij <a href="https://www.famnit.upr.si/sl/zaposleni-in-sodelavci/matic.jancic/">tukaj</a> ali <a href="https://www.linkedin.com/in/maticjancic/">tukaj</a> ali <a href="https://www.researchgate.net/profile/Matic-Jancic">tukaj</a>.</p>
+<p>Z R-om se ukvarjam že več kot 7 let in ga uporabljam na dnevni bazi za namene raziskovanja in poučevanja (pri predmetih <em>Sodobni pristopi v Varstveni biologiji, Geografski informacijski sistemi in vede, Ekologija kopenskih ekosistemov</em>). Nekaj primerov uporabe spodaj:</p>
+<p>S to kodo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>timelineplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temporal_distribution, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> N, <span class="at">color =</span> Gear)) <span class="sc">+</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.line.y=</span><span class="fu">element_blank</span>(), <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(), <span class="at">axis.title.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks.x =</span><span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span><span class="fu">element_blank</span>(),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position=</span><span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">y =</span> N, <span class="at">yend =</span> <span class="fl">0.05</span>, <span class="at">xend =</span> Date), </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"grey"</span>, <span class="at">size =</span> <span class="fl">0.02</span>) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data =</span> month_df, <span class="fu">aes</span>(<span class="at">x=</span>month_date_range,<span class="at">y =</span> <span class="fl">0.04</span>, <span class="at">label =</span> month_format),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">'black'</span>, <span class="at">angle =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data =</span> year_df, <span class="fu">aes</span>(<span class="at">x =</span> year_date_range, <span class="at">y =</span> <span class="fl">0.058</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">label =</span> year_format, <span class="at">fontface=</span><span class="st">"bold"</span>), </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color=</span><span class="st">'black'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sem naredil to:</p>
+<p><img src="05_images/Timeline_plot.png" class="img-fluid"></p>
+<p>S to kodo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>PPUE_plot <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> PPUEsummary,<span class="fu">aes</span>(<span class="at">x =</span> Gear_Type, <span class="at">y =</span> PPUE)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> Net_Type), <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">19</span>), </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control net"</span>, <span class="st">"Illuminated net"</span>) )<span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">group =</span> Net_Type, <span class="at">ymin =</span> PPUE <span class="sc">-</span> se, <span class="at">ymax =</span> PPUE <span class="sc">+</span> se), </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.05</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">110</span>) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Price per Unit Effort (EUR / 1000m * 12hrs)"</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="st">"black"</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">colour =</span> <span class="st">"black"</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>, <span class="at">color =</span> <span class="st">"black"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sem naredil to:</p>
+<p><img src="05_images/plot1.png" class="img-fluid"></p>
+<p>S to kodo (pozor na znak <strong>…</strong>, ki se pojavi večkrat):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mixed_model_level1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(presence <span class="sc">~</span> <span class="fu">scale</span>(BO_bathymean) <span class="sc">+</span> <span class="fu">scale</span>(BO21_tempmean_ss)<span class="sc">+</span> <span class="fu">scale</span>(BO21_temprange_ss) <span class="sc">+</span> <span class="fu">scale</span>(BO21_tempmean_bdmean) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Animal_ID), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>), </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> wild.track_RSF)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>present_level1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(present_env_layers,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                          mixed_model_level1,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">"response"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">re.form=</span><span class="sc">~</span><span class="dv">0</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>predictions_RCP26_2050_level1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(future_RCP26_2050,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                                         mixed_model_level1,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">type =</span> <span class="st">"response"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">re.form=</span><span class="sc">~</span><span class="dv">0</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(present_level1, <span class="at">main =</span> <span class="st">"Present suitability L1"</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(predictions_RCP26_2050_level1, <span class="at">main =</span> <span class="st">"Predicted suitability RCP26 2050 L1"</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sem naredil to:</p>
+<p><img src="05_images/sdms.png" class="img-fluid"></p>
+<p>Tudi ta dokument je narejen s pomočjo R-a in njegovih orodij ter je izvožen v <em>html</em> format.</p>
+</section>
+<section id="kaj-je-r-in-zakaj-bi-ga-vi-sploh-uporabljali" class="level2">
+<h2 class="anchored" data-anchor-id="kaj-je-r-in-zakaj-bi-ga-vi-sploh-uporabljali">Kaj je R in zakaj bi ga vi sploh uporabljali?</h2>
+<p>Razlog za to je preprost in je objavljen v sledečem <a href="https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.1394">članku</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/why.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Uporaba orodij, v katerih je za dosego rezultatov potrebno klikanje, kot npr. SPSS, se v preteklosti ni veliko spremenila. Nasprotno pa uporaba R-a v znanosti eksponentno narašča od 2005 2005.</figcaption>
+</figure>
+</div>
+<hr>
+<p>Prav tako pa boste do konca teh vaj znali dostopati do različnih podatkovnih zbirk, iz njih pridobiti podatke in jih prikazati na sledeče načine, vse z uporabo nekaj vrstic R kode:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fbb95bc0780462ba697e" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-fbb95bc0780462ba697e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[[-62.286004,-29.341006,27.216506,27.236072,-62.935439,-63.953757,-63.981981,-59.95913,-59.833248,-60.900447,32.937214,32.911233,33.61797,33.62685,33.820676,33.805843,33.805843,-64.06908799999999,-58.60517,-58.641662,33.544041,-29.118786,-29.030783,-58.977294,-29.091977,37.61436,-28.807336,38.66455,38.707121,-60.745323,-61.037938,-61.028654,-61.125313,-61.103559,-61.14246,-61.025221,-61.005328,-61.177362,-61.036712,-61.137624,-61.119038,-61.262391,-62.4031,-63.908673,-63.701596,-61.03045,-60.731848,-60.555507,-60.473643,-29.143412,41.826965,33.55,33.487337,33.482548,33.490328,33.436895,33.44015,33.433327,33.601635,33.605817,33.542677,33.546603,33.546738,33.545587,33.543295,33.543295,33.549765,25.887477,25.887102,25.886765,68.96101400000001,32.690185,40.489854,42.267671,-39.896461,-29.009031,-29.302042,32.571813,-61.064495,-61.129025,-63.285664,24.413979,33.446473,33.446473,-39.814981,48.871672,42.13089,52.593966,32.785232,42.178187,42.044185,42.185735,42.130298,42.12497,37.00593,32.741845,32.69032,32.605054,26.523583,33.475828,52.65845,33.528358,33.655906,33.412907,33.560578,33.442887,52.690094,52.656597,36.983207,49.870605,-54.172445,-54.197826,-54.260208,33.43,36.827993,36.827993,36.827993,26.55334,33.43,36.308693,36.766942,36.766942,36.766942,33.446473,52.656597,52.656597,52.656597,52.656597,52.656597,36.8,71.168373,71.168373,71.171093,68.345079,71.174238,33.66587,44.381772,33.866739,44.210749,32.592942,44.147998,33.117993,41.041245,41.041245,70.379913,70.379913,73.944633,71.69788800000001,74.69801099999999,75.098668,71.69788800000001,73.94478100000001,33.43,33.337538,33.446473,33.446473,33.446473,33.446473,33.446473,32.880164,32.899191,33.372398,70.540891,70.388322,44.435258,44.143485,32.793817,32.640118,42.945085,42.850914,44.457877,48.871372,43.822304,71.18435700000001,71.193054,78.320063,59.618234,33.442028,70.542481,75.878578,32.693457,32.704563,32.702703,33.556175,33.725603,70.542678,70.492788,71.091168,70.54131,70.401323,71.06360100000001,70.375136,70.375136,43.777897,33.404771,42.543344,33.095459,42.026967,44.097146,43.746021,39.540168,45.069637,48.126541,42.867273,43.414156,38.436528,51.809203,43.531171,45.026711,45.565548,66.002171,39.2,43.54017,33.43,33.432438,70.97623400000001,33.595986,68.87306100000001,42.933793,42.841403,42.891406,42.918313,43.021918,43.151973,51.298945,42.053168,42.028712,53.322884,39.681551,43.017295,42.92301,43.740917,43.616826,39.748775,39.915365,40.110954,39.279273,39.888163,40.105554,39.67789,37.095941,39.417828,39.809423,39.687109,39.85809,48.715288,38.471045,38.426264,38.458285,38.172261,60.717321,42.174726,65.929543,41.043441,41.050484,44.916603,46.844767,69.05180799999999,40.257869,53.863479,40.933525,59.588831,44.329926,66.43717599999999,44.816175,76.76235,39.99474,36.457815,67.85102500000001,42.809856,51.562332,79.7864,-31.619395,36.799428,60.041999,44.964809,44.962573,79.633827,45.337543,44.097156,54.266596,44.134618,48.271073,44.927919,60.078756,39.58339,39.452759,39.533345,-29.099707,44.361468,44.267588,44.181431,42.746934,44.943682,46.489727,-22.12135,44.097836,46.040511,57.089817,33.586005,33.578737,33.620022,33.62035,33.578215,38.599737,32.96567,-29.701389,33.588341,47.780172,33.500363,33.768203,33.758218,-36.291073,-57.565366,-61.066814,33.444892,36.957265,32.7907,33.0288,33.0121,32.9176,32.9031,33.0198,32.6942,32.8776,32.8641,33.390935,33.376262,33.55,33.55,33.696993,33.630332,33.632387,33.603347,33.589955,33.633473,33.633163,33.609223,33.605058,33.604263,33.599968,33.600325,34.094899,34.087089,33.632662,33.626527,33.621468,33.63456,33.62095,34.288783,34.263385,33.631388,33.639373,33.63845,33.635743,33.634377,33.65835,33.4868,33.4868,33.4868,33.4868,41.828945,-55.453607,-55.514354,-55.445955,-55.446018,46.889603,-55.274863,28.112272,-63.726388,-61.274786,-62.386097,-29.011397,-29.044159,-29.189027,-29.114382,26.117721,46.940108,36.847374,36.860937,36.893614,36.884051,36.911437,36.840444,32.7401,33.816667,33.833333,43.2186,42.9962,42.93694,42.9337,68.900375,41.825505,-60.398955,-63.648314,32.763639,49.615713,25.939772,32.8032,32.9383,33.7083,33.60955,33.624205,24.413674,25.934024,25.932594,25.982353,39.75292,40.75472,43.20572,42.25943,42.24945,42.1687,42.17142,40.34336,70.055559,28.080204,71.18986700000001,42.131941,-39.944266,41.18997,32.739213,41.71863,42.36044,42.26074,41.81622,41.10223,41.08487,41.182,41.18185,42.38775,42.36741,42.347,42.25576,42.22955,42.23679,42.2243,42.16235,42.16583,42.125,42.16774,42.1709,42.4982,42.50785,42.65786,42.63706,42.67384,42.75099,42.75103,42.73505,42.75113,42.75878,42.79921,42.80045,42.80043,42.78402,42.85098,42.83761,42.90007,40.24432,40.26605,41.10737,43.106625,42.494019,42.489861,42.424107,42.445843,42.809986,33.070896,42.790354,36.819766,36.971372,38.785607,36.866275,41.88802,42.376722,42.374813,42.135965,41.365402,32.553906,41.899375,36.949151,36.854766,43.165264,36.766003,36.766003,36.790025,36.790025,36.831,36.811338,36.811338,36.812268,36.810703,36.812233,36.750252,36.8,36.8,36.825,36.808053,36.808965],[-59.208281,-71.540689,-112.113799,-112.110772,-60.145878,-65.652039,-65.66318200000001,-63.140688,-62.858383,-62.510936,-117.387708,-117.319937,-118.248265,-118.256383,-118.45047,-118.465576,-118.465576,168.256893,-46.514994,-46.429757,-118.354793,-71.538431,-71.470743,-57.568868,-71.51029200000001,-25.431512,-71.776611,-74.74224100000001,-74.958927,-52.495281,-54.864174,-54.882116,-54.871083,-54.900503,-54.899118,-54.843189,-54.963663,-54.968209,-54.945063,-54.949438,-54.97957,-54.449419,-59.750362,-56.029908,-57.09617,-54.48615,-46.586799,-46.058019,-46.166192,-71.497254,-70.018298,-117.9,-118.234225,-118.241205,-118.236167,-118.289422,-118.283343,-118.294013,-118.292185,-118.295262,-118.356892,-118.353588,-118.353573,-118.350062,-118.348447,-118.348447,-118.3602,-111.255048,-111.255282,-111.255463,14.883782,-117.477171,8.044468999999999,9.918759,-73.65156399999999,-71.417362,-71.509655,-16.915865,-54.535603,-54.551823,-56.804317,-110.42298,-117.728119,-117.728119,-73.618014,-64.20573899999999,-70.21807099999999,-128.490903,-117.251178,-70.300505,-70.326806,-70.33702599999999,-70.33364,-70.39188,-18.745647,-117.499931,-117.49819,-117.575438,-111.227085,-117.735663,-128.451783,-118.475151,-118.215072,-117.925634,-117.821829,-117.868185,-128.482636,-128.451922,-121.844302,0.717262,-35.567303,-35.60791,-35.745136,-117.7,-121.961465,-121.961465,-121.961465,-111.42517,-117.7,-121.915283,-121.912537,-121.912537,-121.912537,-117.728119,-128.451922,-128.451922,-128.451922,-128.451922,-128.451922,-122,25.781972,25.781972,25.712469,13.846533,25.796165,-118.325367,8.879458,-118.509277,8.896796999999999,-117.367939,144.575368,-117.739295,1.908875,1.908875,31.119308,31.119308,-7.762064,-8.259831,-5.906265,-5.031801,-8.259831,-7.762275,-117.7,-117.615337,-117.728119,-117.728119,-117.728119,-117.728119,-117.728119,-118.045349,-118.157959,-118.125,30.646107,31.179185,-66.932906,8.920786,-117.799727,-117.314235,-70.447294,-70.49821900000001,-66.85309700000001,-68.17677,8.000427999999999,25.536017,25.642722,11.185263,-149.75215,-117.96002,30.63929,-3.030216,-117.294159,-117.360764,-117.393036,-117.856178,-118.182519,30.654272,30.632111,28.221114,30.643672,31.188105,28.280834,31.097914,31.097914,8.515921000000001,-117.878299,-70.272229,-118.599526,-70.307089,-67.95358400000001,7.550781,-72.889934,-66.93297800000001,-69.657691,5.706105,9.052711,-9.546569,-10.285053,9.044495,-4.238235,-4.426687,-18.448697,0.41,9.196129000000001,-117.7,-117.739168,26.319641,-119.593555,-53.923604,5.566201,5.582363,5.414477,5.467586,5.51627,5.422154,-5.965226,-70.18469,-70.31806,-129.049904,-73.195204,5.234907,5.275594,8.050713999999999,8.047511,-72.334475,-72.647794,-72.938277,-71.78110100000001,-72.581666,-73.191829,-72.28627299999999,-7.479422,-72.338624,-72.94802,-72.25467999999999,-72.83768600000001,-64.18376499999999,-9.300921000000001,-9.293578,-9.363274000000001,-123.780499,-46.019225,-70.251667,-36.667271,-71.219413,-71.374174,-66.973682,-60.875906,-51.373723,-70.658997,-134.828686,-69.249911,-149.350616,8.850115000000001,-167.327334,-4.969985,-6.545423,-73.198684,-122.256983,-167.925839,6.351774,-8.459013000000001,14.427425,-71.40024699999999,-122.798852,-173.040198,-66.879195,-66.868576,27.76935,-4.218974,-60.538751,-168.123187,8.605600000000001,-69.46538,-66.22681300000001,-172.693405,-72.514847,-72.54693399999999,-72.484351,-71.42207399999999,-67.36919399999999,-67.38615,-67.79663600000001,5.818503,-66.94592400000001,-125.237255,149.643573,-67.201319,-4.789556,-134.765747,-118.396563,-118.412457,-118.31983,-118.319532,-118.37138,-9.214886999999999,-117.59215,13.098333,-117.834521,-122.425119,-118.345759,-118.216302,-118.383959,175.050512,-40.855791,-54.354119,-117.954236,-75.993966,-118.9013,-118.7691,-118.929,-119.103,-118.8664,-118.9611,-118.7901,-118.9592,-118.7277,-117.850293,-117.848153,-117.9,-117.9,-118.401412,-118.297102,-118.291467,-118.27836,-118.297248,-118.336235,-118.33557,-118.295498,-118.307815,-118.323405,-118.27188,-118.271518,-119.27983,-119.259124,-118.299337,-118.307662,-118.31528,-118.294178,-118.315378,-120.391052,-120.448695,-118.361565,-118.371552,-118.37163,-118.368833,-118.366272,-118.381473,-119.0159,-119.0159,-119.0159,-119.0159,-70.172569,-40.857865,-40.811509,-40.994756,-40.827874,-124.420873,-32.632226,-16.741746,-56.615656,-59.053552,-59.373995,-71.56808700000001,-71.546015,-71.424953,-71.48177200000001,-111.292132,-124.623031,-75.632795,-75.757091,-75.885198,-75.65127200000001,-75.770079,-75.637559,-118.9008,-118.45,-118.483333,-70.0951,-70.37737,-70.07026999999999,-70.05278,14.55613,-70.156713,-36.918092,-57.548294,-117.51462,-124.06398,-111.112949,-118.9874,-118.853,-118.5891,-118.398027,-118.429762,-110.487936,-111.27862,-111.272324,-111.270572,-73.78336,-69.93394000000001,-70.16004,-70.27145,-70.31361,-70.30933,-70.33739,-73.25015,29.846364,-115.459648,25.779028,-70.04687,-73.759877,1.744938,-117.415451,-69.54841,-70.21527,-67.31979,-69.68459,-70.70567,-70.34959000000001,-70.18443000000001,-70.22292,-70.37634,-70.3625,-70.34045,-70.55416,-70.30273,-70.33622,-70.32714,-70.33977,-70.35001,-70.29836,-70.51958,-70.54858,-70.59481,-70.61190999999999,-70.47495000000001,-70.39618,-70.53686999999999,-70.56753999999999,-70.53316,-70.5086,-70.33501,-70.32623,-70.28536,-70.36921,-70.41182999999999,-70.42986000000001,-70.29456999999999,-70.30173000000001,-70.11054,-71.56634,-71.51900000000001,-69.4671,-70.775604,-70.595184,-70.611496,-70.519577,-70.48239100000001,-70.304573,-117.983473,6.320675,-121.991082,-121.801551,-28.679639,-122.059664,-70.19531499999999,-70.54002,-70.48075900000001,-70.251848,1.960298,-117.850475,-70.19666100000001,-121.961635,-121.843233,10.044085,-122.010727,-122.010727,-121.8628,-121.8628,-121.986,-121.960197,-121.960197,-122.040147,-122.048993,-122.037483,-121.928325,-122,-122,-121.999,-122.002257,-121.997252],{"iconUrl":{"data":"https://cdn-icons-png.flaticon.com/512/2834/2834539.png","index":0},"iconWidth":25,"iconHeight":25},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-64.06908799999999,79.7864],"lng":[-173.040198,175.050512]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<hr>
+<p><img src="05_images/header_day3.png" class="img-fluid"></p>
+<hr>
+<p><img src="05_images/temp_change_slovenia.png" class="img-fluid"></p>
+<hr>
+<p>Kaj je R in kaj so razlogi za njegovo vse širšo uporabo?</p>
+<ul>
+<li>R je sistem/programski jezik, ki sta ga ustvarila Ross Ihaka in Robert Gentleman leta 1995.</li>
+<li>Ima mnogo zbirk funkcij za <strong>klasične in sodobne statistične analize</strong> in množico orodij za grafični prikaz podatkov.</li>
+<li><strong>Je odprtokoden in brezplačen za uporabo</strong>.</li>
+<li>Omogoča izdelavo statičnih ali interaktivnih poročil/gradiv v obliki pdf, ppt, html dokumentov (spletnih strani, kot je tole gradivo)</li>
+<li><strong>Omogoča ponovljivost</strong>. Kodo zapišemo in shranimo - ko se vrnemo čez eno leto, bo (zelo verjetno) še vedno naredila enako. Naši kolegi ali recenzenti lahko preverijo katere analize in kako smo jih naredili in ponovijo naše rezultate (<strong>osnova znanosti</strong>).</li>
+<li>Je izjemno razširljiv, nova orodja lahko razvijemo sami oziroma se razvijajo in objavljajo na dnevni bazi - <a href="https://cran.r-project.org/">CRAN</a>, <a href="https://www.bioconductor.org/">bioconductor</a>!</li>
+<li>Skupnost uporabnikov je zelo odzivna, za vsak problem obstaja odgovor – <strong>google je naš prijatelj</strong> (<em>how to …</em>, <em>error xyz in r</em>) ali strokovni/programerski forumi (<a href="https://stackoverflow.com/">stackoverflow</a>, <a href="https://stackexchange.com/">stackexchange</a>).</li>
+</ul>
+<p>Za mnoge je R eden od programskih jezikov, ki se jih je najlažje naučiti in uporabljati <u><em>na dolgi rok</em></u>, ampak je lahko <strong>zelo zahtevno in frustrirajoče na začetku</strong>. <u>Vi ste med srečniki, da imate učitelja, ki vas bo neboleče uvedel v osnove R-a.</u> 😉</p>
+<hr>
+<p>R deluje kot konzola v katero vpisujemo besedilo ali stevilke, pricakuje smiselne ukaze, ki jih “razume” in lahko takoj izvede. Drugace nam javi napako.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Rconsole.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Konzola osnovnega R-a.</figcaption>
+</figure>
+</div>
+<p>RStudio pa je programski vmesnik z integrirano R konzolo. Konzola znotraj RStudia omogoca dinamicno programiranje za razliko od samostojne konzole :</p>
+<ul>
+<li>Ko vpisemo prve tri crke nam bo sam ponudil moznosti, da dokoncamo izraz.</li>
+<li>Vse vrste oklepajev samodejno zapre.</li>
+<li>S pritiskom na puscico 🠕 ali 🠗 se lahko premikamo navzgor ali navzdol po preteklih ukazih.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/Rstudio.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Rstudio s štirimi podokni.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Odprite R Studio. Vmesnik izgleda nekako takole.</p>
+<p>Odprite novo R skripto s klikom na zavihek <code class="sourceCode r">File</code>, potem <code>New file</code> in izberete <code>R script</code>.</p>
+<p>Shranite skripto na Namizje oziroma Desktop vašega računalnika in jo poimenujte <code>Uvod v R</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Namig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tekom vaj dvignite ✋ kadarkoli se vam pojavi vprašanje. Bodite radovedni. Vsi se lahko iz tega nekaj naučimo!</p>
+</div>
+</div>
+</section>
+<section id="osnovne-operacije-v-r-u" class="level2">
+<h2 class="anchored" data-anchor-id="osnovne-operacije-v-r-u">Osnovne operacije v R-u</h2>
+<p>Najosnovnejša funkcija, ki nam jo R omogoca je uporaba osnovnih aritmeticnih operacij:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Pomen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">+</td>
+<td style="text-align: left;">Addition</td>
+<td style="text-align: left;">Sestevanje</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Substraction</td>
+<td style="text-align: left;">Odstevanje</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">*</td>
+<td style="text-align: left;">Multiplication</td>
+<td style="text-align: left;">Mnozenje</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">/</td>
+<td style="text-align: left;">Division</td>
+<td style="text-align: left;">Deljenje</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sqrt()</td>
+<td style="text-align: left;">Square root</td>
+<td style="text-align: left;">Kvadratni koren</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">^</td>
+<td style="text-align: left;">To the power (Alt GR &amp; 3)</td>
+<td style="text-align: left;">Potenciranje (Alt GR &amp; 3)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V desnem zgornjem kotu polja s kodo je ikona, ki omogoča kopiranje ukazov znotraj tega polja. Kopirajte in prilepite spodnje račune v R skripto. Premaknite kurzor v prvo vrstico s kodo in kliknite <code class="sourceCode r">Run</code>. Premikajte se navzdol po vrsticah z ukazi in izvedite vsakega od njih.</p>
+<p>Namesto klikanja na gumb <code class="sourceCode r">Run</code> lahko uporabite tudi bližnjico na tipkovnici: <code>Ctrl</code> + <code>Enter</code>.</p>
+<p>Ko zaključite s primeri iz gradiv, <u>natipkajte v skripto iz izvedite še minimalno 10 svojih primerov računskih operacij.</u></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">-</span> <span class="dv">9</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">*</span> <span class="dv">7</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span> <span class="sc">/</span> <span class="dv">6</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">^</span> <span class="dv">5</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="co"># kvadratni koren</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Namig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Zadnja vrstica kode je poleg računske operacije vključevala tudi znak “hashtag” (<code>#</code>). Le-ta nam omogoča, da posamezne dele svoje kode pokomentiramo, R konzola pa ve, da to ni del kode oziroma ukazov in ga ignorira.</p>
+<p>Komentarji so zelo uporabni, saj ljudje radi pozabljamo. Ko se vrnemo k svojim skriptam čez nekaj (mnogo) časa, nas prijazno opomnijo, kaj smo s posamezno kodo / ukazom želeli narediti.</p>
+</div>
+</div>
+<hr>
+<p>Naslednja stvar, ki jo bomo uporabili, so logični operatorji. Potrebovali jih bomo za filtriranje podatkov iz stolpcev ali vrstic na naslednjih vajah:</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Pomen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;</td>
+<td style="text-align: left;">Less than</td>
+<td style="text-align: left;">Manj kot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&lt;=</td>
+<td style="text-align: left;">Less than or equal to</td>
+<td style="text-align: left;">Manj kot ali enako</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&gt;</td>
+<td style="text-align: left;">Greater than</td>
+<td style="text-align: left;">Vec kot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&gt;=</td>
+<td style="text-align: left;">Greater than or equal to</td>
+<td style="text-align: left;">Vec kot ali enako</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">==</td>
+<td style="text-align: left;">Exactly equal to</td>
+<td style="text-align: left;">Natancno enako kot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">!=</td>
+<td style="text-align: left;">Not equal to</td>
+<td style="text-align: left;">Ni enako kot</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x | y</td>
+<td style="text-align: left;">Or (Alt GR &amp; w)</td>
+<td style="text-align: left;">Ali (Alt GR &amp; w)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x &amp; y</td>
+<td style="text-align: left;">And</td>
+<td style="text-align: left;">In</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V desnem zgornjem kotu polja s kodo je ikona, ki omogoča kopiranje ukazov znotraj tega polja. Kopirajte in prilepite spodnje račune v R skripto. Premaknite kurzor v prvo vrstico s kodo in kliknite <code class="sourceCode r">Run</code>. Premikajte se navzdol po vrsticah z ukazi in izvedite vsakega od njih.</p>
+<p>Namesto klikanja na gumb <code class="sourceCode r">Run</code> lahko uporabite tudi bližnjico na tipkovnici: sočasno pritisnete na <code>Ctrl</code> in <code>Enter</code>.</p>
+<p>Ko zaključite s primeri iz gradiv, <u>natipkajte v skripto iz izvedite še minimalno 10 svojih primerov računskih operacij.</u></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">5</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">&lt;=</span> <span class="dv">9</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">&gt;</span> <span class="dv">7</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span> <span class="sc">&gt;=</span> <span class="dv">6</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">==</span> <span class="dv">5</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">!=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="objekti-v-r-u" class="level2">
+<h2 class="anchored" data-anchor-id="objekti-v-r-u">Objekti v R-u</h2>
+<p>Ključno pri delu z R-om je <strong>shranjevanje podatkov v objekte</strong>, da do njih lahko dostopamo in jih ne rabimo vpisovati večkrat. Za to uporabimo operator za shranjevanje: <code class="sourceCode r"><span class="ot">&lt;-</span></code>. Vrednost na desni strani operatorja bo dodeljena imenu na levi. Za ime lahko uporabimo (skoraj) karkoli. Ko uporabimo ta operator se v konzoli ne bo zgodilo nič, ime našega objekta pa se bo pojavilo v R-ovem delovnem okolju. Bližnjica za operator: sočasno pritisnete na <code>ALT</code> in <code class="sourceCode r"><span class="sc">-</span></code>. Če zelimo videti vsebino posameznega objekta, njegovo ime v skripto in kliknemo na gumb <code class="sourceCode r">Run</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kopirajte in prilepite spodnje račune v R skripto. Premaknite kurzor v prvo vrstico s kodo in kliknite <code class="sourceCode r">Run</code>. Premikajte se navzdol po vrsticah z ukazi in izvedite vsakega od njih.</p>
+<p>Kaj se je zgodilo, ko ste zagnali posamezno vrstico?</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>kvadratni_koren_9 <span class="ot">&lt;-</span> <span class="dv">9</span> <span class="sc">^</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>kvadratni_koren_9 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Kvadratni_koren_9 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'Kvadratni_koren_9' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>kvadratni_koren_devet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'kvadratni_koren_devet' not found</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pozor
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R zahteva, da smo s svojimi ukazi (kodo) dobesedno natančni. <strong>Tipkarske napake so pomembne. Velike - male črke so pomembne!!</strong>. 99% napak na začetku uporabe so rezultat površnosti pri tipkanju ukazov!!</p>
+<p>Naslednjič ko naletite na napako: <em>object ‘…’ not found</em>, to navadno pomeni, da ukaza niste pravilno natipkali (napačno ime objekta) ali pa tega objekta še niste ustvarili (ga ni na seznamu R <code>Global Environment</code>).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Namig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kako se izogniti tem težavam:</p>
+<p>Uporabite funkcijo samodejnega zaključevanje ukazov, ki ga omogoča <strong>RSudio</strong>. Ko natipkamo tri znake, nam ponudu opcije, ki se s temi znaki začnejo. S klikom na eno od njih se bo naša ukaz zaključil, mi pa s tem zmanjšamo možnost tipkarskih napak.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u>V R skripto natipkajte 10 naključnih imen (besed) in vsaki besedi dodelite število ali rezultat izračuna</u> (kot primer zgoraj). Zaženite vsako od teh vrstic s klikom na <code class="sourceCode r">Run</code>. Pričakovani rezultat je 10 novih imen v vašem R <code>Global Environment</code>.</p>
+<p><u>Poskusite uporabiti opcijo samodejnega zaključevanja ukazov in natipkajte teh 10 imen v skripto</u>. Zaženite vsako od teh vrstih s klikom na <code class="sourceCode r">Run</code>. Pričakovani rezultat je 10 imen izpisanih v vaši R <code>Console</code> skupaj z njihovimi dodeljenimi vrednostmi.</p>
+</div>
+</div>
+<hr>
+<p>Vprašanja v razmislek:</p>
+<ul>
+<li>Kaj so najosnovnejše stvari, za katere lahko uporabimo R?</li>
+<li>Kaj je objekt v R-u in od kod dobi svoje ime?</li>
+<li>Kako lahko preverimo, kaj vsebuje R objekt?</li>
+</ul>
+<p>Ali imate vi kakšna vprašanja?</p>
+<hr>
+</section>
+<section id="tipi-podatkov-in-podatkovnih-struktur" class="level2">
+<h2 class="anchored" data-anchor-id="tipi-podatkov-in-podatkovnih-struktur">Tipi podatkov in podatkovnih struktur</h2>
+<p>Osnovni tipi podatkov v R-u so:</p>
+<ul>
+<li>številske vrednosti (<em>numeric</em>; za decimalna števila mora ločilo vedno biti pika),</li>
+<li>logične vrednosti (<em>logical</em>; TRUE, FALSE - <strong>vedno pisano z velikimi tiskanimi</strong>),</li>
+<li>besede (<em>character</em>; uporabiti moramo <code>" "</code>, da R ve, da so to besede ne imena objektov),</li>
+<li>celostevilske vrednosti (<em>integer</em>; vkljucuje le cela stevila).</li>
+<li>in manjkajoče vrednosti (<code>NA</code>).</li>
+</ul>
+<p>V R-u obstaja mnogo različnih podatkovnih struktur. Za vas je pomembno poznavanje <strong>vektorjev</strong> (<em>vector</em>), <strong>tabel</strong> (<em>data frame</em>) in <strong>seznamov</strong> (<em>list</em>), spoznali pa boste tudi nekaj struktur za prostorske podatke, tako za vektorske kot tudi rastrske podatke.</p>
+<p><img src="05_images/Object_types_in_R.png" class="img-fluid"></p>
+<section id="vektorji-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="vektorji-vectors">Vektorji (<code>vectors</code>)</h3>
+<p><strong>Osnovna lastnost vektorja je, da vsebujeje elemente enega tipa</strong>. Edini podatkovni tip, ki je lahko drugačen od ostalih so manjkajoče vrednosti (<code>NA</code>). S tem ko ste zgoraj dodelili vrednosti različnim objektom, ste že ustvarili vektorje. Ti vektorji so vsebujejo le en element - število, ki ste jim ga dodelili.</p>
+<p>Vektorje z več elementi ustvarimo s funkcijo <code class="sourceCode r"><span class="fu">c</span>()</code>, kjer znotraj oklepajev natipkamo vrednosti, ki jih ločimo z vejico. V kolikor v vektor vključimo elemente, ki ne pripadajo istemu podatkovnemu tipu, bo R vektor spremenil tako, da bo obravnaval vse elemente kot isti podatkovni tip - tisti, ki je najosnovnejši (besedni &lt; številski &lt; logični). Mi bomo ustvarili vektorje z besedami, logični vrednostmi in s števili ter enega z vsemi podatkovnimi tipi. Vsakega bomo smiselno poimenovali:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kopirajte in prilepite spodnje ukaze v R skripto. Premaknite kurzor v prvo vrstico s kopirano kodo in kliknite <code class="sourceCode r">Run</code>. Premikajte se navzdol po vrsticah z ukazi in izvedite vsakega od njih. Pričakovan rezultat so štiri nova imena v vašem R <code>Global Environment</code>.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stevilski_vektor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>logicni_vektor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>) <span class="co"># obvezno velike tiskane crke</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>besedni_vektor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"je"</span>, <span class="st">"res"</span>, <span class="st">"cudovito"</span>, <span class="st">"orodje!"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>mesani_vektor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>S funkcijo <code class="sourceCode r"><span class="fu">class</span>()</code> znotraj katere natipkamo ime vektorja, preverimo kateri podatkovni tip vektorja smo ustvarili, s funkcijo <code class="sourceCode r"><span class="fu">length</span>()</code> pa koliko elementov vsebuje:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(stevilski_vektor) </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(logicni_vektor)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(besedni_vektor)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mesani_vektor)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(stevilski_vektor)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(logicni_vektor)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(besedni_vektor)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(mesani_vektor) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pomembno
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Če vektor vsebuje elemente različnih podatkovnih tipov, bo tip vektorja spremenjen v najosnovnejši tip. Primer za to je <code>mesani_vektor</code>, v katerem so bili vsi elementi spremenjeni v besede (<code>character</code>).</p>
+</div>
+</div>
+</section>
+<section id="primer-vektorjev-z-geografskimi-podatki" class="level3">
+<h3 class="anchored" data-anchor-id="primer-vektorjev-z-geografskimi-podatki">Primer vektorjev z geografskimi podatki</h3>
+<p>Ustvarili bomo še pet vektorjev:</p>
+<ul>
+<li><code class="sourceCode r">ime_mesta</code> bo vsebovalo imena slovenskih mest,</li>
+<li><code class="sourceCode r">geografska_sirina</code> in <code class="sourceCode r">geografska dolzina</code> bosta vsebovala GPS koordinate teh mest,</li>
+<li><code class="sourceCode r">prebivalstvo</code> bo vsebovalo število prebivalcev teh mest,</li>
+<li>vektor <code>primorska</code> pa nam bo povedal, če mesto leži v primorski regiji (<code>TRUE</code>) ali ne (<code>FALSE</code>):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ime_mesta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ljubljana"</span>, <span class="st">"Maribor"</span>, <span class="st">"Koper"</span>, <span class="st">"Kranjska Gora"</span>, <span class="st">"Novo mesto"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>geografska_sirina <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">46.047766</span>, <span class="fl">46.550613</span>, <span class="fl">45.547377</span>,  <span class="fl">46.4887160</span>, <span class="fl">45.802626</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>geografska_dolzina <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">14.507420</span>, <span class="fl">15.645263</span>, <span class="fl">13.730270</span>,  <span class="fl">13.787491</span>, <span class="fl">15.164192</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>prebivalstvo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">279631</span>, <span class="dv">94370</span>, <span class="dv">25753</span>, <span class="dv">1452</span>, <span class="dv">24183</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>primorska <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kopirajte spodnje ukaze v svoje skripte in dopolnite, tako da ustrezno zamenjate <code>___</code>:</p>
+<ul>
+<li>ustvarite besedni vektor, ki vsebuje vaše ime in imena treh vaših sošolcev. Nov objekt bomo poimenovali <code class="sourceCode r">imena_sosolcev</code>. Vsako posamezno ime vpišite znotraj posameznega para narekovajev, tako da zamenjate <code class="sourceCode r">___</code>.</li>
+<li>ustvarite številski vektor, ki vsebuje vašo in starosti treh vasih sošolcev. Vsako posamezno število vnesite v pripravljene oklepaje, tako da zamenjate <code class="sourceCode r">___</code>, <strong>vrstni red starosti naj ustreza imenom oseb iz prvega vektorja</strong>. Nov objekt bomo poimenovali <code class="sourceCode r">starost</code>.<br>
+</li>
+<li>logični vektor, ki ga bomo poimenovali <code class="sourceCode r">barva_oci</code>, vsebuje pa naj vrednosti <code class="sourceCode r"><span class="cn">TRUE</span></code> in <code class="sourceCode r"><span class="cn">FALSE</span></code>, skladno s tem ali ima oseba iz vektorja <code class="sourceCode r">imena_sosolcev</code> enako barvo oci kot vi (<code class="sourceCode r"><span class="cn">TRUE</span></code>) ali ne (<code class="sourceCode r"><span class="cn">FALSE</span></code>).</li>
+<li>besedni vektor, ki bo vseboval imena domačih krajev - krajev od koder prihajate vi in izbrani trije sošolci. Poimenovali ga bomo <code>domaci_kraj</code>.</li>
+<li>ustvarite dva ševilska vektorja, ki bosta vsebovala koordinate domačih krajev - eden geografsko širino, drugi geografsko dolžino posameznega kraja. Poimenovali ju bomo <code>geografska_sirina_dk</code> in <code>geografska_dolzina_dk</code>. Koordinate krajev najlažje pridobite na <code>Google Maps</code> tako da kliknete na zemljevid v bližini kraja.</li>
+</ul>
+<p>Ko izpolnite vse ukaze, kar pomeni, da ustrezno zamenjate vsa polja z znaki <code>___</code>, premaknite kurzor v prvo vrstico s kopirano kodo in kliknite <code class="sourceCode r">Run</code>. Premikajte se navzdol po vrsticah z ukazi in izvedite vsakega od njih. Pričakovan rezultat je šest novih imen v vašem R <code>Global Environment</code>.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>imena_sosolcev <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"___"</span>, <span class="st">"___"</span>, <span class="st">"___"</span>, <span class="st">"___"</span>) </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>starost <span class="ot">&lt;-</span> <span class="fu">c</span>(___, ___, ___, ___)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>barva_oci <span class="ot">&lt;-</span> <span class="fu">c</span>(___, ___, ___, ___)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>domaci_kraj <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"___"</span>, <span class="st">"___"</span>, <span class="st">"___"</span>, <span class="st">"___"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>geografska_sirina_dk <span class="ot">&lt;-</span> <span class="fu">c</span>(___, ___, ___, ___)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>geografska_dolzina_dk <span class="ot">&lt;-</span> <span class="fu">c</span>(___, ___, ___, ___)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pomembno
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pri delu s prostorskimi podatki v R-u je nujno, da so koordinate zapisane kot <strong>decimalne stopinje</strong>, brez znaka za stopinje (°). Pomembno je tudi poznavanje referenčnega koordinatnega sistema (Coordinate Reference System - CRS), kadar tabelo spreminjamo v katerega od prostorskih podatkovnih struktur.</p>
+</div>
+</div>
+</section>
+<section id="tabele-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="tabele-data-frames">Tabele (<code>data frames</code>)</h3>
+<p>Tabela je v osnovi več vektorjev, ki jih zdruzimo, tako da vsak predstavlja en stolpec v novoustvarjeni tabeli. Tabele so najpogostejša in najpogosteje uporabljena podatkovna struktura. Navadno jih v R uvozimo iz diska naših računalnikov, mi pa si bomo najprej pogledali, kako jih ustvarimo iz obstoječih vektorjev. Za to uporabimo funkcijo <code class="sourceCode r"><span class="fu">data.frame</span>()</code>, kjer znotraj oklepajev naštejemo imena vektorjev, ki jih želimo združiti v tabelo in jih ločimo z vejico. Podobno kot vektorje lahko v objekte shranjujemo tudi tabele, kar je prikazano v drugi vrstici spodnjega primera:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(ime_mesta, geografska_dolzina, geografska_sirina, prebivalstvo, primorska)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      ime_mesta geografska_dolzina geografska_sirina prebivalstvo primorska
+1     Ljubljana           14.50742          46.04777       279631     FALSE
+2       Maribor           15.64526          46.55061        94370     FALSE
+3         Koper           13.73027          45.54738        25753      TRUE
+4 Kranjska Gora           13.78749          46.48872         1452     FALSE
+5    Novo mesto           15.16419          45.80263        24183     FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mesta <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ime_mesta, geografska_dolzina, geografska_sirina, prebivalstvo, primorska)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Združite vektorje iz prejšnje naloge (<code class="sourceCode r">imena_sosolcev</code>, <code class="sourceCode r">starost</code>, <code class="sourceCode r">barva_oci</code>, ) v tabelo, ki bo dodeljena objektu z imenom <code class="sourceCode r">sosolci</code>, tako da namesto <code class="sourceCode r">___</code>, vpisete imena zgoraj ustvarjenih vektorjev:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sosolci <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(___, <span class="co"># imena</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                      ___, <span class="co"># starosti</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                      ___, <span class="co"># barva oci</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                      ___, <span class="co"># domaci kraj</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                      ___, <span class="co"># geografska sirina</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                      ___) <span class="co"># geografska dolzina</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>sosolci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="seznami-lists" class="level3">
+<h3 class="anchored" data-anchor-id="seznami-lists">Seznami (<code>lists</code>)</h3>
+<p>Seznami so objekti, ki lahko vsebujejo različne podatkovne strukture, kot npr. števila, besede, logične vrednosti, pa tudi vektorje, tabele in tudi druge sezname. Ustvarimo jih s funkcijo <code class="sourceCode r"><span class="fu">list</span>()</code> in znotraj oklepajev navedeme katere elemnte želimo vključiti na seznam. Seznami so kompleksne podatkovne strukture, ki se pogosteje uporabljajo za zahtevnejše operacije. Spodnji primer služi samo kot demostracija, kako ustvari seznam s poljubnimi elementi, od katerih smo jih nekaj ustvarili danes na vajah:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kopirajte ukaze v skripto in jih zaženite.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>seznam <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">"Koper, Slovenia"</span>, <span class="co"># beseda, stevilo</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>               mesani_vektor, <span class="co"># vektor </span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>               mesta, <span class="co"># tabela</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">"Koper, Slovenia"</span>, mesani_vektor, mesta) <span class="co"># seznam</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>seznam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1
+
+[[2]]
+[1] "Koper, Slovenia"
+
+[[3]]
+[1] "R"    NA     "1"    "TRUE"
+
+[[4]]
+      ime_mesta geografska_dolzina geografska_sirina prebivalstvo primorska
+1     Ljubljana           14.50742          46.04777       279631     FALSE
+2       Maribor           15.64526          46.55061        94370     FALSE
+3         Koper           13.73027          45.54738        25753      TRUE
+4 Kranjska Gora           13.78749          46.48872         1452     FALSE
+5    Novo mesto           15.16419          45.80263        24183     FALSE
+
+[[5]]
+[[5]][[1]]
+[1] 1
+
+[[5]][[2]]
+[1] "Koper, Slovenia"
+
+[[5]][[3]]
+[1] "R"    NA     "1"    "TRUE"
+
+[[5]][[4]]
+      ime_mesta geografska_dolzina geografska_sirina prebivalstvo primorska
+1     Ljubljana           14.50742          46.04777       279631     FALSE
+2       Maribor           15.64526          46.55061        94370     FALSE
+3         Koper           13.73027          45.54738        25753      TRUE
+4 Kranjska Gora           13.78749          46.48872         1452     FALSE
+5    Novo mesto           15.16419          45.80263        24183     FALSE</code></pre>
+</div>
+</div>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Shranite R skripto in si jo naložite na USB ali pošljite preko e-maila, da jo lahko ponovno uporabite.</p>
+</div>
+</div>
+<hr>
+<p>Vprašanja v razmislek:</p>
+<ul>
+<li>Kaj je glavna lastnost vektorjev in katere osnove tipe poznamo?</li>
+<li>Kakšna je povezava med vektorji in tabelami?</li>
+<li>Kaj so seznami?</li>
+</ul>
+<p>Ali imate vi kakšna vprašanja?</p>
+<hr>
+</section>
+</section>
+<section id="take-home-message" class="level2">
+<h2 class="anchored" data-anchor-id="take-home-message">Take home message</h2>
+<p>R je jezik in učenje je podobno kot učenje tujega jezika. Potreben je čas, potrpežljivost in vaja. Dobra stvar je, da je v osnovi potrebno razumeti dva koncepta: kaj so objekti (in kako ga ustvarimo) in funkcije. ter kako ta dva koncepta uporabljamo sočasno. Funkcije (<em>definirane s strani R razvijalcev/developerjev</em>) apliciramo na objekte (<em>ki vsebuje podatke in ki smo ga mi poimenovali</em>) in pričakujemo, da se bo nekaj zgodilo. Danes ste ustvarili različne objekte in uporabili tudi nekaj funkcij. To je osnova dela za R-om in večinoma bodo ukazi ravno to: aplicirali boste fukcijo na objekt (<code class="sourceCode r"><span class="fu">funkcija</span>(objekt)</code>) in dobili kar želite, ali pa vam bo R povedal, da vas ne razume: 😄</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funkcija</span>(objekt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in funkcija(objekt): could not find function "funkcija"</code></pre>
+</div>
+</div>
+<hr>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
