@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič (&amp; Peter Glasnović); Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-03-22">
+<meta name="description" content="Geografski informacijski sistemi in vede, Vaja 2">
+
+<title>Matic Jančič: Teaching portfolio - ACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="../site_libs/leaflet-binding-2.2.0.9000/leaflet.js"></script>
+<script src="../site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="../site_libs/leaflet-providers-plugin-2.2.0.9000/leaflet-providers-plugin.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">ACCESSING MARINE SPECIES OCCURENCES IN R WITH RGBIF</h1>
+                  <div>
+        <div class="description">
+          Geografski informacijski sistemi in vede, Vaja 2
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Uvod v R kot GIS</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič (&amp; Peter Glasnović); Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 22, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-global-biodiversity-information-facility" id="toc-what-is-global-biodiversity-information-facility" class="nav-link active" data-scroll-target="#what-is-global-biodiversity-information-facility">What is Global Biodiversity Information Facility?</a></li>
+  <li><a href="#dostop-do-podatkov-v-spletni-bazi-gbif-v-r-u" id="toc-dostop-do-podatkov-v-spletni-bazi-gbif-v-r-u" class="nav-link" data-scroll-target="#dostop-do-podatkov-v-spletni-bazi-gbif-v-r-u">Dostop do podatkov v spletni bazi GBIF v R-u</a>
+  <ul class="collapse">
+  <li><a href="#how-to-access-species-occurence-data-from-gbif" id="toc-how-to-access-species-occurence-data-from-gbif" class="nav-link" data-scroll-target="#how-to-access-species-occurence-data-from-gbif">How to access species occurence data from GBIF?</a></li>
+  <li><a href="#how-to-simply-map-the-occurences" id="toc-how-to-simply-map-the-occurences" class="nav-link" data-scroll-target="#how-to-simply-map-the-occurences">How to simply map the occurences?</a></li>
+  </ul></li>
+  <li><a href="#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility." id="toc-partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility." class="nav-link" data-scroll-target="#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility."><img src="05_images/EU Erasmuslogo.jpg" class="img-fluid" alt="Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility."></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout-summary">
+<p>In this lab, you will be introduced to:</p>
+<ul>
+<li>Global Biodiversity Information Facility (GBIF) database,</li>
+<li>installing and loading R packages,</li>
+<li>using R code to access the marine species occurrence data on GBIF server and download it,</li>
+<li>data filtering and selecting to retain only information of interest,</li>
+<li>simple visualization of spatial points.</li>
+</ul>
+</div>
+<section id="what-is-global-biodiversity-information-facility" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-global-biodiversity-information-facility">What is Global Biodiversity Information Facility?</h2>
+<p>Global Biodiversity Information Facility (GBIF) is an international network and data infrastructure. It is funded by the world’s governments and aimed at providing anyone, anywhere, <strong>open access</strong> to data about all types of life on Earth.</p>
+<p>At the time of writing this study materials, there were <strong>more than 2.2 billion records</strong> published in the GBIF database, in both marine and terrestrial realm on a global scale. The webpage itself is very practical in terms of navigation and search, but what is even better is that occurrence data can be easily accessed and downloaded through R either for a species or taxa of interest.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open the <a href="https://www.gbif.org/">GBIF</a> website and explore it for a couple of minutes.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/GBIF.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Global Biodiversity Information Facility landing site some time ago</figcaption>
+</figure>
+</div>
+</section>
+<section id="dostop-do-podatkov-v-spletni-bazi-gbif-v-r-u" class="level2">
+<h2 class="anchored" data-anchor-id="dostop-do-podatkov-v-spletni-bazi-gbif-v-r-u">Dostop do podatkov v spletni bazi GBIF v R-u</h2>
+<p>Data from GBIF can be downloaded manually and than imported to R. However, programmers are lazy, so biologists can be lazy as well, right? For that purpose, there is an R package called <code class="sourceCode r">rgbif</code>. It contains functions that enable us to contact GBIF server directly, communicate with it and get only the data that we are interested in. In R, we first need to install a package using <code class="sourceCode r"><span class="fu">install.packages</span>()</code> function <strong>with the name of the package in quotation marks within the parenthesis</strong>. This should automatically download and install the package. We also need to load the package each time that we start or restart R or RStudio. This is done with <code class="sourceCode r"><span class="fu">library</span>()</code> function <strong>with the name of package without quotation marks in the parenthesis</strong>. Each package commes with a document in which all important information are available, example for <code class="sourceCode r">rgbif</code> can be accessed <a href="https://cran.r-project.org/web/packages/rgbif/rgbif.pdf">here</a>. More popular packages usually have informative “cheat sheets” as well (example later on).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When installing R we “only” get access to some functionalities that are available. That is because there are really many available and individual user doesn’t need most of them. To add new functionalities, we need to install additional R packages from the internet (imagine R package as an add-on or extension of the base installation). <u>Installation needs to be done only once, before the first use of the package!</u></p>
+<p>However, installing the package does not make it available for use. Again, not all packages are needed all the time so we have to <u>load the package each time we restart R or RStudio to be able to use it!</u></p>
+</div>
+</div>
+<div class="callout-task">
+<p>Open an empty R script from the <code class="sourceCode r">File</code> dropdown menu by clicking <code class="sourceCode r">New file \ R script</code>. The script will have a name Untitled1 (or Untitled2, if a blank script was already open).</p>
+<p>Save the script to the Desktop of your computer and name it <code>Accessing marine species data with R</code>.</p>
+<p>Copy and paste below code to the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rgbif"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgbif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="how-to-access-species-occurence-data-from-gbif" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-access-species-occurence-data-from-gbif">How to access species occurence data from GBIF?</h3>
+<p>To access the occurrence data we will use <code class="sourceCode r"><span class="fu">occ_search</span>()</code> function, which will contact the GBIF server and download the data from the database. We will take the fin whale (<em>Balaenoptera physalus</em>) as an example.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_images/fin whale.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Fin whale (photo credit: https://www.flickr.com/photos/slobirdr/29414853626)</figcaption>
+</figure>
+</div>
+<p>We introduced functions yesterday and said that we give them some object to get a result. Apart from objects that we create, functions accept other input as well. This input can provided as different <code>arguments</code> of the functions, for example the <code class="sourceCode r"><span class="fu">occ_search</span>()</code> function has an argument called <code class="sourceCode r">scientificName <span class="ot">=</span> <span class="cn">NULL</span></code>, set to <code>NULL</code> by default. If we want to use this function to search for fin whale occurences on GBIF server, we need to change it to <code class="sourceCode r">scientificName <span class="ot">=</span> <span class="st">"Balaenoptera physalus"</span></code>. Note that the latin name is written within the quotation marks for R to treat it as a word. There are many arguments that we could use, to refine our search (i.e.&nbsp;<code>hasCoordinate</code>, <code>country</code>, <code>continent</code>, etc.), but we will not use at this point.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you ever need to get information about any R function, type the question mark before its name (without parenthesis) and its documentation will open in the Help tab.</p>
+</div>
+</div>
+<p>Below code will first open the documentation for <code class="sourceCode r"><span class="fu">occ_search</span>()</code> function and than store the results of it to <code class="sourceCode r">physalus_gbif</code> object, which should appear in your Global environment shortly after running the code.</p>
+<div class="callout-task">
+<p>Copy and paste below code to the R script, move cursor to the row with the code and click <code class="sourceCode r">Run</code>. <u>Explore the document that will open in the Help tab.</u></p>
+<p><code class="sourceCode r">Run</code> the second line of the code and check your working directory, if a new object was created. As we will all be contacting the GBIF server at the same time, it might take a while for all requests to be processed and finished.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>?occ_search</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>physalus_gbif <span class="ot">&lt;-</span> <span class="fu">occ_search</span>(<span class="at">scientificName =</span> <span class="st">"Balaenoptera physalus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Right of <code class="sourceCode r">physalus_gbif</code> object you can see what type of an R object it is: a list of 5 elements. If you click on the small blue icon left of the <code class="sourceCode r">physalus_gbif</code>, its content will be displayed below. You can see that we actually downloaded a lot of stuff. There are three lists called <code>meta</code>, <code>hierarchy</code> and <code>media</code> (far below), and a tibble or dataframe called <code>data</code>. Fifth element is not even listed as the first four have so much content that it was not printed in this display. We could explore all of this elements, but will look only at the <code>data</code> part, where coordinates and other information on the records are stored. In the display, you can see a dollar sign (<code>$</code>) in front of an element name. This is not coincidence, as it tells us, that we can access this part of the list by adding <code>$data</code> after its name. We will save the result of this operation to yet another object, that we will name <code class="sourceCode r">physalus_data</code>, which is a dataframe and which will be our dataset for further exploration.</p>
+<div class="callout-task">
+<p>Copy and paste below code to the R script, move cursor to the row with code and click <code class="sourceCode r">Run</code>. Check your working directory if a new object was created.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>physalus_data <span class="ot">&lt;-</span> physalus_gbif<span class="sc">$</span>data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p>Questions:</p>
+<ul>
+<li>Is <code class="sourceCode r">physalus_data</code> indeed a dataframe (or a tibble) as it was the <code>$data</code> element of <code class="sourceCode r">physalus_gbif</code>?</li>
+<li>How do you know that and is there an R function with which you can check that out?</li>
+<li>How many rows and columns does <code class="sourceCode r">physalus_data</code> dataframe has?</li>
+<li>How do you know that and are there R functions with which you can check that out?</li>
+</ul>
+<p>Do you have any questions?</p>
+<hr>
+<p>There are 500 observations of fin whales in the table, which is not necessarily the actual number of occurences in the database. To prevent server (over)load the default is to download 500 occurrences. This is the case for fin whales as well, as there are 113321 occurrences in the GBIF database (check <a href="https://www.gbif.org/species/2440718">here</a>). To change the number of downloaded occurrences, we would need to change the argument <code>limit =</code> to the desired value (however, note that <em>100,000 is the maximum limit set by package creators</em>).</p>
+<div class="callout-task">
+<p>Click on the <code class="sourceCode r">physalus_data</code> object, its content should get displayed where your R script is open. <u>Explore the table and try to identify columns that can be useful for us (i.e.&nbsp;coordinates, year, etc).</u></p>
+</div>
+<p>Note that everything in R can be done in multiple ways. We will look at filtering (using a condition and retain a subset of observations - rows) and selecting (retaining only columns of interest) parts of our data using <code class="sourceCode r">dplyr</code> R package. The same could be achieved using only <code class="sourceCode r">base R</code> or advanced packages such as <code class="sourceCode r">data.table</code>. R package <code class="sourceCode r">dplyr</code> is very suitable for R beginners as it is very intuitive, but nevertheless very useful and powerful. Remember from above, we need to firs install the package and than load it, for its functions to be available.</p>
+<div class="callout-task">
+<p>Copy and paste below code to the R script, move cursor to the row with code and click <code class="sourceCode r">Run</code>. Check your working directory if a new object was created.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For <strong>selecting</strong> columns of a dataframe we use <code class="sourceCode r"><span class="fu">select</span>()</code> function which takes two arguments: the name of data object we want to select from and the name of column we want to select. With <code class="sourceCode r"><span class="fu">select</span>()</code><strong>we can choose multiple columns</strong>. Of more than 100 columns that were downloaded, only some have meaningful values for us at this moment. … We will retain several, that are listed … For <strong>filtering</strong> by row values we use <code class="sourceCode r"><span class="fu">filter</span>()</code> function which also takes two arguments: the name of data object we want to select from and the expression based on which we want to filter. For example, we do not want fin whale observation with large cordinate uncertatinty, right? To retain only those with 5 km or less, we simply need to specify the name of the column <code>coordinateUncertaintyInMeters</code> and the filtering condition (<code>&lt; 5000</code>). 5 km is not that bad considering the movement capabilities of fin whales, right? We will save results of selecting and filtering in <code class="sourceCode r">physalus_data</code> object, which will overwrite the original object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>physalus_data <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(physalus_data,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         species,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>         decimalLatitude,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>         decimalLongitude,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         coordinateUncertaintyInMeters,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         country) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinateUncertaintyInMeters <span class="sc">&lt;</span> <span class="dv">5000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Functions <code class="sourceCode r"><span class="fu">select</span>()</code> and <code class="sourceCode r"><span class="fu">filter</span>()</code> are defined in multiple R packages. Depending on which package was loaded last by <code class="sourceCode r"><span class="fu">library</span>()</code>, R chooses which version of the function it will apply. If we do not get the expected result from the function or an unexpected error after running it, this is the likeliest cause.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can avoid problems with commonly named functions by telling R <em>a priori</em> which function from which package we want to use. For example, <code class="sourceCode r"><span class="fu">select</span>()</code> or <code class="sourceCode r"><span class="fu">filter</span>()</code> from <code class="sourceCode r">dplyr</code> as follows:</p>
+<ul>
+<li><code class="sourceCode r">dplyr<span class="sc">::</span><span class="fu">filter</span>()</code>,</li>
+<li><code class="sourceCode r">dplyr<span class="sc">::</span><span class="fu">select</span>()</code>.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="how-to-simply-map-the-occurences" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-simply-map-the-occurences">How to simply map the occurences?</h3>
+<p>Now that we have downloaded and filtered the data, we can simply display them on a map. Again, many options in R are available. We will use <code class="sourceCode r">leaflet</code> package which provides an easy way for creating interactive maps. The function for starting a map is <code class="sourceCode r"><span class="fu">leaflet</span>()</code> and we need to specify which object we want to map, in our case this will be <code class="sourceCode r">physalus_data</code>. Next, we use <code class="sourceCode r"><span class="fu">addProviderTiles</span>()</code> to add a background to our map. We also need to select one of the available options, for example <code class="sourceCode r">provider <span class="ot">=</span> <span class="st">"Stamen.TerrainBackground"</span></code> we specify which type of background. You can explore other options for background . You change the background by replacing <code class="sourceCode r"><span class="st">"Stamen.TerrainBackground"</span></code> with another name, i.e.&nbsp;<code class="sourceCode r"><span class="st">"OpenTopoMap"</span></code>. Next we add our points with function <code class="sourceCode r"><span class="fu">addCircleMarkers</span>()</code>, within which we must specify names of columns in our data that represent longitude (<code class="sourceCode r">lon</code>) and latitude (<code class="sourceCode r">lat</code>).</p>
+<div class="callout-task">
+<p>Copy and paste below code to the R script, move cursor to the row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat. The code starting with <code>leaflet(physalus_data)</code> should run from the start to the end after one click on <code class="sourceCode r">Run</code></p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"leaflet"</span>) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(physalus_data) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(<span class="st">"Stamen.TerrainBackground"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span> decimalLongitude,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lat =</span> <span class="sc">~</span> decimalLatitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-962a7058189d64566963" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-962a7058189d64566963">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[27.216506,27.236072,33.61797,33.62685,33.487337,33.482548,33.490328,33.436895,33.44015,33.433327,33.601635,33.605817,33.542677,33.546603,33.546738,33.545587,33.543295,33.543295,33.549765,25.887477,25.887102,25.886765,32.571813,-61.064495,-61.129025,-63.285664,24.413979,48.871672,52.593966,52.65845,49.870605,-54.172445,-54.197826,-54.260208,36.827993,36.827993,36.827993,52.656597,52.656597,52.656597,52.656597,52.656597,71.168373,71.168373,71.171093,68.345079,71.174238,41.041245,41.041245,70.379913,70.379913,73.944633,71.69788800000001,74.69801099999999,75.098668,71.69788800000001,73.94478100000001,33.337538,70.540891,70.388322,71.193054,70.542481,75.878578,33.725603,70.542678,70.492788,71.091168,70.54131,70.401323,71.06360100000001,70.375136,70.375136,45.069637,51.809203,43.531171,45.026711,45.565548,66.002171,39.2,43.54017,70.97623400000001,53.322884,42.809856,51.562332,79.7864,48.271073,44.943682,57.089817,33.586005,33.578737,33.620022,33.62035,33.578215,36.957265,32.7907,33.0288,33.0121,32.9176,32.9031,33.0198,32.6942,32.8776,32.8641,33.390935,33.376262,33.696993,33.630332,33.632387,33.603347,33.589955,33.633473,33.633163,33.609223,33.605058,33.604263,33.599968,33.600325,33.632662,33.626527,33.621468,33.63456,33.62095,33.631388,33.639373,33.63845,33.635743,33.634377,33.65835,26.117721,36.847374,36.860937,36.893614,36.884051,36.911437,36.840444,32.7401,33.833333,43.2186,42.9962,42.93694,42.9337,68.900375,49.615713,25.939772,32.8032,32.9383,33.7083,33.60955,33.624205,39.75292,40.75472,43.20572,42.25943,42.24945,42.1687,42.17142,40.34336,70.055559,41.18997,41.71863,42.36044,42.26074,41.81622,41.10223,41.08487,41.182,41.18185,42.38775,42.36741,42.347,42.25576,42.22955,42.23679,42.2243,42.16235,42.16583,42.125,42.16774,42.1709,42.4982,42.50785,42.65786,42.63706,42.67384,42.75099,42.75103,42.73505,42.75113,42.75878,42.79921,42.80045,42.80043,42.78402,42.85098,42.83761,42.90007,40.24432,40.26605,41.10737,43.165264,36.766003,36.766003,36.790025,36.790025,36.811338,36.811338,36.812268,36.810703,36.812233,36.750252,36.808053,36.808965],[-112.113799,-112.110772,-118.248265,-118.256383,-118.234225,-118.241205,-118.236167,-118.289422,-118.283343,-118.294013,-118.292185,-118.295262,-118.356892,-118.353588,-118.353573,-118.350062,-118.348447,-118.348447,-118.3602,-111.255048,-111.255282,-111.255463,-16.915865,-54.535603,-54.551823,-56.804317,-110.42298,-64.20573899999999,-128.490903,-128.451783,0.717262,-35.567303,-35.60791,-35.745136,-121.961465,-121.961465,-121.961465,-128.451922,-128.451922,-128.451922,-128.451922,-128.451922,25.781972,25.781972,25.712469,13.846533,25.796165,1.908875,1.908875,31.119308,31.119308,-7.762064,-8.259831,-5.906265,-5.031801,-8.259831,-7.762275,-117.615337,30.646107,31.179185,25.642722,30.63929,-3.030216,-118.182519,30.654272,30.632111,28.221114,30.643672,31.188105,28.280834,31.097914,31.097914,-66.93297800000001,-10.285053,9.044495,-4.238235,-4.426687,-18.448697,0.41,9.196129000000001,26.319641,-129.049904,6.351774,-8.459013000000001,14.427425,-69.46538,-66.94592400000001,-134.765747,-118.396563,-118.412457,-118.31983,-118.319532,-118.37138,-75.993966,-118.9013,-118.7691,-118.929,-119.103,-118.8664,-118.9611,-118.7901,-118.9592,-118.7277,-117.850293,-117.848153,-118.401412,-118.297102,-118.291467,-118.27836,-118.297248,-118.336235,-118.33557,-118.295498,-118.307815,-118.323405,-118.27188,-118.271518,-118.299337,-118.307662,-118.31528,-118.294178,-118.315378,-118.361565,-118.371552,-118.37163,-118.368833,-118.366272,-118.381473,-111.292132,-75.632795,-75.757091,-75.885198,-75.65127200000001,-75.770079,-75.637559,-118.9008,-118.483333,-70.0951,-70.37737,-70.07026999999999,-70.05278,14.55613,-124.06398,-111.112949,-118.9874,-118.853,-118.5891,-118.398027,-118.429762,-73.78336,-69.93394000000001,-70.16004,-70.27145,-70.31361,-70.30933,-70.33739,-73.25015,29.846364,1.744938,-69.54841,-70.21527,-67.31979,-69.68459,-70.70567,-70.34959000000001,-70.18443000000001,-70.22292,-70.37634,-70.3625,-70.34045,-70.55416,-70.30273,-70.33622,-70.32714,-70.33977,-70.35001,-70.29836,-70.51958,-70.54858,-70.59481,-70.61190999999999,-70.47495000000001,-70.39618,-70.53686999999999,-70.56753999999999,-70.53316,-70.5086,-70.33501,-70.32623,-70.28536,-70.36921,-70.41182999999999,-70.42986000000001,-70.29456999999999,-70.30173000000001,-70.11054,-71.56634,-71.51900000000001,-69.4671,10.044085,-122.010727,-122.010727,-121.8628,-121.8628,-121.960197,-121.960197,-122.040147,-122.048993,-122.037483,-121.928325,-122.002257,-121.997252],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-63.285664,79.7864],"lng":[-134.765747,31.188105]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<hr>
+<p>Questions to consider:</p>
+<ul>
+<li>What is GBIF and how can it be useful for your research/teaching?</li>
+<li>What are the drawbacks of the GBIF data considering that some of it comes from citizen science?</li>
+<li>How many times do you need to run <code>install.packages()</code> functions and how many times the <code>library()</code> function?</li>
+<li>Which package and functions are easy to use for filtering and selecting only the data of interest?</li>
+<li>Which package and functions are easy to use for simple spatial data visualization of spatial points?</li>
+</ul>
+<p>Do you have any questions?</p>
+<hr>
+<div class="callout-task">
+<p>Today your task will be more challenging than those of yesterday. Follow the next steps to accomplish it:</p>
+<ol type="1">
+<li>Choose one marine species (your favorite) and find its Latin name.</li>
+<li>Open new R script, save it to desktop and name it <code>Accessing "insert your species name" data with R</code> on the desktop.</li>
+<li>Copy - paste all R code that we ran for fin whale example (you can exclude only <code>install.packages()</code>, as the packages are already on your computer now).</li>
+<li>Adapt the code in a way that you replace <code>Balaenoptera physalus</code> with chosen species name and rename <code>physalus_gbif</code> according to your species (i.e.&nbsp;<code>Liza aurata</code> &amp; <code>aurata_gbif</code>).</li>
+<li>Add the argument <code>limit =</code> to <code>occ_search()</code> function and download more than 500 occurrences (change 500 with a number of your choice).</li>
+<li>Extract the data part of the <code>*_gbif</code> object and rename the object according to you species (i.e.&nbsp;<code>aurata_data</code>).
+<ol type="a">
+<li>if there are zero or a small number of occurrences of your species (&lt; 100), repeat from step 1.</li>
+<li>if there are &gt; 100 occurrences of your species, proceed to step 7.</li>
+</ol></li>
+<li>Select only meaningful columns from the <code>*_data</code> dataframe. The column names should be the same as in the fin whale example and the code should work on your data. <u>Add a minimum three columns to the select function on top of the ones that I chose to select!</u></li>
+<li>Apply filter to your data and try to change the filtering value of coordinate uncertainty to correspond to your species better (i.e.&nbsp;500 metres might be better for <em>Liza aurata</em>).</li>
+<li>Display the filtered occurrences of your species on a leflet map. Explore the available base maps <a href="http://leaflet-extras.github.io/leaflet-providers/preview/">here</a> and change it to one of your choice (i.e.replace <code>"Stamen.TerrainBackground"</code> with <code>"Esri.WorldImagery"</code> or <code>"OpenTopoMap"</code>.</li>
+</ol>
+<p><u>If something doesn’t work straight away, first think about the problem/error, consult a neighbor on your left, then on your right. If after that you still don’t know how to fix the problem or proceed, ask me for help!</u></p>
+</div>
+<hr>
+<div class="callout-task">
+<p>Save both R scripts, so you can reuse your code in the following labs.</p>
+<p>When you close R studio, select <code>Yes</code> when it asks if you want to save your work-space.</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility." class="level2">
+<h2 class="anchored" data-anchor-id="partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility."><img src="05_images/EU Erasmuslogo.jpg" class="img-fluid" alt="Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility."></h2>
+<p>Partly funded by EU Erasmus+ Programme for Higher Education Staff Mobility</p>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
