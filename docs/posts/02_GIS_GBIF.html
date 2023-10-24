@@ -98,16 +98,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="../site_libs/jquery-1.12.4/jquery.min.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="../site_libs/leaflet-binding-2.1.2/leaflet.js"></script>
+<script src="../site_libs/leaflet-binding-2.2.0.9000/leaflet.js"></script>
 <script src="../site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="../site_libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
+<script src="../site_libs/leaflet-providers-plugin-2.2.0.9000/leaflet-providers-plugin.js"></script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -227,7 +227,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="callout-summary">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>In this lab, you will be introduced to:</p>
 <ul>
 <li>Global Biodiversity Information Facility (GBIF) database,</li>
@@ -237,13 +246,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>simple visualization of spatial points.</li>
 </ul>
 </div>
+</div>
 <hr>
 <section id="what-is-global-biodiversity-information-facility" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-global-biodiversity-information-facility">What is Global Biodiversity Information Facility?</h3>
 <p>Global Biodiversity Information Facility (GBIF) is an international network and data infrastructure. It is funded by the world’s governments and aimed at providing anyone, anywhere, <strong>open access</strong> to data about all types of life on Earth.</p>
 <p>At the time of writing this study materials, there were <strong>more than 2.2 billion records</strong> published in the GBIF database, in both marine and terrestrial realm on a global scale. The webpage itself is very practical in terms of navigation and search, but what is even better is that occurrence data can be easily accessed and downloaded through R either for a species or taxa of interest.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Open the <a href="https://www.gbif.org/">GBIF</a> website and explore it for a couple of minutes.</p>
+</div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -266,10 +286,20 @@ Important
 <p>However, installing the package does not make it available for use. Again, not all packages are needed all the time so we have to <u>load the package each time we restart R or RStudio to be able to use it!</u></p>
 </div>
 </div>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Open an empty R script from the <code class="sourceCode r">File</code> dropdown menu by clicking <code class="sourceCode r">New file \ R script</code>. The script will have a name Untitled1 (or Untitled2, if a blank script was already open).</p>
 <p>Save the script to the Desktop of your computer and name it <code>Accessing marine species data with R</code>.</p>
 <p>Copy and paste below code to the R script, move cursor to the first row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat.</p>
+</div>
 </div>
 <div class="cell">
 <details>
@@ -303,9 +333,19 @@ Tip
 </div>
 </div>
 <p>Below code will first open the documentation for <code class="sourceCode r"><span class="fu">occ_search</span>()</code> function and than store the results of it to <code class="sourceCode r">physalus_gbif</code> object, which should appear in your Global environment shortly after running the code.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code to the R script, move cursor to the row with the code and click <code class="sourceCode r">Run</code>. <u>Explore the document that will open in the Help tab.</u></p>
 <p><code class="sourceCode r">Run</code> the second line of the code and check your working directory, if a new object was created. As we will all be contacting the GBIF server at the same time, it might take a while for all requests to be processed and finished.</p>
+</div>
 </div>
 <div class="cell">
 <details>
@@ -316,8 +356,18 @@ Tip
 </details>
 </div>
 <p>Right of <code class="sourceCode r">physalus_gbif</code> object you can see what type of an R object it is: a list of 5 elements. If you click on the small blue icon left of the <code class="sourceCode r">physalus_gbif</code>, its content will be displayed below. You can see that we actually downloaded a lot of stuff. There are three lists called <code>meta</code>, <code>hierarchy</code> and <code>media</code> (far below), and a tibble or dataframe called <code>data</code>. Fifth element is not even listed as the first four have so much content that it was not printed in this display. We could explore all of this elements, but will look only at the <code>data</code> part, where coordinates and other information on the records are stored. In the display, you can see a dollar sign (<code>$</code>) in front of an element name. This is not coincidence, as it tells us, that we can access this part of the list by adding <code>$data</code> after its name. We will save the result of this operation to yet another object, that we will name <code class="sourceCode r">physalus_data</code>, which is a dataframe and which will be our dataset for further exploration.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code to the R script, move cursor to the row with code and click <code class="sourceCode r">Run</code>. Check your working directory if a new object was created.</p>
+</div>
 </div>
 <div class="cell">
 <details>
@@ -335,13 +385,33 @@ Tip
 </ul>
 <p>Do you have any questions?</p>
 <hr>
-<p>There are 500 observations of fin whales in the table, which is not necessarily the actual number of occurences in the database. To prevent server (over)load the default is to download 500 occurrences. This is the case for fin whales as well, as there are 113311 occurrences in the GBIF database (check <a href="https://www.gbif.org/species/2440718">here</a>). To change the number of downloaded occurrences, we would need to change the argument <code>limit =</code> to the desired value (however, note that <em>100,000 is the maximum limit set by package creators</em>).</p>
-<div class="callout-task">
+<p>There are 500 observations of fin whales in the table, which is not necessarily the actual number of occurences in the database. To prevent server (over)load the default is to download 500 occurrences. This is the case for fin whales as well, as there are 113321 occurrences in the GBIF database (check <a href="https://www.gbif.org/species/2440718">here</a>). To change the number of downloaded occurrences, we would need to change the argument <code>limit =</code> to the desired value (however, note that <em>100,000 is the maximum limit set by package creators</em>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Click on the <code class="sourceCode r">physalus_data</code> object, its content should get displayed where your R script is open. <u>Explore the table and try to identify columns that can be useful for us (i.e.&nbsp;coordinates, year, etc).</u></p>
 </div>
+</div>
 <p>Note that everything in R can be done in multiple ways. We will look at filtering (using a condition and retain a subset of observations - rows) and selecting (retaining only columns of interest) parts of our data using <code class="sourceCode r">dplyr</code> R package. The same could be achieved using only <code class="sourceCode r">base R</code> or advanced packages such as <code class="sourceCode r">data.table</code>. R package <code class="sourceCode r">dplyr</code> is very suitable for R beginners as it is very intuitive, but nevertheless very useful and powerful. Remember from above, we need to firs install the package and than load it, for its functions to be available.</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code to the R script, move cursor to the row with code and click <code class="sourceCode r">Run</code>. Check your working directory if a new object was created.</p>
+</div>
 </div>
 <div class="cell">
 <details>
@@ -398,8 +468,18 @@ Tip
 <section id="how-to-simply-map-the-occurences" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-simply-map-the-occurences">How to simply map the occurences?</h3>
 <p>Now that we have downloaded and filtered the data, we can simply display them on a map. Again, many options in R are available. We will use <code class="sourceCode r">leaflet</code> package which provides an easy way for creating interactive maps. The function for starting a map is <code class="sourceCode r"><span class="fu">leaflet</span>()</code> and we need to specify which object we want to map, in our case this will be <code class="sourceCode r">physalus_data</code>. Next, we use <code class="sourceCode r"><span class="fu">addProviderTiles</span>()</code> to add a background to our map. We also need to select one of the available options, for example <code class="sourceCode r">provider <span class="ot">=</span> <span class="st">"Stamen.TerrainBackground"</span></code> we specify which type of background. You can explore other options for background . You change the background by replacing <code class="sourceCode r"><span class="st">"Stamen.TerrainBackground"</span></code> with another name, i.e.&nbsp;<code class="sourceCode r"><span class="st">"OpenTopoMap"</span></code>. Next we add our points with function <code class="sourceCode r"><span class="fu">addCircleMarkers</span>()</code>, within which we must specify names of columns in our data that represent longitude (<code class="sourceCode r">lon</code>) and latitude (<code class="sourceCode r">lat</code>).</p>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Copy and paste below code to the R script, move cursor to the row with code and click <code class="sourceCode r">Run</code>. Move cursor to each row that contains code and repeat. The code starting with <code>leaflet(physalus_data)</code> should run from the start to the end after one click on <code class="sourceCode r">Run</code></p>
+</div>
 </div>
 <div class="cell">
 <details>
@@ -415,8 +495,8 @@ Tip
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3e3a3fdb8c316eb6c1ce" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-3e3a3fdb8c316eb6c1ce">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[27.216506,27.236072,33.61797,33.62685,33.487337,33.482548,33.490328,33.436895,33.44015,33.433327,33.601635,33.605817,33.542677,33.546603,33.546738,33.545587,33.543295,33.543295,33.549765,26.015423,26.01687,26.0169,26.0169,26.006898,25.64331,25.645447,25.645377,25.77563,25.887477,25.887102,25.886765,32.571813,24.413979,33.595738,48.871672,52.593966,52.65845,49.870605,-54.172445,36.827993,36.827993,36.827993,52.656597,52.656597,52.656597,52.656597,52.656597,71.168373,71.168373,71.171093,68.345079,71.174238,41.041245,41.041245,70.379913,70.379913,33.337538,33.574127,33.544583,33.571145,33.571375,33.570403,33.570208,33.56853,33.567067,33.567193,33.57994,33.57994,70.540891,70.388322,71.193054,33.725603,70.542678,70.492788,71.091168,70.54131,70.401323,71.06360100000001,70.375136,70.375136,45.069637,70.97623400000001,53.322884,33.568778,33.595253,79.7864,36.957265,32.7907,33.0288,33.0121,32.9176,32.9031,33.0198,32.6942,32.8776,32.8641,33.390935,33.376262,33.696993,33.630332,33.632387,33.603347,33.589955,33.633473,33.633163,33.609223,33.605058,33.604263,33.599968,33.600325,33.632662,33.626527,33.621468,33.63456,33.62095,33.631388,33.639373,33.63845,33.635743,33.634377,33.65835,26.117721,36.847374,36.860937,36.893614,36.884051,36.911437,36.840444,32.7401,25.913252,25.903478,25.906067,25.9061,25.871688,25.868957,25.974493,25.907375,33.833333,43.2186,42.9962,42.93694,42.9337,68.900375,49.615713,25.939772,32.8032,32.9383,33.7083,33.60955,33.624205,34.086025,39.75292,40.75472,43.20572,42.25943,42.24945,42.1687,42.17142,40.34336,70.055559,41.71863,42.36044,42.26074,41.81622,41.10223,41.08487,41.182,41.18185,42.38775,42.36741,42.347,42.25576,42.22955,42.23679,42.2243,42.16235,42.16583,42.125,42.16774,42.1709,42.4982,42.50785,42.65786,42.63706,42.67384,42.75099,42.75103,42.73505,42.75113,42.75878,42.79921,42.80045,42.80043,42.78402,42.85098,42.83761,42.90007,40.24432,40.26605,41.10737,43.165264,36.766003,36.766003,36.790025,36.790025,36.811338,36.811338,36.812268,36.810703,36.812233,36.750252,36.808053,36.808965,36.671972,36.671972,53.267735,42.15082,42.1518,42.2013,42.20098,42.18002,42.20044,42.24537,41.92879,41.59058,41.59425,41.57558,41.56849,41.56916,41.5731,41.63122,47.32966,47.35313,47.35854,47.33381,47.35376,47.4131,47.25031,47.25038,47.40548,47.4105,47.43912,47.33838,47.34911,47.45204,47.46478,47.46371,47.47166,47.39152,47.45624,47.44909,47.43941,47.42292,47.38372,47.35166,47.33149,47.44916,47.48865,47.40833,47.4785,47.55766],[-112.113799,-112.110772,-118.248265,-118.256383,-118.234225,-118.241205,-118.236167,-118.289422,-118.283343,-118.294013,-118.292185,-118.295262,-118.356892,-118.353588,-118.353573,-118.350062,-118.348447,-118.348447,-118.3602,-111.245078,-111.245288,-111.245365,-111.245365,-111.251512,-111.15238,-111.144432,-111.144293,-111.155075,-111.255048,-111.255282,-111.255463,-16.915865,-110.42298,-118.355852,-64.20573899999999,-128.490903,-128.451783,0.717262,-35.567303,-121.961465,-121.961465,-121.961465,-128.451922,-128.451922,-128.451922,-128.451922,-128.451922,25.781972,25.781972,25.712469,13.846533,25.796165,1.908875,1.908875,31.119308,31.119308,-117.615337,-118.367988,-118.259945,-118.378912,-118.378147,-118.378508,-118.378232,-118.375213,-118.373452,-118.373107,-118.403015,-118.403015,30.646107,31.179185,25.642722,-118.182519,30.654272,30.632111,28.221114,30.643672,31.188105,28.280834,31.097914,31.097914,-66.93297800000001,26.319641,-129.049904,-119.41751,-119.382882,14.427425,-75.993966,-118.9013,-118.7691,-118.929,-119.103,-118.8664,-118.9611,-118.7901,-118.9592,-118.7277,-117.850293,-117.848153,-118.401412,-118.297102,-118.291467,-118.27836,-118.297248,-118.336235,-118.33557,-118.295498,-118.307815,-118.323405,-118.27188,-118.271518,-118.299337,-118.307662,-118.31528,-118.294178,-118.315378,-118.361565,-118.371552,-118.37163,-118.368833,-118.366272,-118.381473,-111.292132,-75.632795,-75.757091,-75.885198,-75.65127200000001,-75.770079,-75.637559,-118.9008,-111.255722,-111.262723,-111.269918,-111.2699,-111.238215,-111.235653,-111.228025,-111.258117,-118.483333,-70.0951,-70.37737,-70.07026999999999,-70.05278,14.55613,-124.06398,-111.112949,-118.9874,-118.853,-118.5891,-118.398027,-118.429762,-119.295458,-73.78336,-69.93394000000001,-70.16004,-70.27145,-70.31361,-70.30933,-70.33739,-73.25015,29.846364,-69.54841,-70.21527,-67.31979,-69.68459,-70.70567,-70.34959000000001,-70.18443000000001,-70.22292,-70.37634,-70.3625,-70.34045,-70.55416,-70.30273,-70.33622,-70.32714,-70.33977,-70.35001,-70.29836,-70.51958,-70.54858,-70.59481,-70.61190999999999,-70.47495000000001,-70.39618,-70.53686999999999,-70.56753999999999,-70.53316,-70.5086,-70.33501,-70.32623,-70.28536,-70.36921,-70.41182999999999,-70.42986000000001,-70.29456999999999,-70.30173000000001,-70.11054,-71.56634,-71.51900000000001,-69.4671,10.044085,-122.010727,-122.010727,-121.8628,-121.8628,-121.960197,-121.960197,-122.040147,-122.048993,-122.037483,-121.928325,-122.002257,-121.997252,-121.895949,-121.895949,-129.1278,-70.56335,-70.07908999999999,-70.25684,-70.45533,-70.46826,-70.52964,-70.30692000000001,-69.55497,-69.64255,-69.6345,-69.62278000000001,-69.59551,-69.60317999999999,-69.58815,-69.31801,-63.15816,-63.10807,-63.10835,-63.08458,-63.08456,-63.08492,-63.24273,-63.2432,-63.2514,-63.28175,-63.33161,-63.33148,-63.34889,-63.41894,-63.4189,-63.4965,-63.5019,-63.11729,-63.23349,-63.20041,-63.20007,-63.19999,-63.13157,-63.19926,-63.20697,-63.28359,-63.2836,-63.36638,-63.53329,-63.53354],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-54.172445,79.7864],"lng":[-129.1278,31.188105]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8e40fb0e9a1be16b4da7" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-8e40fb0e9a1be16b4da7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[27.216506,27.236072,33.61797,33.62685,33.487337,33.482548,33.490328,33.436895,33.44015,33.433327,33.601635,33.605817,33.542677,33.546603,33.546738,33.545587,33.543295,33.543295,33.549765,25.887477,25.887102,25.886765,32.571813,-61.064495,-61.129025,-63.285664,24.413979,48.871672,52.593966,52.65845,49.870605,-54.172445,-54.197826,-54.260208,36.827993,36.827993,36.827993,52.656597,52.656597,52.656597,52.656597,52.656597,71.168373,71.168373,71.171093,68.345079,71.174238,41.041245,41.041245,70.379913,70.379913,73.944633,71.69788800000001,74.69801099999999,75.098668,71.69788800000001,73.94478100000001,33.337538,70.540891,70.388322,71.193054,70.542481,75.878578,33.725603,70.542678,70.492788,71.091168,70.54131,70.401323,71.06360100000001,70.375136,70.375136,45.069637,51.809203,43.531171,45.026711,45.565548,66.002171,39.2,43.54017,70.97623400000001,53.322884,42.809856,51.562332,79.7864,48.271073,44.943682,57.089817,33.586005,33.578737,33.620022,33.62035,33.578215,36.957265,32.7907,33.0288,33.0121,32.9176,32.9031,33.0198,32.6942,32.8776,32.8641,33.390935,33.376262,33.696993,33.630332,33.632387,33.603347,33.589955,33.633473,33.633163,33.609223,33.605058,33.604263,33.599968,33.600325,33.632662,33.626527,33.621468,33.63456,33.62095,33.631388,33.639373,33.63845,33.635743,33.634377,33.65835,26.117721,36.847374,36.860937,36.893614,36.884051,36.911437,36.840444,32.7401,33.833333,43.2186,42.9962,42.93694,42.9337,68.900375,49.615713,25.939772,32.8032,32.9383,33.7083,33.60955,33.624205,39.75292,40.75472,43.20572,42.25943,42.24945,42.1687,42.17142,40.34336,70.055559,41.18997,41.71863,42.36044,42.26074,41.81622,41.10223,41.08487,41.182,41.18185,42.38775,42.36741,42.347,42.25576,42.22955,42.23679,42.2243,42.16235,42.16583,42.125,42.16774,42.1709,42.4982,42.50785,42.65786,42.63706,42.67384,42.75099,42.75103,42.73505,42.75113,42.75878,42.79921,42.80045,42.80043,42.78402,42.85098,42.83761,42.90007,40.24432,40.26605,41.10737,43.165264,36.766003,36.766003,36.790025,36.790025,36.811338,36.811338,36.812268,36.810703,36.812233,36.750252,36.808053,36.808965],[-112.113799,-112.110772,-118.248265,-118.256383,-118.234225,-118.241205,-118.236167,-118.289422,-118.283343,-118.294013,-118.292185,-118.295262,-118.356892,-118.353588,-118.353573,-118.350062,-118.348447,-118.348447,-118.3602,-111.255048,-111.255282,-111.255463,-16.915865,-54.535603,-54.551823,-56.804317,-110.42298,-64.20573899999999,-128.490903,-128.451783,0.717262,-35.567303,-35.60791,-35.745136,-121.961465,-121.961465,-121.961465,-128.451922,-128.451922,-128.451922,-128.451922,-128.451922,25.781972,25.781972,25.712469,13.846533,25.796165,1.908875,1.908875,31.119308,31.119308,-7.762064,-8.259831,-5.906265,-5.031801,-8.259831,-7.762275,-117.615337,30.646107,31.179185,25.642722,30.63929,-3.030216,-118.182519,30.654272,30.632111,28.221114,30.643672,31.188105,28.280834,31.097914,31.097914,-66.93297800000001,-10.285053,9.044495,-4.238235,-4.426687,-18.448697,0.41,9.196129000000001,26.319641,-129.049904,6.351774,-8.459013000000001,14.427425,-69.46538,-66.94592400000001,-134.765747,-118.396563,-118.412457,-118.31983,-118.319532,-118.37138,-75.993966,-118.9013,-118.7691,-118.929,-119.103,-118.8664,-118.9611,-118.7901,-118.9592,-118.7277,-117.850293,-117.848153,-118.401412,-118.297102,-118.291467,-118.27836,-118.297248,-118.336235,-118.33557,-118.295498,-118.307815,-118.323405,-118.27188,-118.271518,-118.299337,-118.307662,-118.31528,-118.294178,-118.315378,-118.361565,-118.371552,-118.37163,-118.368833,-118.366272,-118.381473,-111.292132,-75.632795,-75.757091,-75.885198,-75.65127200000001,-75.770079,-75.637559,-118.9008,-118.483333,-70.0951,-70.37737,-70.07026999999999,-70.05278,14.55613,-124.06398,-111.112949,-118.9874,-118.853,-118.5891,-118.398027,-118.429762,-73.78336,-69.93394000000001,-70.16004,-70.27145,-70.31361,-70.30933,-70.33739,-73.25015,29.846364,1.744938,-69.54841,-70.21527,-67.31979,-69.68459,-70.70567,-70.34959000000001,-70.18443000000001,-70.22292,-70.37634,-70.3625,-70.34045,-70.55416,-70.30273,-70.33622,-70.32714,-70.33977,-70.35001,-70.29836,-70.51958,-70.54858,-70.59481,-70.61190999999999,-70.47495000000001,-70.39618,-70.53686999999999,-70.56753999999999,-70.53316,-70.5086,-70.33501,-70.32623,-70.28536,-70.36921,-70.41182999999999,-70.42986000000001,-70.29456999999999,-70.30173000000001,-70.11054,-71.56634,-71.51900000000001,-69.4671,10.044085,-122.010727,-122.010727,-121.8628,-121.8628,-121.960197,-121.960197,-122.040147,-122.048993,-122.037483,-121.928325,-122.002257,-121.997252],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-63.285664,79.7864],"lng":[-134.765747,31.188105]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <hr>
@@ -430,7 +510,16 @@ Tip
 </ul>
 <p>Do you have any questions?</p>
 <hr>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Today your task will be more challenging than those of yesterday. Follow the next steps to accomplish it:</p>
 <ol type="1">
 <li>Choose one marine species (your favorite) and find its Latin name.</li>
@@ -449,10 +538,21 @@ Tip
 </ol>
 <p><u>If something doesn’t work straight away, first think about the problem/error, consult a neighbor on your left, then on your right. If after that you still don’t know how to fix the problem or proceed, ask me for help!</u></p>
 </div>
+</div>
 <hr>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Save both R scripts, so you can reuse your code in the following labs.</p>
 <p>When you close R studio, select <code>Yes</code> when it asks if you want to save your work-space.</p>
+</div>
 </div>
 <hr>
 </section>
