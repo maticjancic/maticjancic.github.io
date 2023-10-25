@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/04_SDMs_Model evaluation and representation.html",
       "/posts/03_SDMs_Modeling_algorithms_and_model_building.html",
       "/posts/02_SDMs_env_covariates_terra.html",
       "/posts/01_SDMs_species_occurence_and_absence.html",
@@ -11,6 +12,7 @@
       "/posts/02_Intro2R_data_import_and_exploration.html",
       "/posts/04_DATA EXPLORATION.html",
       "/posts/03_GIS_GLOBAL ENV DATA.html",
+      "/posts/03_GIS_SI_global_raster_data_in_R.html",
       "/posts/02_GIS_GBIF.html",
       "/posts/02_GIS_SI_GBIF.html",
       "/posts/01_GIS_SI_Uvod_v_R_in_RStudio.html",
