@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matic Jančič; Department of biodiversity, University of Primorska">
+<meta name="dcterms.date" content="2023-03-25">
+<meta name="description" content="Geografski informacijski sistemi in vede, Vaja 4">
+
+<title>Matic Jančič: Teaching portfolio - rASTRSKI PODATKI Z VISOKO LOČLJIVOSTJO V R-U</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.28/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Matic Jančič: Teaching portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maticjancic" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/maticjancic/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.researchgate.net/profile/Matic-Jancic" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-researchgate" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0002-6872-4078" rel="" target="">
+ <span class="menu-text"><i class="ai  ai-orcid" title="" style="color:"></i></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:maticjanchich@gmail.com" rel="" target=""><i class="bi bi-https://icons.getbootstrap.com/icons/envelope-at/" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">rASTRSKI PODATKI Z VISOKO LOČLJIVOSTJO V R-U</h1>
+                  <div>
+        <div class="description">
+          Geografski informacijski sistemi in vede, Vaja 4
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Uvod v R kot GIS</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Matic Jančič; Department of biodiversity, University of Primorska </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 25, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#rastrski-podatki-z-visoko-prostorsko-in-časovno-resolucijo-v-paketu-geodata" id="toc-rastrski-podatki-z-visoko-prostorsko-in-časovno-resolucijo-v-paketu-geodata" class="nav-link active" data-scroll-target="#rastrski-podatki-z-visoko-prostorsko-in-časovno-resolucijo-v-paketu-geodata">Rastrski podatki z visoko prostorsko in časovno resolucijo v paketu <code class="sourceCode r">geodata</code></a>
+  <ul class="collapse">
+  <li><a href="#naloga-1" id="toc-naloga-1" class="nav-link" data-scroll-target="#naloga-1">Naloga</a></li>
+  <li><a href="#mesecna-temperatura-v-sloveniji-za-prihodnost" id="toc-mesecna-temperatura-v-sloveniji-za-prihodnost" class="nav-link" data-scroll-target="#mesecna-temperatura-v-sloveniji-za-prihodnost">Mesecna temperatura v Sloveniji za prihodnost</a></li>
+  <li><a href="#racunanje-z-rastri-izracun-razlike-v-temperaturi-med-prihodnjima-scenarijema-in-sedanjostjo" id="toc-racunanje-z-rastri-izracun-razlike-v-temperaturi-med-prihodnjima-scenarijema-in-sedanjostjo" class="nav-link" data-scroll-target="#racunanje-z-rastri-izracun-razlike-v-temperaturi-med-prihodnjima-scenarijema-in-sedanjostjo">Racunanje z rastri: izracun razlike v temperaturi med prihodnjima scenarijema in sedanjostjo</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Povzetek
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Na teh vajah boste:</p>
+<ul>
+<li>spoznali bazo podatkov <code>geodata</code>, ki vključuje rastrske podatke z visoko ločljivostjo,</li>
+<li>dostopali in prenesli rasterske podatke za nadmorske višine Slovenije,</li>
+<li>izračunali in prikazali naklon, aspekt in osončenost terena v Sloveniji,</li>
+<li>dostopali do slojev mesečnih temperatur Slovenije za sedanjost in dva scenarija za prihodnost,</li>
+<li>izračunali razliko v temperaturi ter nove sloje prikazali in smiselno obarvali z uporabo enostavnih R orodij.</li>
+</ul>
+</div>
+</div>
+<section id="rastrski-podatki-z-visoko-prostorsko-in-časovno-resolucijo-v-paketu-geodata" class="level2">
+<h2 class="anchored" data-anchor-id="rastrski-podatki-z-visoko-prostorsko-in-časovno-resolucijo-v-paketu-geodata">Rastrski podatki z visoko prostorsko in časovno resolucijo v paketu <code class="sourceCode r">geodata</code></h2>
+<p>Danes si bomo na vajah pogledali še paket <code class="sourceCode r">geodata</code>, ki vsebuje funkcije za dostop do različnih rastrskih podatkov z visoko prostorsko in časovno resolucijo.</p>
+<p>Paket najprej instaliramo (<strong>samo enkrat, ce ga se nismo</strong>) in <strong>omogocimo uporabo funkcij</strong> (vedno, ko zaženemo R ali RStudio).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Naloga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Odprite nov R skript v meniju <code class="sourceCode r">File</code> tako, da kliknete <code>New file</code> in potem <code class="sourceCode r">R script</code>. Skript bo imel ime Untitled1 (ali Untitled2, če je že odprt prazen skript).</p>
+<p>Shranite skript na namizje vašega računalnika in ga poimenujte <code>Rastrski podatki z visoko ločljivostjo v R-u</code>.</p>
+<p>Kopirajte in prilepite spodnjo kodo v skript R, premaknite kazalec v prvo vrstico s kodo in kliknite <code class="sourceCode r">Run</code>. Premaknite kazalec na vsako vrstico, ki vsebuje kodo, in ponovite.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"geodata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geodata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vsebino dostopnih podatkovnih zbirk si lahko ogledamo s pomočjo dokumentacije paketa, do katere dostopamo s sledečo kodo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>?<span class="st">`</span><span class="at">geodata-package</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>S paketom <code>geodata</code> lahko dostopamo do:</p>
+<ul>
+<li>klimatskih podatkov,</li>
+<li>podatkov rabe tal,</li>
+<li>digitalnega modela nadmorskih višin,</li>
+<li>podatkov o tipih prsti in kamnin,</li>
+<li>državnih in administrativnih mej,</li>
+<li>prebivalstva, itd.</li>
+</ul>
+<p><br></p>
+<p>Mi bomo najprej bomo naložili podatke za nadmorske višine v Sloveniji z resolucijo/ločljivostjo 30 sekund (približno 1 km x 1 km) ). Do teh podatkov dostopamo s funkcijo <code class="sourceCode r"><span class="fu">elevation_30s</span>()</code>, ki od nas zahteva dve dodatni specifikaciji:</p>
+<ul>
+<li>kodo države, za katero želimo podatke (<code class="sourceCode r">country <span class="ot">=</span> <span class="st">"SI"</span></code>) in</li>
+<li>mesto na računalniku, kamor bodo podatki shranjeni (<code class="sourceCode r">path <span class="ot">=</span> <span class="st">"01_data"</span></code>).</li>
+</ul>
+<p>Rezultat shranimo v nov objekt <code class="sourceCode r">slovenija_DMV</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>slovenija_DMV <span class="ot">&lt;-</span> <span class="fu">elevation_30s</span>(<span class="at">country =</span> <span class="st">"SI"</span>, <span class="at">path =</span> <span class="st">"01_data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ce je ukaz deloval, bo po nekaj sekundah v mapi <code class="sourceCode r">01_data</code> nova datoteka, ki vsebuje podatke o nadmorskih visinah v Sloveniji. S funkcijo <code class="sourceCode r"><span class="fu">plot</span>()</code> enostavno izrisemo podatke, z namenom pregleda njihove ustreznosti (ali dejansko obsegajo ozemlje Slovenije? Ali so vrednosti in vzorec visin pricakovani, glede na nase poznavanje ozemlja drzave?):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_DMV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Ce v konzoli zazenemo ime tega objekta, se nam izpisejo njegove lastnosti:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>slovenija_DMV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+dimensions  : 204, 420, 1  (nrow, ncol, nlyr)
+resolution  : 0.008333333, 0.008333333  (x, y)
+extent      : 13.2, 16.7, 45.3, 47  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source      : SVN_elv_msk.tif 
+name        : SVN_elv_msk 
+min value   :          -2 
+max value   :        2424 </code></pre>
+</div>
+</div>
+<hr>
+<p><br></p>
+<p>Podatke o nadmorskih visinah lahko uporabimo za izracun naklona terena (<em>slope</em>), aspekta oz. ekspozicije terena (<em>aspect</em>) in osoncenosti povrsja (<em>hillshade</em>). Ti sloji se nadalje uporabljajo za razlicne namene, npr. za opredelitev obmocij z vecjo plazovno nevarnostjo, za opredelitev obmocij z najvecjo osoncenostjo ipd. Sluzijo pa lahko tudi kot podporni vizualni elementi pri pripravi tematskih zemljevidov (se posebej osoncenost), s kateremi lahko poudarimo oziroma orisemo 3D lastnosti reliefa.</p>
+<p>Naklon in aspekt v R-u izracunamo z uporabo funkcije <code class="sourceCode r">terrain</code> v paketu terra. Za izracun obeh novih rastrskih slojev potrebujemo rastrski sloj z nadmorskimi visinami (to je nas <code class="sourceCode r">slovenija_DMV</code>) in dolociti, kaj zelimo izracunati (<code class="sourceCode r">v <span class="ot">=</span></code>):</p>
+<ul>
+<li>za naklon dolocimo <code class="sourceCode r">v <span class="ot">=</span> <span class="st">"slope"</span></code>,</li>
+<li>za aspekt dolocimo <code class="sourceCode r">v <span class="ot">=</span> <span class="st">"aspect"</span></code>.</li>
+</ul>
+<p>Oba sloja bomo shranili v nov R-objekt (<code class="sourceCode r">naklon</code> in <code class="sourceCode r">aspekt</code>) in v datoteko na nasem racunalniku (<code class="sourceCode r">filename <span class="ot">=</span></code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>naklon <span class="ot">&lt;-</span> <span class="fu">terrain</span>(slovenija_DMV, <span class="at">v =</span> <span class="st">"slope"</span>, <span class="at">filename =</span> <span class="st">"01_data/slovenija_naklon_wgs84.tif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>aspekt <span class="ot">&lt;-</span> <span class="fu">terrain</span>(slovenija_DMV, <span class="at">v =</span> <span class="st">"aspect"</span>, <span class="at">filename =</span> <span class="st">"01_data/slovenija_aspekt_wgs84.tif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>Ce sta ukaza delovala, bosta po nekaj sekundah v mapi <code class="sourceCode r">01_data</code> novi datoteki, ki vsebujeta podatke o naklonu in aspektu terena v Sloveniji. S funkcijo <code class="sourceCode r"><span class="fu">plot</span>()</code> enostavno izrisemo podatke. Bodi pozorni na enote v legendi, naklon je samodejno izracunan v %, aspekt pa v stopinjah (pove nam, koliko stopinj od severa je smer usmerjenosti posamezne rastrske celice):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(naklon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aspekt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Ucinek osoncenosti (<em>hillshade</em>) ni nic drugega kot izracun in dodajanje hipoteticne osvetlitve terena glede na položaj svetlobnega vira. Uporablja se vecinoma za dodajanje globine kartografskim prikazom (zanimivost: z isto metodo se izracuna tudi “osoncenost” morskega dna za poudarjanje 3D prikaza morskih globin, kljub temu, da tam nikoli ne posije sonce). Osoncenost je odvisna od dveh spremenljivk, naklona in aspekta terena, ki ju bomo uporabili za njen izracun. Funkcija, s katero izracunamo osoncenost se imenuje <code class="sourceCode r"><span class="fu">shade</span>()</code>, zahteva pa naklon in aspekt izracunana v enoti <strong>radian</strong>, kar pomeni, da nasih zgornjih izracunov ne moremo uporabiti neposredno. Da zadovoljimo potrebam funkcije <code class="sourceCode r"><span class="fu">shade</span>()</code>, bomo neposredno znotraj oklepajev, naklon in aspekt izracunali se enkrat in tokrat v vsako dodali argument <code class="sourceCode r">unit <span class="ot">=</span> <span class="st">"radian"</span></code>. Funkciji <code class="sourceCode r"><span class="fu">shade</span>()</code> bomo ukazali, da normalizira podatke <code class="sourceCode r">normalize <span class="ot">=</span> <span class="cn">TRUE</span></code> in shrani na nas racunalnik rezultat izracuna (<code class="sourceCode r">filename <span class="ot">=</span> <span class="st">"01_data/slovenija_osoncenost_wgs84.tif"</span></code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>osoncenost <span class="ot">&lt;-</span> <span class="fu">shade</span>(<span class="fu">terrain</span>(slovenija_DMV, <span class="at">v =</span> <span class="st">"slope"</span>, <span class="at">unit =</span> <span class="st">"radian"</span>),</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">terrain</span>(slovenija_DMV, <span class="at">v =</span> <span class="st">"aspect"</span>, <span class="at">unit =</span> <span class="st">"radian"</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">normalize=</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">filename =</span> <span class="st">"01_data/slovenija_osoncenost_wgs84.tif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Kot v mnogih predhodnih korakih, tudi tokrat informativno prikazemo sloj, ki mu tokrat barve spremenimo v sive (<code class="sourceCode r"><span class="fu">grey</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span><span class="sc">/</span><span class="dv">100</span>)</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(osoncenost, <span class="at">col =</span> <span class="fu">grey</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span><span class="sc">/</span><span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Za infomativnejsi prikaz dosedanjega dela, lahko vse 4 zemljevide prikazemo v mrezi 2x2 (<code class="sourceCode r"><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</code>) in jim dodamo smiselne naslove (<code class="sourceCode r">main <span class="ot">=</span> <span class="st">"Informativen naslov"</span></code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_DMV, <span class="at">main =</span> <span class="st">"Nadmorske visine v Sloveniji (m)"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(naklon, <span class="at">main =</span> <span class="st">"Naklon terena v Sloveniji (%)"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(osoncenost, <span class="at">col =</span> <span class="fu">grey</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span><span class="sc">/</span><span class="dv">100</span>), <span class="at">main =</span> <span class="st">"Osoncenost terena v Sloveniji"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aspekt, <span class="at">main =</span> <span class="st">"Ekspozicija terena v Sloveniji (°)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># ponastavimo izris grafov na 1 x 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="naloga-1" class="level3">
+<h3 class="anchored" data-anchor-id="naloga-1">Naloga</h3>
+<p>V novo, prazno skripto kopirajte ukaze, ki smo jih do sedaj izvedli (zacnite z ukazom <code class="sourceCode r"><span class="fu">library</span>(geodata)</code>. <strong>Spomnite se, da funkcije <code class="sourceCode r"><span class="fu">install.packages</span>()</code> ne potrebujete zagnati vec kot enkrat!</strong> Funkcije <code class="sourceCode r"><span class="fu">library</span>()</code> pa morate zagnati vsakic, ko na novo zazenete R ali RStudio!</p>
+<p>Vasa naloga je, da prilagodite kopirane ukaze, tako da:</p>
+<ol type="1">
+<li>Si iz spodnje tabele izberete eno drzavo, ki ni Slovenija.</li>
+<li>Uporabite mednarodno oznako te drzave (v stolpcu <code class="sourceCode r">ISO2</code>) in z uporabo funkcije <code class="sourceCode r"><span class="fu">elevation_30s</span>()</code> prenesete podatke o nadmorskih visinah te drzave. Rezultate shranite v nov R-objekt.</li>
+<li>Podatke o nadmorskih visinah izbrane drzave uporabite za izracun:
+<ul>
+<li>naklona terena v izbrani drzavi,</li>
+<li>aspekta terena v izbrani drzavi,</li>
+<li>osoncenosti v izbrani drzavi.</li>
+</ul></li>
+<li>Cilj naloge je, da prikazete vse stiri sloje za izbrano drzavo skupaj, kot smo jih prikazali za Slovenijo zgoraj.</li>
+</ol>
+<p>Ce cesa ne razumete ali ne znate narediti takoj, najprej ponovno preberite zgronji postopek ali se pozanimajte pri sosedu!</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">country_codes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-29ccb36fa43f5d8ea6a1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-29ccb36fa43f5d8ea6a1">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256"],["Afghanistan","Akrotiri and Dhekelia","Åland","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bonaire, Saint Eustatius and Saba","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cabo Verde","Caspian Sea","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Clipperton Island","Cocos Islands","Colombia","Comoros","Cook Islands","Costa Rica","Côte d'Ivoire","Croatia","Cuba","Curaçao","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominican Republic","Dominica","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea-Bissau","Guinea","Guyana","Haiti","Heard Island and McDonald Islands","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","North Korea","Northern Cyprus","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paracel Islands","Paraguay","Peru","Philippines","Pitcairn Islands","Poland","Portugal","Puerto Rico","Qatar","Congo","Réunion","Romania","Russia","Rwanda","Saint-Barthélemy","Saint-Martin","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","South Korea","South Sudan","Spain","Spratly Islands","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Eswatini","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","East Timor","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States Minor Outlying Islands","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands, U.S.","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"],["AFG","XAD","ALA","ALB","DZA","ASM","AND","AGO","AIA","ATA","ATG","ARG","ARM","ABW","AUS","AUT","AZE","BHS","BHR","BGD","BRB","BLR","BEL","BLZ","BEN","BMU","BTN","BOL","BES","BIH","BWA","BVT","BRA","IOT","VGB","BRN","BGR","BFA","BDI","KHM","CMR","CAN","CPV","XCA","CYM","CAF","TCD","CHL","CHN","CXR","XCL","CCK","COL","COM","COK","CRI","CIV","HRV","CUB","CUW","CYP","CZE","COD","DNK","DJI","DOM","DMA","ECU","EGY","SLV","GNQ","ERI","EST","ETH","FLK","FRO","FJI","FIN","FRA","GUF","PYF","ATF","GAB","GMB","GEO","DEU","GHA","GIB","GRC","GRL","GRD","GLP","GUM","GTM","GGY","GNB","GIN","GUY","HTI","HMD","HND","HKG","HUN","ISL","IND","IDN","IRN","IRQ","IRL","IMN","ISR","ITA","JAM","JPN","JEY","JOR","KAZ","KEN","KIR","XKO","KWT","KGZ","LAO","LVA","LBN","LSO","LBR","LBY","LIE","LTU","LUX","MAC","MKD","MDG","MWI","MYS","MDV","MLI","MLT","MHL","MTQ","MRT","MUS","MYT","MEX","FSM","MDA","MCO","MNG","MNE","MSR","MAR","MOZ","MMR","NAM","NRU","NPL","NLD","NCL","NZL","NIC","NER","NGA","NIU","NFK","PRK","XNC","MNP","NOR","OMN","PAK","PLW","PSE","PAN","PNG","XPI","PRY","PER","PHL","PCN","POL","PRT","PRI","QAT","COG","REU","ROU","RUS","RWA","BLM","MAF","SHN","KNA","LCA","SPM","VCT","WSM","SMR","STP","SAU","SEN","SRB","SYC","SLE","SGP","SXM","SVK","SVN","SLB","SOM","ZAF","SGS","KOR","SSD","ESP","XSP","LKA","SDN","SUR","SJM","SWZ","SWE","CHE","SYR","TWN","TJK","TZA","THA","TLS","TGO","TKL","TON","TTO","TUN","TUR","TKM","TCA","TUV","UGA","UKR","ARE","GBR","UMI","USA","URY","UZB","VUT","VAT","VEN","VNM","VIR","WLF","ESH","YEM","ZMB","ZWE"],["AF",null,"AX","AL","DZ","AS","AD","AO","AI","AQ","AG","AR","AM","AW","AU","AT","AZ","BS","BH","BD","BB","BY","BE","BZ","BJ","BM","BT","BO","AN","BA","BW","BV","BR","IO","VG","BN","BG","BF","BI","KH","CM","CA","CV",null,"KY","CF","TD","CL","CN","CX",null,"CC","CO","KM","CK","CR","CI","HR","CU","CW","CY","CZ","CD","DK","DJ","DO","DM","EC","EG","SV","GQ","ER","EE","ET","FK","FO","FJ","FI","FR","GF","PF","TF","GA","GM","GE","DE","GH","GI","GR","GL","GD","GP","GU","GT","GG","GW","GN","GY","HT","HM","HN","HK","HU","IS","IN","ID","IR","IQ","IE","IM","IL","IT","JM","JP","JE","JO","KZ","KE","KI","XK","KW","KG","LA","LV","LB","LS","LR","LY","LI","LT","LU","MO","MK","MG","MW","MY","MV","ML","MT","MH","MQ","MR","MU","YT","MX","FM","MD","MC","MN","ME","MS","MA","MZ","MM","NA","NR","NP","NL","NC","NZ","NI","NE","NG","NU","NF","KP",null,"MP","NO","OM","PK","PW","PS","PA","PG",null,"PY","PE","PH","PN","PL","PT","PR","QA","CG","RE","RO","RU","RW","BL","MF","SH","KN","LC","PM","VC","WS","SM","ST","SA","SN","RS","SC","SL","SG","SX","SK","SI","SB","SO","ZA","GS","KR","SS","ES",null,"LK","SD","SR","SJ","SZ","SE","CH","SY","TW","TJ","TZ","TH","TL","TG","TK","TO","TT","TN","TR","TM","TC","TV","UG","UA","AE","GB","UM","US","UY","UZ","VU","VA","VE","VN","VI","WF","EH","YE","ZM","ZW"],["AFGHANISTAN",null,"ÅLAND ISLANDS","ALBANIA","ALGERIA","AMERICAN SAMOA","ANDORRA","ANGOLA","ANGUILLA","ANTARCTICA","ANTIGUA AND BARBUDA","ARGENTINA","ARMENIA","ARUBA","AUSTRALIA","AUSTRIA","AZERBAIJAN","BAHAMAS","BAHRAIN","BANGLADESH","BARBADOS","BELARUS","BELGIUM","BELIZE","BENIN","BERMUDA","BHUTAN","BOLIVIA","BONAIRE, SAINT EUSTATIUS AND SABA","BOSNIA AND HERZEGOVINA","BOTSWANA","BOUVET ISLAND","BRAZIL","BRITISH INDIAN OCEAN TERRITORY","VIRGIN ISLANDS, BRITISH","BRUNEI DARUSSALAM","BULGARIA","BURKINA FASO","BURUNDI","CAMBODIA","CAMEROON","CANADA","CAPE VERDE",null,"CAYMAN ISLANDS","CENTRAL AFRICAN REPUBLIC","CHAD","CHILE","CHINA","CHRISTMAS ISLAND",null,"COCOS (KEELING) ISLANDS","COLOMBIA","COMOROS","COOK ISLANDS","COSTA RICA","COTE D'IVOIRE","CROATIA","CUBA","CURACAO","CYPRUS","CZECH REPUBLIC","CONGO, THE DEMOCRATIC REPUBLIC OF THE","DENMARK","DJIBOUTI","DOMINICAN REPUBLIC","DOMINICA","ECUADOR","EGYPT","EL SALVADOR","EQUATORIAL GUINEA","ERITREA","ESTONIA","ETHIOPIA","FALKLAND ISLANDS (MALVINAS)","FAROE ISLANDS","FIJI","FINLAND","FRANCE","FRENCH GUIANA","FRENCH POLYNESIA","FRENCH SOUTHERN TERRITORIES","GABON","GAMBIA","GEORGIA","GERMANY","GHANA","GIBRALTAR","GREECE","GREENLAND","GRENADA","GUADELOUPE","GUAM","GUATEMALA","GUERNSEY","GUINEA-BISSAU","GUINEA","GUYANA","HAITI","HEARD ISLAND AND MCDONALD ISLANDS","HONDURAS","HONG KONG","HUNGARY","ICELAND","INDIA","INDONESIA","IRAN, ISLAMIC REPUBLIC OF","IRAQ","IRELAND","ISLE OF MAN","ISRAEL","ITALY","JAMAICA","JAPAN","JERSEY","JORDAN","KAZAKHSTAN","KENYA","KIRIBATI",null,"KUWAIT","KYRGYZSTAN","LAO PEOPLE'S DEMOCRATIC REPUBLIC","LATVIA","LEBANON","LESOTHO","LIBERIA","LIBYAN ARAB JAMAHIRIYA","LIECHTENSTEIN","LITHUANIA","LUXEMBOURG","MACAO","NORTH MACEDONIA","MADAGASCAR","MALAWI","MALAYSIA","MALDIVES","MALI","MALTA","MARSHALL ISLANDS","MARTINIQUE","MAURITANIA","MAURITIUS","MAYOTTE","MEXICO","MICRONESIA, FEDERATED STATES OF","MOLDOVA, REPUBLIC OF","MONACO","MONGOLIA","MONTENEGRO","MONTSERRAT","MOROCCO","MOZAMBIQUE","MYANMAR","NAMIBIA","NAURU","NEPAL","NETHERLANDS","NEW CALEDONIA","NEW ZEALAND","NICARAGUA","NIGER","NIGERIA","NIUE","NORFOLK ISLAND","KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF",null,"NORTHERN MARIANA ISLANDS","NORWAY","OMAN","PAKISTAN","PALAU","PALESTINIAN TERRITORY, OCCUPIED","PANAMA","PAPUA NEW GUINEA",null,"PARAGUAY","PERU","PHILIPPINES","PITCAIRN","POLAND","PORTUGAL","PUERTO RICO","QATAR","CONGO","REUNION","ROMANIA","RUSSIAN FEDERATION","RWANDA","SAINT BARTHELEMY","SAINT MARTIN","SAINT HELENA","SAINT KITTS AND NEVIS","SAINT LUCIA","SAINT PIERRE AND MIQUELON","SAINT VINCENT AND THE GRENADINES","SAMOA","SAN MARINO","SAO TOME AND PRINCIPE","SAUDI ARABIA","SENEGAL","SERBIA","SEYCHELLES","SIERRA LEONE","SINGAPORE","SINT MAARTEN","SLOVAKIA","SLOVENIA","SOLOMON ISLANDS","SOMALIA","SOUTH AFRICA","SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS","KOREA, REPUBLIC OF","SOUTH SUDAN","SPAIN",null,"SRI LANKA","SUDAN","SURINAME","SVALBARD AND JAN MAYEN","SWAZILAND","SWEDEN","SWITZERLAND","SYRIAN ARAB REPUBLIC","TAIWAN, PROVINCE OF CHINA","TAJIKISTAN","TANZANIA, UNITED REPUBLIC OF","THAILAND","TIMOR-LESTE","TOGO","TOKELAU","TONGA","TRINIDAD AND TOBAGO","TUNISIA","TURKEY","TURKMENISTAN","TURKS AND CAICOS ISLANDS","TUVALU","UGANDA","UKRAINE","UNITED ARAB EMIRATES","UNITED KINGDOM","UNITED STATES MINOR OUTLYING ISLANDS","UNITED STATES","URUGUAY","UZBEKISTAN","VANUATU","HOLY SEE (VATICAN CITY STATE)","VENEZUELA","VIET NAM","VIRGIN ISLANDS, U.S.","WALLIS AND FUTUNA","WESTERN SAHARA","YEMEN","ZAMBIA","ZIMBABWE"],["Afghanistan",null,null,"Albania","Algeria","American Samoa","Andorra","Angola",null,null,"Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia (Plurinational State of)",null,"Bosnia and Herzegovina","Botswana",null,"Brazil",null,"British Virgin Islands","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cabo Verde",null,"Cayman Islands","Central African Republic","Chad","Chile","China, mainland",null,null,null,"Colombia","Comoros","Cook Islands","Costa Rica","Côte d'Ivoire","Croatia","Cuba",null,"Cyprus","Czechia","Democratic Republic of the Congo","Denmark","Djibouti","Dominican Republic","Dominica","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia",null,"Faroe Islands","Fiji","Finland","France","French Guyana","French Polynesia",null,"Gabon","Gambia","Georgia","Germany","Ghana",null,"Greece",null,"Grenada","Guadeloupe","Guam","Guatemala",null,"Guinea-Bissau","Guinea","Guyana","Haiti",null,"Honduras","China, Hong Kong SAR","Hungary","Iceland","India","Indonesia","Iran (Islamic Republic of)","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati",null,"Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","China, Macao SAR","North Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia","Republic of Moldova",null,"Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia",null,"Nepal","Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue",null,"Democratic People's Republic of Korea",null,"Northern Mariana Is","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea",null,"Paraguay","Peru","Philippines",null,"Poland","Portugal","Puerto Rico","Qatar","Congo","Réunion","Romania","Russian Federation","Rwanda",null,null,"Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Pierre &amp; Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore",null,"Slovakia","Slovenia","Solomon Islands","Somalia","South Africa",null,"Republic of Korea","South Sudan","Spain",null,"Sri Lanka","Sudan","Suriname",null,"Eswatini","Sweden","Switzerland","Syrian Arab Republic","China, Taiwan Province of","Tajikistan","United Republic of Tanzania","Thailand","Timor-Leste","Togo",null,"Tonga","Trinidad and Tobago","Tunisia","Türkiye","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom of Great Britain and Northern Ireland",null,"United States of America","Uruguay","Uzbekistan","Vanuatu",null,"Venezuela (Bolivarian Republic of)","Viet Nam","United States Virgin Islands","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"],["Afghanestan","Akrotiri and Dhekelia","Åland","Shqiperia","Al Jaza'ir","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Hayastan","Aruba","Australia","Österreich","Azarbaycan","Bahamas","Al Bahrayn","Bangladesh","Barbados","Byelarus|Byelorussia","Belgique|Belgie|Belgien","Belize","Benin","Bermuda","Bhutan","Bolivia","Bonaire, Saint Eustatius and Saba","Bosna i Hercegovina","Botswana","Bouvet Island","Brasil","British Indian Ocean Territory","British Virgin Islands","Negara Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Kampuchea","Cameroon","Canada","Cabo Verde","Caspian Sea","Cayman Islands","Republique Centrafricaine","Tchad","Chile","Zhong Guo","Christmas Island","Clipperton Island","Cocos (Keeling) Islands","Colombia","Comores","Cook Islands","Costa Rica","Côte d'Ivoire","Hrvatska","Cuba","Curaçao","Kibris, Kypros","Česká republika","République Démocratique du Congo|Zaire","Danmark","Djibouti","República Dominicana","Dominica","Ecuador","Misr","El Salvador","Guinea Ecuatorial","Hagere Ertra","Eesti Vabariik","Ityop'iya","Islas Malvinas","Føroyar","Fiji","Suomi|Suomen Tasavalta","France","Guyane","Polynésie Française","Terres Australes et Antarctiques Françaises","Gabon","The Gambia","Sak'art'velo","Deutschland","Ghana","Gibraltar","Ellas or Ellada","Kalaallit Nunaat","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guiné-Bissau","Guinee","Guyana","Haiti","Heard and Mc Donald","Honduras","Hong Kong","Magyarorszag","Lyoveldio Island","Bharat","Indonesia","Iran","Iraq","Éire","Isle of Man","Yisra'el","Italia","Jamaica","Nippon","Jersey","Al Urdun","Qazaqstan","Kenya","Kiribati|Kiribas","Kosova","Al Kuwayt","Kyrgyz Respublikasy","Lao","Latvija","Lubnan","Lesotho","Liberia","Libiyah","Liechtenstein","Lietuva","Luxembourg|Letzebuerg","Aomen","Makedonija","Madagascar","Malawi","Malaysia","Dhivehi Raajje","Mali","Malta","Marshall Islands","Martinique","Muritaniyah","Mauritius","Mayotte","México|Estados Unidos Mexicanos","Micronesia","Moldova","Monaco","Mongol Uls","Crna Gora","Montserrat","Al Maghrib","Mocambique","Myanma Naingngandaw","Namibia","Nauru","Nepal","Nederland","Nouvelle-Calédonie","Aotearoa","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Choson",null,"Northern Mariana Islands","Norge","Saltanat Uman","Pakistan","Belau","Filastin","Panamá","Papua Niu Gini","Paracel Islands","Paraguay","Perú","Pilipinas","Pitcairn Island","Polska","Portugal","Puerto Rico","Dawlat Qatar","République du Congo","Réunion|Ile de la Réunion","Romania","Rossiya","Rwanda","Saint-Barthélemy","Saint-Martin","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint-Pierre et Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe","Al Arabiyah as Suudiyah","Senegal","Srbija","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovensko","Slovenija|Republika Slovenija","Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","Han-guk",null,"España","Spratly Islands","Sri Lanka","As-Sudan","Suriname","Svalbard and Jan Mayen","Eswatini","Sverige","Schweiz|Suisse|Svizzera","Suriyah","T'ai-wan","Jumhurii Tojikiston","Tanzania","Prathet Thai","Timor-Leste","Togo|Republique Togolaise","Tokelau","Tonga","Trinidad and Tobago","Tunis","Turkiye","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukrayina","Al Imarat al Arabiyah al Muttahidah","United Kingdom","United States Minor Outlying Island","United States","Uruguay|República Oriental del Uruguay","Uzbekiston Respublikasi","Vanuatu","Status Civitatis Vaticanæ","Venezuela","Viet Nam","Virgin Islands","Wallis et Futuna","Western Sahara","Al Yaman","Zambia","Zimbabwe"],["Afghanistan","United Kingdom","Finland","Albania","Algeria","United States","Andorra","Angola","United Kingdom",null,"Antigua and Barbuda","Argentina","Armenia","Nederland","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgie","Belize","Benin","United Kingdom","Bhutan","Bolivia","Nederland","Bosnia and Herzegovina","Botswana","Norway","Brazil","United Kingdom","United Kingdom","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroun","Canada","Cabo Verde",null,"United Kingdom","Central African Republic","Chad","Chile","China","Australia","France","Australia","Colombia","Comoros","New Zealand","Costa Rica","Côte d'Ivoire","Croatia","Cuba","Netherlands","Cyprus","Czech Republic","The Democratic Republic of the Congo","Denmark","Djibouti","República Dominicana","Dominica","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","United Kingdom","Denmark","Fiji","Finland","France","France","France","France","Gabon","Gambia","Georgia","Germany","Ghana","United Kingdom","Hellas","Denmark","Grenada","France","United States","Guatemala","United Kingdom","Guinea-Bissau","Guinea","Guyana","Haiti","Australia","Honduras","China","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","United Kingdom","Israel","Italy","Jamaica","Japan","United Kingdom","Jordan","Kazakhstan","Kenya","Kiribati","Kosova","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","China","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","France","Mauritania","Mauritius","France","México","Micronesia","Moldova","Monaco","Mongolia","Montenegro","United Kingdom","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Nederland","France","New Zealand","Nicaragua","Niger","Nigeria","New Zealand","Australia","North Korea","Northern Cyprus (Disputed)","United States","Norway","Oman","Pakistan","United States","Palestina","Panamá","Papua New Guinea",null,"Paraguay","Perú","Pilipinas","United Kingdom","Poland","Portugal","United States","Qatar","Republic of Congo","France","Romania","Russia","Rwanda","France","France","United Kingdom","Saint Kitts and Nevis","Saint Lucia","France","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Netherlands","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","United Kingdom","South Korea","South Sudan","España","Disputed (Pilipinas, China, Vietnam)","Sri Lanka","Sudan","Suriname","Norway","Eswatini","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","New Zealand","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","United Kingdom","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States","Uruguay","Uzbekistan","Vanuatu","Vatican","Venezuela","Vietnam","United States","France","Western Sahara","Yemen","Zambia","Zimbabwe"],["Southern Asia","Western Asia","Northern Europe","Southern Europe","Northern Africa","Polynesia","Southern Europe","Middle Africa","Caribbean","Antartica","Caribbean","South America","Western Asia","Caribbean","Australia and New Zealand","Western Europe","Western Asia","Caribbean","Western Asia","Southern Asia","Caribbean","Eastern Europe","Western Europe","Central America","Western Africa","Northern America","Southern Asia","South America","Caribbean","Southern Europe","Southern Africa","Antartica","South America","Southern Asia","Caribbean","South-Eastern Asia","Eastern Europe","Western Africa","Eastern Africa","South-Eastern Asia","Middle Africa","Northern America","Western Africa",null,"Caribbean","Middle Africa","Middle Africa","South America","Eastern Asia","South-Eastern Asia","Central America","South-Eastern Asia","South America","Eastern Africa","Polynesia","Central America","Western Africa","Southern Europe","Caribbean","Caribbean","Western Asia","Eastern Europe","Middle Africa","Northern Europe","Eastern Africa","Caribbean","Caribbean","South America","Northern Africa","Central America","Middle Africa","Eastern Africa","Northern Europe","Eastern Africa","South America","Northern Europe","Melanesia","Northern Europe","Western Europe","South America","Polynesia",null,"Middle Africa","Western Africa","Western Asia","Western Europe","Western Africa","Southern Europe","Southern Europe","Northern America","Caribbean","Caribbean","Micronesia","Central America","Western Europe","Western Africa","Western Africa","South America","Caribbean","Antartica","Central America","Eastern Asia","Eastern Europe","Northern Europe","Southern Asia","South-Eastern Asia","Southern Asia","Western Asia","Northern Europe","Western Europe","Western Asia","Southern Europe","Caribbean","Eastern Asia","Western Europe","Western Asia","Central Asia","Eastern Africa","Micronesia","Southern Europe","Western Asia","Central Asia","South-Eastern Asia","Northern Europe","Western Asia","Southern Africa","Western Africa","Northern Africa","Western Europe","Northern Europe","Western Europe","Eastern Asia","Southern Europe","Eastern Africa","Eastern Africa","South-Eastern Asia","Southern Asia","Western Africa","Southern Europe","Micronesia","Caribbean","Western Africa","Eastern Africa","Eastern Africa","Central America","Micronesia","Eastern Europe","Western Europe","Eastern Asia","Southern Europe","Caribbean","Northern Africa","Eastern Africa","South-Eastern Asia","Southern Africa","Micronesia","Southern Asia","Western Europe","Melanesia","Australia and New Zealand","Central America","Western Africa","Western Africa","Polynesia","Australia and New Zealand","Eastern Asia","Western Asia","Micronesia","Northern Europe","Western Asia","Southern Asia","Micronesia","Western Asia","Central America","Melanesia","South-Eastern Asia","South America","South America","South-Eastern Asia","Polynesia","Eastern Europe","Southern Europe","Caribbean","Western Asia","Middle Africa","Eastern Africa","Eastern Europe","Eastern Europe","Eastern Africa","Caribbean","Caribbean","Western Africa","Caribbean","Caribbean","Northern America","Caribbean","Polynesia","Southern Europe","Middle Africa","Western Asia","Western Africa","Southern Europe","Eastern Africa","Western Africa","South-Eastern Asia","Caribbean","Eastern Europe","Southern Europe","Melanesia","Eastern Africa","Southern Africa","Antartica","Eastern Asia","Middle Africa","Southern Europe","South-Eastern Asia","Southern Asia","Northern Africa","South America","Northern Europe","Southern Africa","Northern Europe","Western Europe","Western Asia","Eastern Asia","Central Asia","Eastern Africa","South-Eastern Asia","South-Eastern Asia","Western Africa","Polynesia","Polynesia","Caribbean","Northern Africa","Western Asia","Central Asia","Caribbean","Polynesia","Eastern Africa","Eastern Europe","Western Asia","Northern Europe",null,"Northern America","South America","Central Asia","Melanesia","Southern Europe","South America","South-Eastern Asia","Caribbean","Polynesia","Northern Africa","Western Asia","Eastern Africa","Eastern Africa"],["Asia","Asia","Europe","Europe","Africa","Oceania","Europe","Africa","Americas","Antartica","Americas","Americas","Asia","Americas","Oceania","Europe","Asia","Americas","Asia","Asia","Americas","Europe","Europe","Americas","Africa","Americas","Asia","Americas","Americas","Europe","Africa","Antartica","Americas","Asia","Americas","Asia","Europe","Africa","Africa","Asia","Africa","Americas","Africa",null,"Americas","Africa","Africa","Americas","Asia","Asia","Americas","Asia","Americas","Africa","Oceania","Americas","Africa","Europe","Americas","Americas","Asia","Europe","Africa","Europe","Africa","Americas","Americas","Americas","Africa","Americas","Africa","Africa","Europe","Africa","Americas","Europe","Oceania","Europe","Europe","Americas","Oceania",null,"Africa","Africa","Asia","Europe","Africa","Europe","Europe","Americas","Americas","Americas","Oceania","Americas","Europe","Africa","Africa","Americas","Americas","Antartica","Americas","Asia","Europe","Europe","Asia","Asia","Asia","Asia","Europe","Europe","Asia","Europe","Americas","Asia","Europe","Asia","Asia","Africa","Oceania","Europe","Asia","Asia","Asia","Europe","Asia","Africa","Africa","Africa","Europe","Europe","Europe","Asia","Europe","Africa","Africa","Asia","Asia","Africa","Europe","Oceania","Americas","Africa","Africa","Africa","Americas","Oceania","Europe","Europe","Asia","Europe","Americas","Africa","Africa","Asia","Africa","Oceania","Asia","Europe","Oceania","Oceania","Americas","Africa","Africa","Oceania","Oceania","Asia","Asia","Oceania","Europe","Asia","Asia","Oceania","Asia","Americas","Oceania","Asia","Americas","Americas","Asia","Oceania","Europe","Europe","Americas","Asia","Africa","Africa","Europe","Europe","Africa","Americas","Americas","Africa","Americas","Americas","Americas","Americas","Oceania","Europe","Africa","Asia","Africa","Europe","Africa","Africa","Asia","Americas","Europe","Europe","Oceania","Africa","Africa","Antartica","Asia","Africa","Europe","Asia","Asia","Africa","Americas","Europe","Africa","Europe","Europe","Asia","Asia","Asia","Africa","Asia","Asia","Africa","Oceania","Oceania","Americas","Africa","Asia","Asia","Americas","Oceania","Africa","Europe","Asia","Europe",null,"Americas","Americas","Asia","Oceania","Europe","Americas","Asia","Americas","Oceania","Africa","Asia","Africa","Africa"],["Asia","Asia","Europe","Europe","Africa","Oceania","Europe","Africa","North America","Antarctica","North America","South America","Asia","South America","Oceania","Europe","Asia","North America","Asia","Asia","North America","Europe","Europe","North America","Africa","North America","Asia","South America","South America","Europe","Africa","Antarctica","South America","Asia","North America","Asia","Europe","Africa","Africa","Asia","Africa","North America","Africa","Asia","North America","Africa","Africa","South America","Asia","Asia","North America","Asia","South America","Africa","Oceania","North America","Africa","Europe","North America","South America","Asia","Europe","Africa","Europe","Africa","North America","North America","South America","Africa","North America","Africa","Africa","Europe","Africa","South America","Europe","Oceania","Europe","Europe","South America","Oceania","Africa","Africa","Africa","Asia","Europe","Africa","Europe","Europe","North America","North America","North America","Asia","North America","Europe","Africa","Africa","South America","North America","Antarctica","North America","Asia","Europe","Europe","Asia","Asia","Asia","Asia","Europe","Europe","Asia","Europe","North America","Asia","Europe","Asia","Asia","Africa","Oceania","Europe","Asia","Asia","Asia","Europe","Asia","Africa","Africa","Africa","Europe","Europe","Europe","Asia","Europe","Africa","Africa","Asia","Asia","Africa","Europe","Oceania","North America","Africa","Africa","Africa","North America","Oceania","Europe","Europe","Asia","Europe","North America","Africa","Africa","Asia","Africa","Oceania","Asia","Europe","Oceania","Oceania","North America","Africa","Africa","Oceania","Oceania","Asia","Asia","Asia","Europe","Asia","Asia","Asia","Asia","North America","Oceania","Asia","South America","South America","Asia","Oceania","Europe","Europe","North America","Asia","Africa","Africa","Europe","Europe","Africa","North America","North America","Africa","North America","North America","North America","North America","Oceania","Europe","Africa","Asia","Africa","Europe","Africa","Africa","Asia","North America","Europe","Europe","Oceania","Africa","Africa","Antarctica","Asia","Africa","Europe","Asia","Asia","Africa","South America","Europe","Africa","Europe","Europe","Asia","Asia","Asia","Africa","Asia","Asia","Africa","Oceania","Oceania","South America","Africa","Asia","Asia","North America","Oceania","Africa","Europe","Asia","Europe","Oceania","North America","South America","Asia","Oceania","Europe","South America","Asia","North America","Oceania","Africa","Asia","Africa","Africa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>NAME<\/th>\n      <th>ISO3<\/th>\n      <th>ISO2<\/th>\n      <th>NAME_ISO<\/th>\n      <th>NAME_FAO<\/th>\n      <th>NAME_LOCAL<\/th>\n      <th>SOVEREIGN<\/th>\n      <th>UNREGION1<\/th>\n      <th>UNREGION2<\/th>\n      <th>continent<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<hr>
+<p><br></p>
+<p>Nadaljujemo z mesecno temperaturo v Sloveniji. Podatki so na voljo kot del baze WorldClim s prostorsko locljivostjo priblizno 1 kvadratni kilometer. Podatkovni nabor <code class="sourceCode r"><span class="st">"tmax"</span></code> (maksimalna temperatura) vsebuje mesecne vrednosti maksimalne temperature. Podatki so povprecni za obdobje od 1950 do 2000 in temeljijo na opazovanjih s postajami za merjenje vremena in so interpolirani na ločljivost 1 km². Do njih dostopamo s funkcijo <code class="sourceCode r"><span class="fu">worldclim_country</span>()</code>, ki od nas zahteva dva ze znana parametra (<code class="sourceCode r">country <span class="ot">=</span> <span class="st">"SI"</span>, path <span class="ot">=</span> <span class="st">"01_data"</span></code>), dva pa sta specificna za to funkcijo:</p>
+<ul>
+<li><code class="sourceCode r">var <span class="ot">=</span> tmax</code>, definiramo kateri nabor podatkov zelimo prenesti,</li>
+<li><code class="sourceCode r">res <span class="ot">=</span> <span class="fl">0.5</span></code>, definiramo resolucijo/locljivost, ki jo zelimo, v nasem primeru 0.5 minute oziroma 30s (km x km):</li>
+</ul>
+<p><strong>OPOMBA: Nabor podatkov je precej velik in lahko traja nekaj casa, da se prenese iz serverjev!</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_mesecno <span class="ot">&lt;-</span> <span class="fu">worldclim_country</span>(<span class="at">country =</span> <span class="st">"SI"</span>, <span class="at">var =</span> <span class="st">"tmax"</span>, <span class="at">res =</span> <span class="fl">0.5</span>, <span class="at">path =</span> <span class="st">"01_data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>Ce v konzoli zazenemo ime objekta <code class="sourceCode r">slovenija_tmax_mesecno</code>, se nam izpisejo njegove lastnosti, s funkcijo <code class="sourceCode r"><span class="fu">names</span>()</code> pa izpisemo imena slojev, ki jih objekt vsebuje:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_mesecno</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+dimensions  : 240, 480, 12  (nrow, ncol, nlyr)
+resolution  : 0.008333333, 0.008333333  (x, y)
+extent      : 13, 17, 45, 47  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source      : SVN_wc2.1_30s_tmax.tif 
+names       : SVN_w~max_1, SVN_w~max_2, SVN_w~max_3, SVN_w~max_4, SVN_w~max_5, SVN_w~max_6, ... 
+min values  :        -7.6,        -8.4,        -6.8,        -4.4,         0.5,         3.7, ... 
+max values  :        10.5,        10.2,        13.7,        17.4,        23.1,        26.4, ... </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(slovenija_tmax_mesecno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "SVN_wc2.1_30s_tmax_1"  "SVN_wc2.1_30s_tmax_2"  "SVN_wc2.1_30s_tmax_3" 
+ [4] "SVN_wc2.1_30s_tmax_4"  "SVN_wc2.1_30s_tmax_5"  "SVN_wc2.1_30s_tmax_6" 
+ [7] "SVN_wc2.1_30s_tmax_7"  "SVN_wc2.1_30s_tmax_8"  "SVN_wc2.1_30s_tmax_9" 
+[10] "SVN_wc2.1_30s_tmax_10" "SVN_wc2.1_30s_tmax_11" "SVN_wc2.1_30s_tmax_12"</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>S funkcijo <code class="sourceCode r"><span class="fu">plot</span>()</code> ponovno izrisemo in preverimo kakseg geografski obseg zajema nabor podatkov:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_tmax_mesecno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p><br></p>
+<p>Da obrezemo le na obmocje Slovenija, bomo s funkcijo <code class="sourceCode r"><span class="fu">gadm</span>()</code> dostopali do globalnih administrativnih meja. Ena od moznosti, ki jo imamo, je prenos meje posamezne drzave (<code class="sourceCode r">level <span class="ot">=</span> <span class="dv">0</span></code>), ki lahko vkljucuje tudi meje pokrajin (<code class="sourceCode r">level <span class="ot">=</span> <span class="dv">1</span></code>) ali obcin (<code class="sourceCode r">level <span class="ot">=</span> <span class="dv">2</span></code>). Mi bomo prenesli samo drzavno mejo Slovenije (<code class="sourceCode r">country <span class="ot">=</span> <span class="st">"SI"</span></code>) in shranili v objekt z imenom <code class="sourceCode r">slovenija_shp</code>. Argument <code class="sourceCode r">path <span class="ot">=</span> <span class="st">"01_data"</span></code> pove funkciji, v katero mapo naj shrani ta vektorski sloj na trdem disku racunalnika:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>slovenija_shp <span class="ot">&lt;-</span> <span class="fu">gadm</span>(<span class="at">country =</span> <span class="st">"SI"</span>, <span class="at">path =</span> <span class="st">"01_data"</span>, <span class="at">level =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>S funkcijo <code class="sourceCode r"><span class="fu">class</span>()</code> preverimo, kakšen tip podatkov v R-u predstavlja naš vektorski podatek:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(slovenija_shp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatVector"
+attr(,"package")
+[1] "terra"</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>In s funkcijo <code class="sourceCode r"><span class="fu">plot</span>()</code> izrisemo, da preverimo, ce dejansko obsega ozemlje Slovenije:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_shp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p>Nabor podatkov <code class="sourceCode r">slovenija_tmax_mesecno</code> obrezemo s funkcijo <code>crop()</code> v paketu terra. Definirati moramo podatke (<code class="sourceCode r">slovenija_tmax_mesecno</code>), vektorski sloj, s katerim obrezemo (<code class="sourceCode r">slovenija_shp</code>), in dolociti, da ohrani le celice znotraj meja Slovenije (<code class="sourceCode r">mask <span class="ot">=</span> <span class="cn">TRUE</span></code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_mesecno <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">crop</span>(slovenija_tmax_mesecno,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="co"># obreze po obsegu slovenija_shp</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                                      slovenija_shp,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="co"># obdrzi le podatke znotraj mejne crte Slovenije</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">mask =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>In prikazemo se enkrat:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_tmax_mesecno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="mesecna-temperatura-v-sloveniji-za-prihodnost" class="level3">
+<h3 class="anchored" data-anchor-id="mesecna-temperatura-v-sloveniji-za-prihodnost">Mesecna temperatura v Sloveniji za prihodnost</h3>
+<p>Intergovernmental Panel on Climate Change (<a href="https://www.ipcc.ch/">IPCC</a>) je v preteklosti na razlicne nacine definirala scenarije razvoja cloveske druzbe in s tem povezanih izpustov toplogrednih plinov v prihodnosti. Ti scenariji sluzijo kot izhodisca za razumevanje vplivov clovestva na globalno okolje do leta 2100 (<em>in kasneje</em>). Zacetki scenarijev segajo v leto 2000 in so bili do danes veckrat posodobljeni.</p>
+<p>V letu 2021 je IPCC definirala do sedaj najkompleksnejse Shared-Socioeconomic pathways (<a href="https://climatedata.ca/resource/understanding-shared-socio-economic-pathways-ssps/">SSPs</a>). SSP scenariji opisujejo razlicne smernice razvoja druzbe in okolja v prihodnosti in so oznaceni s stevilkami od 1 do 5. Scenarija SSP 1 in 2 opisujeta svet, v katerem se sprejmejo ukrepi za zmanjsanje emisij ogljikovega dioksida (CO2) in se uporabljajo bolj okolju prijazni viri energije. Scenarija SSP 3 in 4 opisujeta svet, v katerem se emisije CO2 nadaljujejo z visokimi stopnjami, kar lahko povzroci velike spremembe v podnebnih pogojih. Scenarij SSP 5 pa opisuje svet, v katerem se sprejmejo ukrepi za zmanjsanje emisij CO2 in se uporabljajo bolj okolju prijazni viri energije, vendar pa se hkrati spodbuja tudi visoka stopnja urbanizacije in industrializacije (<a href="https://www.ipcc.ch/report/ar6/wg1/">IPCC porocilo</a>. Okoljski podatki, ki ustrezajo tem scenarijem in so izracunani z najnovejsimi metodami in modeli (<a href="https://www.wcrp-climate.org/wgcm-cmip/wgcm-cmip6">CMIP6</a>), so bili javno objavljeni in prvic prosto dostopni <strong>1. decembra 2022</strong>!!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03_images/ssp-graphics-01-1.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">IPCC Shared Socio-economic Pathways.</figcaption>
+</figure>
+</div>
+<p>SSP scenariji upostevajo tako gospodarski kot tudi druzbeni razvoj in poskusajo napovedati, kako se bodo koncentracije toplogrednih plinov spreminjale v prihodnje ter kako bo to vplivalo na spremembe v okolju.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03_images/IPCC scenarios.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">IPCC carbon emision scenarios.</figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Do podatkov za prihodnost po scenarijih ssp in metodologiji CMIP6 dostopamo s funkcijo <code class="sourceCode r"><span class="fu">cmip6_tile</span>()</code>. Za razliko od prejsnih primerov, ko smo obseg podatkov definirali z oznako drzave, so tu podatki razdeljeni na kvadrante (<em>tile</em>). Da dobimo kvadrant, v katerem se nahaja Slovenija, moramo podati ustrezno lokacijo v obliki geografske sirine in dolzine (<code class="sourceCode r">lon <span class="ot">=</span> <span class="dv">13</span>, lat <span class="ot">=</span> <span class="dv">45</span></code>), ki jih na primer razberemo iz google-ovih zemljevidov. Kot lahko opazite, sem koordinate definiral le do stopinje natacnosti - predvsem zato, ker kvadranti zajemajo relativno velike povrsine (primer v nadaljevanju). Poleg koordinate, funkcijo <code class="sourceCode r"><span class="fu">cmip6_tile</span>()</code>. od nas zahteva nekaj ze znanih parametrov (<code class="sourceCode r">country <span class="ot">=</span> <span class="st">"SI"</span>, path <span class="ot">=</span> <span class="st">"01_data"</span>, var <span class="ot">=</span> <span class="st">"tmax"</span></code>), trije pa so specificna za to funkcijo:</p>
+<ul>
+<li><code class="sourceCode r">model <span class="ot">=</span></code>,</li>
+<li><code class="sourceCode r">ssp <span class="ot">=</span></code> in</li>
+<li><code class="sourceCode r">time <span class="ot">=</span></code>.</li>
+</ul>
+<p>Z argumentom <code class="sourceCode r">model <span class="ot">=</span></code> deifiniramo tip modela, ki je bil uporabljen za projekcije v prihodnost. Izbiramo lahko med mnogimi, v tem trenutku za nas to ni bistveno, lahko pa si ogledate seznam vseh moznosti <a href="https://climate-scenarios.canada.ca/?page=cmip6-model-list">tukaj</a>. Mi bomo uporabili prvega po abecednem redu <code class="sourceCode r"><span class="st">"ACCESS-CM2"</span></code>. Z argumentom <code class="sourceCode r">ssp <span class="ot">=</span></code> definiramo katerega od petih scenarij za prihodnost zelimo (glej sliko zgoraj), z argumentom <code class="sourceCode r">time <span class="ot">=</span></code> pa za katero casovno obdobje (za zdaj so na voljo: “2021-2040”, “2041-2060”, “2061-2080”). <strong>Prenesli bomo podatke za pricakovane najvisje mesecne temperature v sloveniji za scenarija 126 in 585 za leta 2061 - 2080</strong>:</p>
+<p><strong>OPOMBA: Nabor podatkov je precej velik in lahko traja nekaj casa, da se prenese iz serverjev!</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_ssp126_2080 <span class="ot">&lt;-</span> <span class="fu">cmip6_tile</span>(<span class="at">lon =</span> <span class="dv">13</span>, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">lat =</span> <span class="dv">45</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">model =</span> <span class="st">"ACCESS-CM2"</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">ssp =</span> <span class="st">"126"</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">time =</span> <span class="st">"2061-2080"</span>, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">var =</span> <span class="st">"tmax"</span>, </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">path =</span> <span class="st">"01_data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_ssp585_2080 <span class="ot">&lt;-</span> <span class="fu">cmip6_tile</span>(<span class="at">lon =</span> <span class="dv">13</span>, </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">lat =</span> <span class="dv">45</span>, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">model =</span><span class="st">"ACCESS-CM2"</span>, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">ssp =</span> <span class="st">"585"</span>, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">time =</span> <span class="st">"2061-2080"</span>, </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">var =</span> <span class="st">"tmax"</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">path =</span> <span class="st">"01_data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Kot smo ze nekajkrat do sedaj, izrisimo podatke:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_tmax_ssp126_2080)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slovenija_tmax_ssp585_2080)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Oba nabora podatkov bomo se obrezali, saj jih v naslednjem koraku potrebujemo v enakem obsegu kot <code class="sourceCode r">slovenija_tmax_mesecno</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_ssp126_2080 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">crop</span>(slovenija_tmax_ssp126_2080, </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                                          slovenija_shp, </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">mask =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>slovenija_tmax_ssp585_2080 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">crop</span>(slovenija_tmax_ssp585_2080, </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                                          slovenija_shp, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">mask =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="racunanje-z-rastri-izracun-razlike-v-temperaturi-med-prihodnjima-scenarijema-in-sedanjostjo" class="level3">
+<h3 class="anchored" data-anchor-id="racunanje-z-rastri-izracun-razlike-v-temperaturi-med-prihodnjima-scenarijema-in-sedanjostjo">Racunanje z rastri: izracun razlike v temperaturi med prihodnjima scenarijema in sedanjostjo</h3>
+<p>Rastrski podatki, tako v terri kot v rastru, omogocajo enostvno aplikacijo racunskih opracij:</p>
+<ul>
+<li>sestevanje (+),</li>
+<li>odstevanje (-),</li>
+<li>deljenje (/),</li>
+<li>mnozenje (*),</li>
+<li>korenjenje (<code class="sourceCode r"><span class="fu">sqrt</span>()</code>), itd.</li>
+</ul>
+<p>Mi bomo izracunali, za koliko se bo spremenila mesecna temperatura v Sloveniji, glede na oba zgornja scenarija v primerjavi s sedanjastjo. Vsi trije rastrski objekti imajo 12 slojev, v vsakem sloji ustrezajo enemu od mesecev v letu. Prvi sloj je v vseh januar, dvanajsti sloj pa v vseh december. Ce so podatki urejeni na ta nacin, bomo z uporabo racunske operacije med dvema rastrskima objektoma, izracunali vrednosti po parih slojev, tako kot si sledijo po vrstnem redu (npr. januar prihodnost - januar sedanjost, vse do december prihodnost - december sedanjost). Rezultat racunskih operacij shranimo v nova objekta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>razlika_v_temperaturi_danes_ssp126_2080 <span class="ot">&lt;-</span> slovenija_tmax_ssp126_2080 <span class="sc">-</span> slovenija_tmax_mesecno</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>razlika_v_temperaturi_danes_ssp585_2080 <span class="ot">&lt;-</span> slovenija_tmax_ssp585_2080 <span class="sc">-</span> slovenija_tmax_mesecno</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>S funkcijo <code class="sourceCode r"><span class="fu">plot</span>()</code> izrisemo in vidimo kaksne so ocenjene razlike v maksimalni temperature na ozemlju Slovenije v prihodnosti:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(razlika_v_temperaturi_danes_ssp126_2080)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(razlika_v_temperaturi_danes_ssp585_2080)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Z nekaj dodatki, lahko nasi grafi izgledajo bistveno bolj informativni:</p>
+<ul>
+<li>dolocimo skupno lestvico legende (<code class="sourceCode r">range <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span> <span class="sc">-</span> <span class="dv">8</span>)</code>; glej legende zgoraj),</li>
+<li>izberemo ustreznejše barve (<code class="sourceCode r"><span class="fu">heat.colors</span>()</code> v obratnem vrstnem redu <code class="sourceCode r"><span class="fu">rev</span>()</code> - bela do rdeca),</li>
+<li>dodamo se ime meseca na katerega se prikaz nanasa z <code class="sourceCode r">main <span class="ot">=</span> month.name</code>:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(razlika_v_temperaturi_danes_ssp126_2080, </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> <span class="fu">rev</span>(<span class="fu">heat.colors</span>(<span class="dv">999</span>)),</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> month.name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">plot</span>(razlika_v_temperaturi_danes_ssp585_2080, </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>), </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> <span class="fu">rev</span>(<span class="fu">heat.colors</span>(<span class="dv">999</span>)),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> month.name) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_GIS_SI_Rasterski_podatki_z_visoko_locljivostjo_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><br></p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
