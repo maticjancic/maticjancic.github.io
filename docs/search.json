@@ -46,7 +46,7 @@
     "href": "posts/03_GIS_GLOBAL ENV DATA.html",
     "title": "ACCESSING MARINE GEOSPATIAL DATA IN R WITH SDMPREDICTORS",
     "section": "",
-    "text": "In this lab, you will be introduced to:\n\nraster data types and R packages for working with it,\naccessing and downloading marine (and/or terrestrial) global raster data with sdmpredictors package,\ninspecting the properties of a raster layer,\ncolors in R,\nsimple visualization of global raster layer."
+    "text": "Summary\n\n\n\nIn this lab, you will be introduced to:\n\nraster data types and R packages for working with it,\naccessing and downloading marine (and/or terrestrial) global raster data with sdmpredictors package,\ninspecting the properties of a raster layer,\ncolors in R,\nsimple visualization of global raster layer."
   },
   {
     "objectID": "posts/03_GIS_GLOBAL ENV DATA.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
@@ -60,7 +60,7 @@
     "href": "posts/04_DATA EXPLORATION.html",
     "title": "MARINE SPECIES AND GEOSPATIAL DATA EXPLORATION AND VISUALIZATION",
     "section": "",
-    "text": "In this lab, you will be introduced to:\n\nextracting values from raster layers at locations of species occurrences,\nsimple visualization of numerical data (boxplots) with ggplot2."
+    "text": "Summary\n\n\n\nIn this lab, you will be introduced to:\n\nextracting values from raster layers at locations of species occurrences,\nvisualization numerical data using boxplots with ggplot2."
   },
   {
     "objectID": "posts/04_DATA EXPLORATION.html#partly-funded-by-eu-erasmus-programme-for-higher-education-staff-mobility.",
