@@ -270,7 +270,7 @@ Summary
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>         continent) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(coordinateUncertaintyInMeters <span class="sc">&lt;</span> <span class="dv">5000</span>)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>povprecna_temp_morja <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">load_layers</span>(<span class="at">layercodes =</span> <span class="fu">c</span>(<span class="st">"BO_sstmean"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>global_mean_sst <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">load_layers</span>(<span class="at">layercodes =</span> <span class="fu">c</span>(<span class="st">"BO_sstmean"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="extract-values-from-raster-at-locations-of-spatial-points" class="level3">
@@ -282,7 +282,7 @@ Summary
 </ul>
 <p>My way of doing that is simply <code>select</code>ing them from the table where they are stored - <code>physalus_data</code>. For the demonstration purposes, we will save it to an object called <code>sst_extracted</code> (remember: <strong>important to choose meaningful names of the objects that we create</strong>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sst_extracted <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(povprecna_temp_morja,</span>
+<div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sst_extracted <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(global_mean_sst,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                    dplyr<span class="sc">::</span><span class="fu">select</span>(physalus_data, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                  decimalLongitude, </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                                  decimalLatitude)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -387,8 +387,8 @@ Summary
 <div class="cell" data-source-line-numbers="5-16">
 <div class="sourceCode cell-code" id="cb13" data-source-line-numbers="5-16" data-code-line-numbers="5-16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(physalus_data, <span class="fu">aes</span>(<span class="at">y =</span> sst)) <span class="sc">+</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>continent) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>continent) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>), </span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.background =</span> <span class="fu">element_blank</span>(), </span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), </span>
@@ -405,8 +405,18 @@ Summary
 <p><img src="04_DATA-EXPLORATION_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="callout-task">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Today’s exercise is completely voluntary. You have all you need to recreate it in your R scripts of Day 2 and Day 3 assignments combined with today’s code.</p>
+</div>
 </div>
 </section>
 <section id="closing-remarks" class="level3">
