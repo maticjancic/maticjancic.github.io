@@ -16,8 +16,9 @@ website:
         href: https://www.researchgate.net/profile/Matic-Jancic
       - text: "{{< ai orcid >}}"
         href: https://orcid.org/0000-0002-6872-4078
-      - icon: https://icons.getbootstrap.com/icons/envelope-at/
-        href: mailto:maticjanchich@gmail.com
+      - text: "{{< iconify mdi email-edit-outline size=1.8 >}}"
+        href: mailto:matic.jancic@famnit.upr.si
+
 
   search: 
     location: navbar
