@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/00_References_interaction_index.html",
       "/posts/05_SDMs_Future_projections.html",
       "/posts/04_SDMs_Model evaluation and representation.html",
       "/posts/03_SDMs_Modeling_algorithms_and_model_building.html",
